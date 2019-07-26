@@ -8,7 +8,6 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "materias")
@@ -35,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Materias.findAll", query = "SELECT m FROM Materias m")
     , @NamedQuery(name = "Materias.findByIdMateria", query = "SELECT m FROM Materias m WHERE m.idMateria = :idMateria")
     , @NamedQuery(name = "Materias.findByMateria", query = "SELECT m FROM Materias m WHERE m.materia = :materia")
-    , @NamedQuery(name = "Materias.findByDescripccion", query = "SELECT m FROM Materias m WHERE m.descripccion = :descripccion")})
+    , @NamedQuery(name = "Materias.findByDescripcion", query = "SELECT m FROM Materias m WHERE m.descripcion = :descripcion")})
 public class Materias implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,15 +47,13 @@ public class Materias implements Serializable {
     @Column(name = "materia")
     private String materia;
     @Size(max = 250)
-    @Column(name = "descripccion")
-    private String descripccion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMateria")
-    private List<Evaluacion> evaluacionList;
-    @JoinColumn(name = "id_profesor", referencedColumnName = "id_empleado")
+    @Column(name = "descripcion")
+    private String descripcion;
+    @OneToMany(mappedBy = "idMateria")
+    private List<Empleados> empleadosList;
+    @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne
-    private Empleados idProfesor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMateria")
-    private List<MateriaEspecialidad> materiaEspecialidadList;
+    private Especialidad idEspecialidad;
 
     public Materias() {
     }
@@ -81,38 +78,29 @@ public class Materias implements Serializable {
         this.materia = materia;
     }
 
-    public String getDescripccion() {
-        return descripccion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripccion(String descripccion) {
-        this.descripccion = descripccion;
-    }
-
-    @XmlTransient
-    public List<Evaluacion> getEvaluacionList() {
-        return evaluacionList;
-    }
-
-    public void setEvaluacionList(List<Evaluacion> evaluacionList) {
-        this.evaluacionList = evaluacionList;
-    }
-
-    public Empleados getIdProfesor() {
-        return idProfesor;
-    }
-
-    public void setIdProfesor(Empleados idProfesor) {
-        this.idProfesor = idProfesor;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @XmlTransient
-    public List<MateriaEspecialidad> getMateriaEspecialidadList() {
-        return materiaEspecialidadList;
+    public List<Empleados> getEmpleadosList() {
+        return empleadosList;
     }
 
-    public void setMateriaEspecialidadList(List<MateriaEspecialidad> materiaEspecialidadList) {
-        this.materiaEspecialidadList = materiaEspecialidadList;
+    public void setEmpleadosList(List<Empleados> empleadosList) {
+        this.empleadosList = empleadosList;
+    }
+
+    public Especialidad getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(Especialidad idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
     }
 
     @Override

@@ -5,7 +5,7 @@
  */
 package com.control.dao;
 
-import com.control.entity.Especialidades;
+import com.control.entity.Especialidad;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,10 +21,10 @@ public class EspecialidadesDao {
     EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
     EntityManager em = f.createEntityManager();
     
-    private List<Especialidades> especialidadList;
-    private Especialidades especialidad;
+    private List<Especialidad> especialidadList;
+    private Especialidad especialidad;
     
-    public List<Especialidades> allEspecialidades(){
+    public List<Especialidad> allEspecialidades(){
         try {
             especialidadList = em.createNamedQuery("Especialidades.findAll").getResultList();
         } catch (Exception e) {
@@ -34,19 +34,19 @@ public class EspecialidadesDao {
     }
     
     
-    public Especialidades porEspecialidad(int idEspecialidad){
+    public Especialidad porEspecialidad(int idEspecialidad){
         try {
-            especialidad = (Especialidades)em.createNativeQuery("SELECT e.id_especilidad, e.especialidad, e.descripcion FROM especialidades e WHERE id_especialidades ="+idEspecialidad, Especialidades.class).getSingleResult();
+            especialidad = (Especialidad)em.createNativeQuery("SELECT e.id_especilidad, e.especialidad, e.descripcion FROM especialidades e WHERE id_especialidades ="+idEspecialidad, Especialidad.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return especialidad;
     }
     
-    public String eliminarEspecialidad(Especialidades ep){
+    public String eliminarEspecialidad(Especialidad ep){
          String mensaje = "";
         try {
-            em.remove(em.find(Especialidades.class, ep.getIdEspecialidad()));
+            em.remove(em.find(Especialidad.class, ep.getIdEspecialidad()));
            mensaje = "Exito";
         } catch (Exception e) {
             e.printStackTrace();

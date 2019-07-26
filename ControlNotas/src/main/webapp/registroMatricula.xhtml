@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"    
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panelGrid columns="2">
+
+                <p:outputLabel value="ID del Alumno"/>
+                <p:inputText value="#{registroMatriculaMB.idAlumno}"/>
+
+                <p:outputLabel value="Seleccion el tipo de matricula"/>
+                <p:selectOneMenu value="#{registroMatriculaMB.matricula.tipoMat}">
+                    <f:selectItem itemLabel="Nuevo Ingreso" itemValue="Nuevo Ingreso" />
+                    <f:selectItem itemLabel="Antiguo Ingreso" itemValue="Antiguo Ingreso" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Ubicacion"/>
+                <p:inputText value="#{registroMatriculaMB.idBachillerato}"/>
+                
+                <p:outputLabel value="Fecha de Matricula"/>
+                <p:calendar value="#{registroMatriculaMB.matricula.fechaMatricula}"/>
+
+            </p:panelGrid>
+
+        </h:form>
+        <p:commandButton value="Matricular" action="#{registroMatriculaMB.registrarMatricula()}"/>
+
+
+    </h:body>
+</html>

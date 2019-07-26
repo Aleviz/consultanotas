@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "empleados")
@@ -81,11 +82,14 @@ public class Empleados implements Serializable {
     @Size(max = 11)
     @Column(name = "estado")
     private String estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
+    private List<Evaluacion> evaluacionList;
+    @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
+    @ManyToOne
+    private Materias idMateria;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuarios idUsuario;
-    @OneToMany(mappedBy = "idProfesor")
-    private List<Materias> materiasList;
 
     public Empleados() {
     }
@@ -182,21 +186,29 @@ public class Empleados implements Serializable {
         this.estado = estado;
     }
 
+    @XmlTransient
+    public List<Evaluacion> getEvaluacionList() {
+        return evaluacionList;
+    }
+
+    public void setEvaluacionList(List<Evaluacion> evaluacionList) {
+        this.evaluacionList = evaluacionList;
+    }
+
+    public Materias getIdMateria() {
+        return idMateria;
+    }
+
+    public void setIdMateria(Materias idMateria) {
+        this.idMateria = idMateria;
+    }
+
     public Usuarios getIdUsuario() {
         return idUsuario;
     }
 
     public void setIdUsuario(Usuarios idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    @XmlTransient
-    public List<Materias> getMateriasList() {
-        return materiasList;
-    }
-
-    public void setMateriasList(List<Materias> materiasList) {
-        this.materiasList = materiasList;
     }
 
     @Override

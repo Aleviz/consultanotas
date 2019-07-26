@@ -21,12 +21,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "matricula")
@@ -34,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Matricula.findAll", query = "SELECT m FROM Matricula m")
     , @NamedQuery(name = "Matricula.findByIdMatricula", query = "SELECT m FROM Matricula m WHERE m.idMatricula = :idMatricula")
-    , @NamedQuery(name = "Matricula.findByTipoMat", query = "SELECT m FROM Matricula m WHERE m.tipoMat = :tipoMat")
     , @NamedQuery(name = "Matricula.findByFechaMatricula", query = "SELECT m FROM Matricula m WHERE m.fechaMatricula = :fechaMatricula")})
 public class Matricula implements Serializable {
 
@@ -46,20 +44,18 @@ public class Matricula implements Serializable {
     private Integer idMatricula;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "tipoMat")
-    private String tipoMat;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_matricula")
     @Temporal(TemporalType.DATE)
     private Date fechaMatricula;
+    @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo_mat")
+    @ManyToOne
+    private TipoMatricula idTipo;
     @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno")
     @ManyToOne(optional = false)
     private Alumnos idAlumno;
-    @JoinColumn(name = "id_bachillerato", referencedColumnName = "id_bachillerato")
+    @JoinColumn(name = "id_opcion", referencedColumnName = "id_opcion")
     @ManyToOne(optional = false)
-    private Bachillerato idBachillerato;
+    private Opcion idOpcion;
 
     public Matricula() {
     }
@@ -68,9 +64,8 @@ public class Matricula implements Serializable {
         this.idMatricula = idMatricula;
     }
 
-    public Matricula(Integer idMatricula, String tipoMat, Date fechaMatricula) {
+    public Matricula(Integer idMatricula, Date fechaMatricula) {
         this.idMatricula = idMatricula;
-        this.tipoMat = tipoMat;
         this.fechaMatricula = fechaMatricula;
     }
 
@@ -82,20 +77,20 @@ public class Matricula implements Serializable {
         this.idMatricula = idMatricula;
     }
 
-    public String getTipoMat() {
-        return tipoMat;
-    }
-
-    public void setTipoMat(String tipoMat) {
-        this.tipoMat = tipoMat;
-    }
-
     public Date getFechaMatricula() {
         return fechaMatricula;
     }
 
     public void setFechaMatricula(Date fechaMatricula) {
         this.fechaMatricula = fechaMatricula;
+    }
+
+    public TipoMatricula getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(TipoMatricula idTipo) {
+        this.idTipo = idTipo;
     }
 
     public Alumnos getIdAlumno() {
@@ -106,12 +101,12 @@ public class Matricula implements Serializable {
         this.idAlumno = idAlumno;
     }
 
-    public Bachillerato getIdBachillerato() {
-        return idBachillerato;
+    public Opcion getIdOpcion() {
+        return idOpcion;
     }
 
-    public void setIdBachillerato(Bachillerato idBachillerato) {
-        this.idBachillerato = idBachillerato;
+    public void setIdOpcion(Opcion idOpcion) {
+        this.idOpcion = idOpcion;
     }
 
     @Override

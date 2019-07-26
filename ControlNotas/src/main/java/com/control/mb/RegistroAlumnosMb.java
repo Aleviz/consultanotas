@@ -5,6 +5,7 @@ import com.control.dao.AlumnosDao;
 import com.control.dao.EncargadosDao;
 import com.control.dao.EvaluacionDao;
 import com.control.dao.GenericDao;
+import com.control.dao.RolesDao;
 import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Encargados;
@@ -12,7 +13,9 @@ import com.control.entity.Evaluacion;
 import com.control.entity.Roles;
 import com.control.entity.Usuarios;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -36,20 +39,27 @@ public class RegistroAlumnosMb {
     private EvaluacionDao evaluacionDao;
     private GenericDao genericDao;
     private Usuarios usuario;
+    private RolesDao rolesDao;
+    private List<Roles> rolesList;
     private Roles roles;
+    private Map<String, String> selectRoles;
     private Integer idRoles;
     
     @PostConstruct
     public void init(){
         alumnosList = new ArrayList<Alumnos>();
         alumnosDao = new AlumnosDao();
+        rolesDao = new RolesDao();
+        rolesList = new ArrayList<Roles>();
         usuarioDao = new UsuariosDao();
+        selectRoles = new HashMap<String, String>();
         encargadosDao = new EncargadosDao();
         evaluacionDao = new EvaluacionDao();
         genericDao = new GenericDao();
         usuario = new Usuarios();
         evaluacion = new Evaluacion();
-        roles = new Roles();        
+        roles = new Roles(); 
+        llenarSelectRoles();
     }
     
     public void guardarAlumno(){
@@ -59,6 +69,18 @@ public class RegistroAlumnosMb {
         genericDao.insertarEntidad(usuario);
         FacesMessage msg = new FacesMessage("Guardardo con Exito");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void llenarSelectRoles(){
+        rolesList = rolesDao.selectAllRoles();
+        System.out.println("lista"+rolesList.size());
+        for(Roles ro: rolesList){
+            selectRoles.put(ro.getRol(), String.valueOf(ro.getIdRol()));
+        }
+    }
+    
+    public void guardarRoles(){
+        genericDao.insertarEntidad(roles);
     }
 
     public List<Alumnos> getAlumnosList() {
@@ -80,6 +102,32 @@ public class RegistroAlumnosMb {
     public Encargados getEncargado() {
         return encargado;
     }
+
+    public RolesDao getRolesDao() {
+        return rolesDao;
+    }
+
+    public void setRolesDao(RolesDao rolesDao) {
+        this.rolesDao = rolesDao;
+    }
+
+    public List<Roles> getRolesList() {
+        return rolesList;
+    }
+
+    public void setRolesList(List<Roles> rolesList) {
+        this.rolesList = rolesList;
+    }
+
+    public Map<String, String> getSelectRoles() {
+        return selectRoles;
+    }
+
+    public void setSelectRoles(Map<String, String> selectRoles) {
+        this.selectRoles = selectRoles;
+    }
+    
+    
 
     public void setEncargado(Encargados encargado) {
         this.encargado = encargado;

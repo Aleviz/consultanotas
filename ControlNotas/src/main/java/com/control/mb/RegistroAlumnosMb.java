@@ -1,4 +1,3 @@
-
 package com.control.mb;
 
 import com.control.dao.AlumnosDao;
@@ -29,6 +28,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class RegistroAlumnosMb {
+
     private List<Alumnos> alumnosList;
     private Alumnos alumno;
     private Encargados encargado;
@@ -44,9 +44,9 @@ public class RegistroAlumnosMb {
     private Roles roles;
     private Map<String, String> selectRoles;
     private Integer idRoles;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         alumnosList = new ArrayList<Alumnos>();
         alumnosDao = new AlumnosDao();
         rolesDao = new RolesDao();
@@ -58,11 +58,11 @@ public class RegistroAlumnosMb {
         genericDao = new GenericDao();
         usuario = new Usuarios();
         evaluacion = new Evaluacion();
-        roles = new Roles(); 
+        roles = new Roles();
         llenarSelectRoles();
     }
-    
-    public void guardarAlumno(){
+
+    public void guardarAlumno() {
         genericDao.insertarEntidad(encargado);
         roles.setIdRol(idRoles);
         usuario.setIdRol(roles);
@@ -70,16 +70,16 @@ public class RegistroAlumnosMb {
         FacesMessage msg = new FacesMessage("Guardardo con Exito");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public void llenarSelectRoles(){
+
+    public void llenarSelectRoles() {
         rolesList = rolesDao.selectAllRoles();
-        System.out.println("lista"+rolesList.size());
-        for(Roles ro: rolesList){
+        System.out.println("lista" + rolesList.size());
+        for (Roles ro : rolesList) {
             selectRoles.put(ro.getRol(), String.valueOf(ro.getIdRol()));
         }
     }
-    
-    public void guardarRoles(){
+
+    public void guardarRoles() {
         genericDao.insertarEntidad(roles);
     }
 
@@ -126,8 +126,6 @@ public class RegistroAlumnosMb {
     public void setSelectRoles(Map<String, String> selectRoles) {
         this.selectRoles = selectRoles;
     }
-    
-    
 
     public void setEncargado(Encargados encargado) {
         this.encargado = encargado;
@@ -204,7 +202,5 @@ public class RegistroAlumnosMb {
     public void setIdRoles(Integer idRoles) {
         this.idRoles = idRoles;
     }
-    
-    
-    
+
 }

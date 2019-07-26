@@ -66,7 +66,7 @@ public class RegistroMatriculaMB {
         genericDao = new GenericDao();
 
         //METODOS
-        allMatriculas();
+//        allMatriculas();
         
     }
 

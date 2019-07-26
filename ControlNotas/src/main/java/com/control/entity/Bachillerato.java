@@ -6,9 +6,7 @@
 package com.control.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,14 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "bachillerato")
@@ -33,7 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Bachillerato.findAll", query = "SELECT b FROM Bachillerato b")
     , @NamedQuery(name = "Bachillerato.findByIdBachillerato", query = "SELECT b FROM Bachillerato b WHERE b.idBachillerato = :idBachillerato")
-    , @NamedQuery(name = "Bachillerato.findBySeccionBachillerato", query = "SELECT b FROM Bachillerato b WHERE b.seccionBachillerato = :seccionBachillerato")})
+    , @NamedQuery(name = "Bachillerato.findBySeccionBachillerato", query = "SELECT b FROM Bachillerato b WHERE b.seccionBachillerato = :seccionBachillerato")
+    , @NamedQuery(name = "Bachillerato.findByGrado", query = "SELECT b FROM Bachillerato b WHERE b.grado = :grado")})
 public class Bachillerato implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,11 +41,11 @@ public class Bachillerato implements Serializable {
     private Integer idBachillerato;
     @Column(name = "seccion_bachillerato")
     private Character seccionBachillerato;
+    @Column(name = "grado")
+    private Integer grado;
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne(optional = false)
     private Especialidades idEspecialidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBachillerato")
-    private List<Matricula> matriculaList;
 
     public Bachillerato() {
     }
@@ -73,21 +70,20 @@ public class Bachillerato implements Serializable {
         this.seccionBachillerato = seccionBachillerato;
     }
 
+    public Integer getGrado() {
+        return grado;
+    }
+
+    public void setGrado(Integer grado) {
+        this.grado = grado;
+    }
+
     public Especialidades getIdEspecialidad() {
         return idEspecialidad;
     }
 
     public void setIdEspecialidad(Especialidades idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
-    }
-
-    @XmlTransient
-    public List<Matricula> getMatriculaList() {
-        return matriculaList;
-    }
-
-    public void setMatriculaList(List<Matricula> matriculaList) {
-        this.matriculaList = matriculaList;
     }
 
     @Override

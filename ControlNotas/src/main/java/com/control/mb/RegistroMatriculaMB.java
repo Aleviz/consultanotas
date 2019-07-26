@@ -100,4 +100,86 @@ public class RegistroMatriculaMB {
     public void porTipo(){
         matricula = matriculaDao.porTipo(idTipo);
     }
+
+    public Matricula getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
+    }
+
+    public Alumnos getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumnos alumno) {
+        this.alumno = alumno;
+    }
+
+    public TipoMatricula getTipoMatricula() {
+        return tipoMatricula;
+    }
+
+    public void setTipoMatricula(TipoMatricula tipoMatricula) {
+        this.tipoMatricula = tipoMatricula;
+    }
+
+    public Opcion getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(Opcion opcion) {
+        this.opcion = opcion;
+    }
+
+    public List<Matricula> getMatriculaList() {
+        return matriculaList;
+    }
+
+    public void setMatriculaList(List<Matricula> matriculaList) {
+        this.matriculaList = matriculaList;
+    }
+
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public int getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(int idTipo) {
+        this.idTipo = idTipo;
+    }
+
+    public int getIdOpcion() {
+        return idOpcion;
+    }
+
+    public void setIdOpcion(int idOpcion) {
+        this.idOpcion = idOpcion;
+    }
+
+    public GenericDao getGd() {
+        return gd;
+    }
+
+    public void setGd(GenericDao gd) {
+        this.gd = gd;
+    }
+
+    public MatriculaDao getMatriculaDao() {
+        return matriculaDao;
+    }
+
+    public void setMatriculaDao(MatriculaDao matriculaDao) {
+        this.matriculaDao = matriculaDao;
+    }
+    
+    
 }

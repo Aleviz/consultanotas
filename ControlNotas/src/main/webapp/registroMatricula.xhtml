@@ -21,13 +21,13 @@ and open the template in the editor.
                 <p:inputText value="#{registroMatriculaMB.idAlumno}"/>
 
                 <p:outputLabel value="Seleccion el tipo de matricula"/>
-                <p:selectOneMenu value="#{registroMatriculaMB.matricula.tipoMat}">
-                    <f:selectItem itemLabel="Nuevo Ingreso" itemValue="Nuevo Ingreso" />
-                    <f:selectItem itemLabel="Antiguo Ingreso" itemValue="Antiguo Ingreso" />
+                <p:selectOneMenu value="#{registroMatriculaMB.idTipo}">
+                    <f:selectItem itemLabel="Nuevo Ingreso" itemValue="1" />
+                    <f:selectItem itemLabel="Antiguo Ingreso" itemValue="2" />
                 </p:selectOneMenu>
                 
                 <p:outputLabel value="Ubicacion"/>
-                <p:inputText value="#{registroMatriculaMB.idBachillerato}"/>
+                <p:inputText value="#{registroMatriculaMB.idOpcion}"/>
                 
                 <p:outputLabel value="Fecha de Matricula"/>
                 <p:calendar value="#{registroMatriculaMB.matricula.fechaMatricula}"/>
@@ -35,7 +35,7 @@ and open the template in the editor.
             </p:panelGrid>
 
         </h:form>
-        <p:commandButton value="Matricular" action="#{registroMatriculaMB.registrarMatricula()}"/>
+        <p:commandButton value="Matricular" action="#{registroMatriculaMB.guardar()}"/>
 
 
     </h:body>

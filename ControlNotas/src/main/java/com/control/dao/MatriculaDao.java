@@ -43,6 +43,16 @@ public class MatriculaDao {
         }
         return matricula;
     }
+    
+     public Matricula porAlumno(Matricula m) {
+        try {
+            matricula = new Matricula();
+            matricula = (Matricula) em.createNamedQuery("Matricula.findByIdMatricula").setParameter("idAlumno", m.getIdAlumno()).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matricula;
+    }
 
     public String eliminarMatricula(Matricula m) {
         String mensaje = "";

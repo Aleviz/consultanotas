@@ -7,6 +7,7 @@ package com.control.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 /**
@@ -17,11 +18,13 @@ public class GenericDao {
 
     EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
     EntityManager em = f.createEntityManager();
+    EntityTransaction tx = em.getTransaction();
 
     public Object insertarEntidad(Object obj) {
         try {
+            tx.begin();
             em.persist(obj);
-            em.flush();
+            tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

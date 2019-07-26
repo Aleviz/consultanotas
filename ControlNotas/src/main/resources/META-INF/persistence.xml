@@ -14,9 +14,6 @@
     <class>com.control.entity.Matricula</class>
     <class>com.control.entity.Roles</class>
     <class>com.control.entity.Usuarios</class>
-    <class>com.control.entity.TipoMatricula</class>
-    <class>com.control.entity.Especialidad</class>
-    <class>com.control.entity.Opcion</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bdcne?zeroDateTimeBehavior=convertToNull"/>

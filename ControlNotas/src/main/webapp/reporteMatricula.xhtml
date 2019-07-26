@@ -14,12 +14,32 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:dataTable>
-            <p:panelGrid>
-                <p:column>
-                    <p:outputLabel />
-                </p:column>
-            </p:panelGrid>
-        </h:dataTable>
+        <h:form>
+            <h:dataTable value="#{registroMatriculaMB.matriculaList}" var="ver" >
+                <p:panelGrid columns="2">
+
+                    <p:column headerText="ID" >
+                        <p:outputLabel value="#{registroMatriculaMB.matricula.idMatricula}"/>
+                    </p:column>
+
+                    <p:column headerText="Primer apellido del Alumno">
+                        <p:outputLabel value="#{registroMatriculaMB.matricula.idAlumno.primerApellido}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo de Matricula">
+                        <p:outputLabel value="#{registroMatriculaMB.matricula.tipoMat}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Tipo de Bachillerato">
+                        <p:outputLabel value="#{registroMatriculaMB.matricula.idBachillerato.seccionBachillerato}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha de la matricula">
+                        <p:outputLabel value="#{registroMatriculaMB.matricula.fechaMatricula}"/>
+                    </p:column>
+                    
+                </p:panelGrid>
+            </h:dataTable>
+        </h:form>
     </h:body>
 </html>

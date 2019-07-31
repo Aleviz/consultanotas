@@ -26,47 +26,47 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author alexander.emesticaus
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "estados")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
-    , @NamedQuery(name = "Roles.findByIdRol", query = "SELECT r FROM Roles r WHERE r.idRol = :idRol")
-    , @NamedQuery(name = "Roles.findByRol", query = "SELECT r FROM Roles r WHERE r.rol = :rol")})
-public class Roles implements Serializable {
+    @NamedQuery(name = "Estados.findAll", query = "SELECT e FROM Estados e")
+    , @NamedQuery(name = "Estados.findByIdEstado", query = "SELECT e FROM Estados e WHERE e.idEstado = :idEstado")
+    , @NamedQuery(name = "Estados.findByEstado", query = "SELECT e FROM Estados e WHERE e.estado = :estado")})
+public class Estados implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_rol")
-    private Integer idRol;
-    @Size(max = 12)
-    @Column(name = "rol")
-    private String rol;
-    @OneToMany(mappedBy = "idRol")
+    @Column(name = "id_estado")
+    private Integer idEstado;
+    @Size(max = 8)
+    @Column(name = "estado")
+    private String estado;
+    @OneToMany(mappedBy = "idEstado")
     private List<Usuarios> usuariosList;
 
-    public Roles() {
+    public Estados() {
     }
 
-    public Roles(Integer idRol) {
-        this.idRol = idRol;
+    public Estados(Integer idEstado) {
+        this.idEstado = idEstado;
     }
 
-    public Integer getIdRol() {
-        return idRol;
+    public Integer getIdEstado() {
+        return idEstado;
     }
 
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
+    public void setIdEstado(Integer idEstado) {
+        this.idEstado = idEstado;
     }
 
-    public String getRol() {
-        return rol;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -81,18 +81,18 @@ public class Roles implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idRol != null ? idRol.hashCode() : 0);
+        hash += (idEstado != null ? idEstado.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Estados)) {
             return false;
         }
-        Roles other = (Roles) object;
-        if ((this.idRol == null && other.idRol != null) || (this.idRol != null && !this.idRol.equals(other.idRol))) {
+        Estados other = (Estados) object;
+        if ((this.idEstado == null && other.idEstado != null) || (this.idEstado != null && !this.idEstado.equals(other.idEstado))) {
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.control.entity.Roles[ idRol=" + idRol + " ]";
+        return "com.control.entity.Estados[ idEstado=" + idEstado + " ]";
     }
     
 }

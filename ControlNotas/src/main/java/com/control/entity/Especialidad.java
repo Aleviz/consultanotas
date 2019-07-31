@@ -45,9 +45,7 @@ public class Especialidad implements Serializable {
     @Column(name = "especialidad")
     private String especialidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
-    private List<Opcion> opcionList;
-    @OneToMany(mappedBy = "idEspecialidad")
-    private List<Materias> materiasList;
+    private List<OpcionEspe> opcionEspeList;
 
     public Especialidad() {
     }
@@ -73,21 +71,12 @@ public class Especialidad implements Serializable {
     }
 
     @XmlTransient
-    public List<Opcion> getOpcionList() {
-        return opcionList;
+    public List<OpcionEspe> getOpcionEspeList() {
+        return opcionEspeList;
     }
 
-    public void setOpcionList(List<Opcion> opcionList) {
-        this.opcionList = opcionList;
-    }
-
-    @XmlTransient
-    public List<Materias> getMateriasList() {
-        return materiasList;
-    }
-
-    public void setMateriasList(List<Materias> materiasList) {
-        this.materiasList = materiasList;
+    public void setOpcionEspeList(List<OpcionEspe> opcionEspeList) {
+        this.opcionEspeList = opcionEspeList;
     }
 
     @Override

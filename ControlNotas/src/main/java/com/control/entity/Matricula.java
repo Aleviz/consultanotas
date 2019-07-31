@@ -55,7 +55,7 @@ public class Matricula implements Serializable {
     private Alumnos idAlumno;
     @JoinColumn(name = "id_opcion", referencedColumnName = "id_opcion")
     @ManyToOne(optional = false)
-    private Opcion idOpcion;
+    private Opciones idOpcion;
 
     public Matricula() {
     }
@@ -101,11 +101,11 @@ public class Matricula implements Serializable {
         this.idAlumno = idAlumno;
     }
 
-    public Opcion getIdOpcion() {
+    public Opciones getIdOpcion() {
         return idOpcion;
     }
 
-    public void setIdOpcion(Opcion idOpcion) {
+    public void setIdOpcion(Opciones idOpcion) {
         this.idOpcion = idOpcion;
     }
 

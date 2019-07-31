@@ -84,9 +84,9 @@ public class Alumnos implements Serializable {
     @ManyToOne
     private Usuarios idUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAlumno")
-    private List<Matricula> matriculaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAlumno")
     private List<Evaluacion> evaluacionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAlumno")
+    private List<Matricula> matriculaList;
 
     public Alumnos() {
     }
@@ -184,21 +184,21 @@ public class Alumnos implements Serializable {
     }
 
     @XmlTransient
-    public List<Matricula> getMatriculaList() {
-        return matriculaList;
-    }
-
-    public void setMatriculaList(List<Matricula> matriculaList) {
-        this.matriculaList = matriculaList;
-    }
-
-    @XmlTransient
     public List<Evaluacion> getEvaluacionList() {
         return evaluacionList;
     }
 
     public void setEvaluacionList(List<Evaluacion> evaluacionList) {
         this.evaluacionList = evaluacionList;
+    }
+
+    @XmlTransient
+    public List<Matricula> getMatriculaList() {
+        return matriculaList;
+    }
+
+    public void setMatriculaList(List<Matricula> matriculaList) {
+        this.matriculaList = matriculaList;
     }
 
     @Override

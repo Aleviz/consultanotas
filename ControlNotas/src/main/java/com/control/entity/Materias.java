@@ -51,9 +51,9 @@ public class Materias implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "idMateria")
     private List<Empleados> empleadosList;
-    @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
+    @JoinColumn(name = "opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne
-    private Especialidad idEspecialidad;
+    private OpcionEspe opcionEspe;
 
     public Materias() {
     }
@@ -95,12 +95,12 @@ public class Materias implements Serializable {
         this.empleadosList = empleadosList;
     }
 
-    public Especialidad getIdEspecialidad() {
-        return idEspecialidad;
+    public OpcionEspe getOpcionEspe() {
+        return opcionEspe;
     }
 
-    public void setIdEspecialidad(Especialidad idEspecialidad) {
-        this.idEspecialidad = idEspecialidad;
+    public void setOpcionEspe(OpcionEspe opcionEspe) {
+        this.opcionEspe = opcionEspe;
     }
 
     @Override

@@ -4,39 +4,63 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"    
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:panelGrid columns="2">
+        <center>
+            <h1>Registro de Matricula</h1>
+            <h:form>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Alumno"/>
+                    <p:inputText value="#{registroMatriculaMb.idAlumno}"/>
 
-                <p:outputLabel value="ID del Alumno"/>
-                <p:inputText value="#{registroMatriculaMB.idAlumno}"/>
+                    <p:outputLabel value="Tipo"/>
+                    <p:selectOneMenu value="#{registroMatriculaMb.idTipo}">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItem itemLabel="Nuevo Ingreso" itemValue="1"/>
+                        <f:selectItem itemLabel="Antiguo Ingreso" itemValue="2"/>
+                    </p:selectOneMenu>
 
-                <p:outputLabel value="Seleccion el tipo de matricula"/>
-                <p:selectOneMenu value="#{registroMatriculaMB.idTipo}">
-                    <f:selectItem itemLabel="Nuevo Ingreso" itemValue="1" />
-                    <f:selectItem itemLabel="Antiguo Ingreso" itemValue="2" />
-                </p:selectOneMenu>
-                
-                <p:outputLabel value="Ubicacion"/>
-                <p:inputText value="#{registroMatriculaMB.idOpcion}"/>
-                
-                <p:outputLabel value="Fecha de Matricula"/>
-                <p:calendar value="#{registroMatriculaMB.matricula.fechaMatricula}"/>
+                    <p:outputLabel value="Opcion"/>
+                    <p:selectOneMenu value="#{registroMatriculaMb.idOpcion}">
 
-            </p:panelGrid>
+                        <f:selectItem itemLabel="Seleccion la opcion" itemValue="0"/>
 
-        </h:form>
-        <p:commandButton value="Matricular" action="#{registroMatriculaMB.guardar()}"/>
+                        <f:selectItem itemLabel="Primer año General A" itemValue="1"/>
+                        <f:selectItem itemLabel="Segundo año General A" itemValue="2"/>
+
+                        <f:selectItem itemLabel="Primer año General seccion B" itemValue="3"/>
+                        <f:selectItem itemLabel="Segundo año General seccion B" itemValue="4"/>
+
+                        <f:selectItem itemLabel="Primer año Tecnico Industrial en Electronica A" itemValue="5"/>
+                        <f:selectItem itemLabel="Segundo año Tecnico Industrial en Electronica A" itemValue="6"/>
+                        <f:selectItem itemLabel="Tercer año Tecnico Industrial en Electronica B" itemValue="7"/>
+
+                        <f:selectItem itemLabel="Primer año Tecnico Industrial en Mecanica A" itemValue="8"/>
+                        <f:selectItem itemLabel="Segundo año Tecnico Industrial en Mecanica A" itemValue="9"/>
+                        <f:selectItem itemLabel="Tercer año Tecnico Industrial en Mecanica B" itemValue="10"/>
+                    </p:selectOneMenu>
 
 
+                    <p:outputLabel value="Especialidad"/>
+                    <p:selectOneMenu value="#{registroMatriculaMb.opcionEspe}">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItem itemLabel ="General" itemValue="1"/>
+                        <f:selectItem itemLabel="Tecnico Electronica" itemValue="2"/>
+                        <f:selectItem itemLabel="Tecnico Mecanica"  itemValue="3"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Fecha"/>
+                    <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}"/>
+                </p:panelGrid>
+                <p:commandButton value="Guardar" action="#{registroMatriculaMb.guardar()}"/>
+            </h:form>
+
+        </center>
     </h:body>
 </html>

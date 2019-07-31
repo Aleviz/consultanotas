@@ -40,7 +40,7 @@ public class TipoMatricula implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_tipo_mat")
     private Integer idTipoMat;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(mappedBy = "idTipo")

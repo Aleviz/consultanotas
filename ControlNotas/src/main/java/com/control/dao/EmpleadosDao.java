@@ -37,6 +37,16 @@ public class EmpleadosDao {
         }
         return empleados;
     }
+    
+    public List<Empleados> profXMateria (int opcioEspe){
+        String sql = "select * from empleados inner join materias on empleados.id_materia = materias.id_materia inner join opcion_espe on materias.opcion_espe = opcion_espe.id_opcion_espe where opcion_espe.id_opcion_espe ="+opcioEspe;
+        try {
+            listaEmpleados = em.createNativeQuery(sql, Empleados.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaEmpleados;
+    }
 
     public String deleteEmpleado(Empleados id) {
         String msg = null;

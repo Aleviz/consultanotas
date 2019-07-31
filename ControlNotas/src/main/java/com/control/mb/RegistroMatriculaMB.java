@@ -9,7 +9,7 @@ import com.control.dao.GenericDao;
 import com.control.dao.MatriculaDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Matricula;
-import com.control.entity.Opcion;
+import com.control.entity.Opciones;
 import com.control.entity.TipoMatricula;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class RegistroMatriculaMB {
     private Matricula matricula;
     private Alumnos alumno;
     private TipoMatricula tipoMatricula;
-    private Opcion opcion;
+    private Opciones opcion;
 
     //LIST
     private List<Matricula> matriculaList;
@@ -50,7 +50,7 @@ public class RegistroMatriculaMB {
         matricula = new Matricula();
         alumno = new Alumnos();
         tipoMatricula = new TipoMatricula();
-        opcion = new Opcion();
+        opcion = new Opciones();
 
         //LIST
         matriculaList = new ArrayList<Matricula>();
@@ -101,6 +101,8 @@ public class RegistroMatriculaMB {
         matricula = matriculaDao.porTipo(idTipo);
     }
 
+////////////////////////////////////////////////////////////////////
+
     public Matricula getMatricula() {
         return matricula;
     }
@@ -125,11 +127,11 @@ public class RegistroMatriculaMB {
         this.tipoMatricula = tipoMatricula;
     }
 
-    public Opcion getOpcion() {
+    public Opciones getOpcion() {
         return opcion;
     }
 
-    public void setOpcion(Opcion opcion) {
+    public void setOpcion(Opciones opcion) {
         this.opcion = opcion;
     }
 
@@ -180,6 +182,4 @@ public class RegistroMatriculaMB {
     public void setMatriculaDao(MatriculaDao matriculaDao) {
         this.matriculaDao = matriculaDao;
     }
-    
-    
 }

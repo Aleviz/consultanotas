@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "usuarios")
@@ -53,6 +53,9 @@ public class Usuarios implements Serializable {
     private List<Alumnos> alumnosList;
     @OneToMany(mappedBy = "idUsuario")
     private List<Empleados> empleadosList;
+    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
+    @ManyToOne
+    private Estados idEstado;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne
     private Roles idRol;
@@ -104,6 +107,14 @@ public class Usuarios implements Serializable {
 
     public void setEmpleadosList(List<Empleados> empleadosList) {
         this.empleadosList = empleadosList;
+    }
+
+    public Estados getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estados idEstado) {
+        this.idEstado = idEstado;
     }
 
     public Roles getIdRol() {

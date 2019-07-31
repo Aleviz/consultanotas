@@ -13,33 +13,37 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <h:body>
-        <h:form>
-            <h:dataTable value="#{registroMatriculaMB.matriculaList}" var="ver" >
-                <p:panelGrid columns="2">
+    <h:body>  
+        <center>
+            <h1>Tabla y Reporte de Matricula</h1>
+        <h:form id="x">
+            <p:dataTable id="x2" var="ver" value="#{registroMatriculaMb.matriculaList}">
 
-                    <p:column headerText="ID" >
-                        <p:outputLabel value="#{ver.idMatricula}"/>
-                    </p:column>
+                <p:column headerText="ID de Matricula" >
+                    <p:outputLabel value="#{ver.idMatricula}"/>
+                </p:column>
 
-                    <p:column headerText="Primer apellido del Alumno">
-                        <p:outputLabel value="#{ver.idAlumno.primerApellido}"/>
-                    </p:column>
+                <p:column headerText="Alumno" >
+                    <p:outputLabel value="#{ver.idAlumno.primerApellido}"/>
+                </p:column>
+                <p:column headerText="Opcion" >
+                    <p:outputLabel value="#{ver.idOpcion.descripcion}"/>
+                </p:column>
+                
+                <p:column headerText="Seccion" >
+                    <p:outputLabel value="#{ver.idOpcion.seccion}"/>
+                </p:column>
+                
+                <p:column headerText="Fecha de Matricula" >
+                    <p:outputLabel value="#{ver.fechaMatricula}"/>
+                </p:column>
+                <p:column headerText="Tipo de matricula" >
+                    <p:outputLabel value="#{ver.idTipo.nombre}"/>
+                </p:column>           
 
-                    <p:column headerText="Tipo de Matricula">
-                        <p:outputLabel value="#{ver.idTipo.nombre}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Tipo de Bachillerato">
-                        <p:outputLabel value="#{ver.idOpcion.seccion}"/>
-                    </p:column>
 
-                    <p:column headerText="Fecha de la matricula">
-                        <p:outputLabel value="#{ver.fechaMatricula}"/>
-                    </p:column>
-                    
-                </p:panelGrid>
-            </h:dataTable>
+            </p:dataTable>
         </h:form>
+            </center>
     </h:body>
 </html>

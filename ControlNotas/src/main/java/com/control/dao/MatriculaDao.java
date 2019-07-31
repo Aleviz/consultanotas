@@ -27,7 +27,9 @@ public class MatriculaDao {
     public List<Matricula> matriculaAll() {
         try {
             matriculaList = new ArrayList<Matricula>();
+            System.out.println("matricula lista " + matriculaList.size());
             matriculaList = em.createNamedQuery("Matricula.findAll").getResultList();
+            System.out.println("matricula lista " + matriculaList.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,43 +45,43 @@ public class MatriculaDao {
         }
         return matricula;
     }
-    
-     public Matricula porAlumno(int  idAlumno) {
+
+    public Matricula porAlumno(int idAlumno) {
         try {
             matricula = new Matricula();
-          String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_alumno.id_alumno="+idAlumno;
-          matricula = (Matricula)em.createNativeQuery(sql).getSingleResult();
+            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_alumno.id_alumno=" + idAlumno;
+            matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return matricula;
     }
-  public Matricula porOpcion(int opcion) {
-        
-      try {
-           String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_opcion.id_opcion="+opcion;
-         
+
+    public Matricula porOpcion(int opcion) {
+
+        try {
+            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_opcion.id_opcion=" + opcion;
+
             matricula = new Matricula();
-            matricula = (Matricula) em.createNativeQuery(sql).getSingleResult();
+            matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return matricula;
     }
-  
-   public Matricula porTipo(int tipo) {
-        
-      try {
-           String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_tipo.id_tipo_mat="+tipo;
-         
+
+    public Matricula porTipo(int tipo) {
+
+        try {
+            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_tipo.id_tipo_mat=" + tipo;
+
             matricula = new Matricula();
-            matricula = (Matricula) em.createNativeQuery(sql).getSingleResult();
+            matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return matricula;
     }
-  
 
     public String eliminarMatricula(Matricula m) {
         String mensaje = "";

@@ -8,7 +8,6 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "especialidades")
@@ -32,8 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Especialidades.findAll", query = "SELECT e FROM Especialidades e")
     , @NamedQuery(name = "Especialidades.findByIdEspecialidad", query = "SELECT e FROM Especialidades e WHERE e.idEspecialidad = :idEspecialidad")
-    , @NamedQuery(name = "Especialidades.findByEspecialidad", query = "SELECT e FROM Especialidades e WHERE e.especialidad = :especialidad")
-    , @NamedQuery(name = "Especialidades.findByDescripccion", query = "SELECT e FROM Especialidades e WHERE e.descripccion = :descripccion")})
+    , @NamedQuery(name = "Especialidades.findByDescripccion", query = "SELECT e FROM Especialidades e WHERE e.descripccion = :descripccion")
+    , @NamedQuery(name = "Especialidades.findByEspecialidad", query = "SELECT e FROM Especialidades e WHERE e.especialidad = :especialidad")})
 public class Especialidades implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,15 +41,15 @@ public class Especialidades implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_especialidad")
     private Integer idEspecialidad;
-    @Size(max = 50)
-    @Column(name = "especialidad")
-    private String especialidad;
-    @Size(max = 250)
+    @Size(max = 255)
     @Column(name = "descripccion")
     private String descripccion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
+    @Size(max = 255)
+    @Column(name = "especialidad")
+    private String especialidad;
+    @OneToMany(mappedBy = "idEspecialidad")
     private List<Bachillerato> bachilleratoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
+    @OneToMany(mappedBy = "idEspecialidad")
     private List<MateriaEspecialidad> materiaEspecialidadList;
 
     public Especialidades() {
@@ -68,20 +67,20 @@ public class Especialidades implements Serializable {
         this.idEspecialidad = idEspecialidad;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
     public String getDescripccion() {
         return descripccion;
     }
 
     public void setDescripccion(String descripccion) {
         this.descripccion = descripccion;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 
     @XmlTransient

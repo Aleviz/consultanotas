@@ -54,6 +54,8 @@ public class Materias implements Serializable {
     @JoinColumn(name = "opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne
     private OpcionEspe opcionEspe;
+    @OneToMany(mappedBy = "idMateria")
+    private List<MateriaEspecialidad> materiaEspecialidadList;
 
     public Materias() {
     }
@@ -101,6 +103,15 @@ public class Materias implements Serializable {
 
     public void setOpcionEspe(OpcionEspe opcionEspe) {
         this.opcionEspe = opcionEspe;
+    }
+
+    @XmlTransient
+    public List<MateriaEspecialidad> getMateriaEspecialidadList() {
+        return materiaEspecialidadList;
+    }
+
+    public void setMateriaEspecialidadList(List<MateriaEspecialidad> materiaEspecialidadList) {
+        this.materiaEspecialidadList = materiaEspecialidadList;
     }
 
     @Override

@@ -29,7 +29,10 @@ import javax.faces.bean.ViewScoped;
 /**
  *
  * @author manuel.rodriguezusam
+ * 
  */
+
+
 @ManagedBean
 @ViewScoped
 public class RegistroMatriculaMb {
@@ -75,6 +78,7 @@ public class RegistroMatriculaMb {
 
     @PostConstruct
     public void init() {
+        System.out.println("porque no me agarra ");
         //ENTITY
         matricula = new Matricula();
         alumno = new Alumnos();

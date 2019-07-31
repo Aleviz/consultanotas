@@ -258,6 +258,80 @@ public class RegistroMatriculaMb {
         this.opcion = opcion;
     }
 
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+
+    public Roles getRol() {
+        return rol;
+    }
+
+    public void setRol(Roles rol) {
+        this.rol = rol;
+    }
+
+    public Estados getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estados estado) {
+        this.estado = estado;
+    }
+
+    public Encargados getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Encargados encargado) {
+        this.encargado = encargado;
+    }
+
+    public Integer getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
+    public Integer getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Integer idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Integer getIdEncargado() {
+        return idEncargado;
+    }
+
+    public void setIdEncargado(Integer idEncargado) {
+        this.idEncargado = idEncargado;
+    }
+
+    public Object[] getId() {
+        return id;
+    }
+
+    public void setId(Object[] id) {
+        this.id = id;
+    }
+
+   
+
     public Evaluacion getEvaluacion() {
         return evaluacion;
     }

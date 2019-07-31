@@ -23,7 +23,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class RegistroMatriculaMB {
+public class RegistroMatriculaMb {
 
     //ENTITY
     private Matricula matricula;

@@ -32,27 +32,23 @@ public class MateriasDao {
         return materiasList;
     }
     
-    public List<Materias> porMaterias(String Materia){
+    public Materias porMaterias(int idMateria){
         try {
-            materiasList = em.createNativeQuery("SELECT m.id_materia, m.materia, m.descripccion, m.opcion_espe FROM materias m WHERE m.id_materia ="+Materia, Materias.class).getResultList();
+            materias = (Materias)em.createNativeQuery("SELECT m.id_materia, m.materia, m.descripccion, m.id_profesor FROM materias m WHERE m.id_materia ="+idMateria, Materias.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return materiasList;
-    }
-    
-    public List<Materias> porOpEs(int opEs){
-        try {
-            materiasList = em.createNativeQuery("SELECT m.id_materia, m.materia, m.descripccion, m.opcio_espe FROM materias m WHERE m.opcion_espe ="+opEs, Materias.class).getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return materiasList;
+        return materias;
     }
 
-  
-    
-    
+    public Materias porProfesor(int idProfe){
+        try {
+            materias = (Materias)em.createNativeQuery("SELECT m.id_materia, m.materia, m.descripccion, m.id_profesor FROM materias m WHERE m.id_profesor.id_empleado ="+idProfe, Materias.class).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return materias;
+    }
     
     public String eliminarMaterias(Materias m){
         String mensaje ="";

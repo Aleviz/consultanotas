@@ -30,7 +30,7 @@ public class AccesoDao {
         System.out.println("usuario en acces= " + user + " pass en acces= " + pass);
         
         try {
-            usuario = (Usuarios) em.createNativeQuery(sql).getSingleResult();
+            usuario = (Usuarios) em.createNativeQuery(sql,Usuarios.class).getSingleResult();
         
             if (usuario != null) {
                 mensaje = "Bienvenido";

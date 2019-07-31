@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "matricula")
@@ -55,7 +55,7 @@ public class Matricula implements Serializable {
     private Alumnos idAlumno;
     @JoinColumn(name = "id_opcion", referencedColumnName = "id_opcion")
     @ManyToOne(optional = false)
-    private Opciones idOpcion;
+    private Opcion idOpcion;
 
     public Matricula() {
     }
@@ -101,11 +101,11 @@ public class Matricula implements Serializable {
         this.idAlumno = idAlumno;
     }
 
-    public Opciones getIdOpcion() {
+    public Opcion getIdOpcion() {
         return idOpcion;
     }
 
-    public void setIdOpcion(Opciones idOpcion) {
+    public void setIdOpcion(Opcion idOpcion) {
         this.idOpcion = idOpcion;
     }
 

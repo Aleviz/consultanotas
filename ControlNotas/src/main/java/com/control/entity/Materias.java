@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "materias")
@@ -51,9 +51,9 @@ public class Materias implements Serializable {
     private String descripcion;
     @OneToMany(mappedBy = "idMateria")
     private List<Empleados> empleadosList;
-    @JoinColumn(name = "opcion_espe", referencedColumnName = "id_opcion_espe")
+    @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne
-    private OpcionEspe opcionEspe;
+    private Especialidad idEspecialidad;
 
     public Materias() {
     }
@@ -95,12 +95,12 @@ public class Materias implements Serializable {
         this.empleadosList = empleadosList;
     }
 
-    public OpcionEspe getOpcionEspe() {
-        return opcionEspe;
+    public Especialidad getIdEspecialidad() {
+        return idEspecialidad;
     }
 
-    public void setOpcionEspe(OpcionEspe opcionEspe) {
-        this.opcionEspe = opcionEspe;
+    public void setIdEspecialidad(Especialidad idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
     }
 
     @Override

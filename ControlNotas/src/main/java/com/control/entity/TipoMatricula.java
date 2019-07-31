@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "tipo_matricula")
@@ -40,7 +40,7 @@ public class TipoMatricula implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_tipo_mat")
     private Integer idTipoMat;
-    @Size(max = 20)
+    @Size(max = 10)
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(mappedBy = "idTipo")

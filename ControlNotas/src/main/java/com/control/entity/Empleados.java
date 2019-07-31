@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "empleados")
@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Empleados.findByDireccion", query = "SELECT e FROM Empleados e WHERE e.direccion = :direccion")
     , @NamedQuery(name = "Empleados.findByCorreo", query = "SELECT e FROM Empleados e WHERE e.correo = :correo")
     , @NamedQuery(name = "Empleados.findByDui", query = "SELECT e FROM Empleados e WHERE e.dui = :dui")
-    , @NamedQuery(name = "Empleados.findByNit", query = "SELECT e FROM Empleados e WHERE e.nit = :nit")})
+    , @NamedQuery(name = "Empleados.findByNit", query = "SELECT e FROM Empleados e WHERE e.nit = :nit")
+    , @NamedQuery(name = "Empleados.findByEstado", query = "SELECT e FROM Empleados e WHERE e.estado = :estado")})
 public class Empleados implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,6 +79,9 @@ public class Empleados implements Serializable {
     @Size(max = 17)
     @Column(name = "nit")
     private String nit;
+    @Size(max = 11)
+    @Column(name = "estado")
+    private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
     private List<Evaluacion> evaluacionList;
     @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
@@ -172,6 +176,14 @@ public class Empleados implements Serializable {
 
     public void setNit(String nit) {
         this.nit = nit;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

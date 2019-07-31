@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.control.dao;
 
 import javax.persistence.EntityManager;
@@ -11,19 +16,17 @@ import javax.persistence.Persistence;
  */
 public class GenericDao {
 
-    private final EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
-    private final EntityManager em = f.createEntityManager();
+    EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
+    EntityManager em = f.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
     public Object insertarEntidad(Object obj) {
         try {
-            em.getTransaction().begin();
+            tx.begin();
             em.persist(obj);
-            em.flush();
-            em.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            em.getTransaction().rollback();
         }
         return obj;
     }
@@ -31,15 +34,11 @@ public class GenericDao {
     public String modificarEntidad(Object obj) {
         String mensaje = "";
         try {
-            em.getTransaction().begin();
             em.merge(obj);
-            em.flush();
-            em.getTransaction().commit();
-            mensaje = "Actualizado Correctamente";
+            mensaje = "exito";
         } catch (Exception e) {
             e.printStackTrace();
-            em.getTransaction().rollback();
-            mensaje = "Error Al Actualizar";
+            mensaje = "error";
         }
         return mensaje;
     }

@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "especialidad")
@@ -45,7 +45,9 @@ public class Especialidad implements Serializable {
     @Column(name = "especialidad")
     private String especialidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
-    private List<OpcionEspe> opcionEspeList;
+    private List<Opcion> opcionList;
+    @OneToMany(mappedBy = "idEspecialidad")
+    private List<Materias> materiasList;
 
     public Especialidad() {
     }
@@ -71,12 +73,21 @@ public class Especialidad implements Serializable {
     }
 
     @XmlTransient
-    public List<OpcionEspe> getOpcionEspeList() {
-        return opcionEspeList;
+    public List<Opcion> getOpcionList() {
+        return opcionList;
     }
 
-    public void setOpcionEspeList(List<OpcionEspe> opcionEspeList) {
-        this.opcionEspeList = opcionEspeList;
+    public void setOpcionList(List<Opcion> opcionList) {
+        this.opcionList = opcionList;
+    }
+
+    @XmlTransient
+    public List<Materias> getMateriasList() {
+        return materiasList;
+    }
+
+    public void setMateriasList(List<Materias> materiasList) {
+        this.materiasList = materiasList;
     }
 
     @Override

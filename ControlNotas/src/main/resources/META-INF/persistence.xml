@@ -16,6 +16,7 @@
     <class>com.control.entity.Usuarios</class>
     <class>com.control.entity.OpcionEspe</class>
     <class>com.control.entity.Opciones</class>
+    <class>com.control.entity.Estados</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BDCNE?zeroDateTimeBehavior=convertToNull"/>

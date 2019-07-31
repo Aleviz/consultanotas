@@ -10,13 +10,18 @@ import com.control.dao.GenericDao;
 import com.control.dao.MateriasDao;
 import com.control.dao.MatriculaDao;
 import com.control.entity.Alumnos;
+import static com.control.entity.Alumnos_.idEncargado;
 import com.control.entity.Empleados;
+import com.control.entity.Encargados;
+import com.control.entity.Estados;
 import com.control.entity.Evaluacion;
-import static com.control.entity.Evaluacion_.idProfesor;
 import com.control.entity.Materias;
 import com.control.entity.Matricula;
 import com.control.entity.Opciones;
+import com.control.entity.Roles;
 import com.control.entity.TipoMatricula;
+import com.control.entity.Usuarios;
+import static com.control.entity.Usuarios_.idUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -36,6 +41,10 @@ public class RegistroMatriculaMb {
     private Alumnos alumno;
     private TipoMatricula tipoMatricula;
     private Opciones opcion;
+    private Usuarios usuario;
+    private Roles rol;
+    private Estados estado;
+    private Encargados encargado;
 
     private Evaluacion evaluacion;
     private List<Evaluacion> listEva;
@@ -54,7 +63,10 @@ public class RegistroMatriculaMb {
     Integer idTipo;
     Integer idOpcion;
     Integer opcionEspe;
-
+    Integer idRol;
+    Integer idUser;
+    Integer idEstado;
+    Integer idEncargado;
     Object[] id;
 
     //DAOS
@@ -72,7 +84,10 @@ public class RegistroMatriculaMb {
         opcion = new Opciones();
         materias = new Materias();
         profesor = new Empleados();
-
+        usuario = new Usuarios();
+        rol = new Roles();
+        estado = new Estados();
+        encargado = new Encargados();
         //LIST
         matriculaList = new ArrayList<Matricula>();
         materiasList = new ArrayList<Materias>();
@@ -93,6 +108,23 @@ public class RegistroMatriculaMb {
     public void guardar() {
 
         System.out.println("id " + idAlumno);
+        
+        //REGISTRO DE USUARIO
+        rol.setIdRol(idRol);
+        usuario.setIdRol(rol);
+        System.out.println("el Rol del usuario es "+usuario.getIdRol().getRol());
+        
+        estado.setIdEstado(idEstado);
+        usuario.setIdEstado(estado);
+        System.out.println("El estado del usuario es "+usuario.getIdEstado().getEstado());
+        
+        //REGISTRO DE ALUMNO
+        alumno.setIdEncargado(encargado);
+        alumno.setIdUsuario(usuario);
+        System.out.println("El encargado del alumno es "+alumno.getIdEncargado().getPrimerNombre()+"y el usuario del alumno es "+alumno.getIdUsuario().getUsuario());
+ //      -----------------------------------------
+ //     REGISTRO DE MATRICULA       
+        
         alumno.setIdAlumno(idAlumno);
         matricula.setIdAlumno(alumno);
 
@@ -127,18 +159,11 @@ public class RegistroMatriculaMb {
 //            listEva.add(evaluacion);
             evaluacion = (Evaluacion) gd.insertarEntidad(evaluacion);
         }
-
+        
+        encargado = (Encargados)gd.insertarEntidad(encargado);
+        usuario = (Usuarios)gd.insertarEntidad(usuario);
         mat = (Matricula) gd.insertarEntidad(matricula);
-        //-------------------------------------------------------
-
-//        for (int i = 0; i <= x; i = i + 1) {
-//
-//                evaluacion.setIdAlumno(alumno);
-//                evaluacion.setIdProfesor(profesor);
-//                listEva.add(evaluacion);
-//            }
-//        
-//        
+  
 // ----------------------------------------------------------------------
 //      
     }

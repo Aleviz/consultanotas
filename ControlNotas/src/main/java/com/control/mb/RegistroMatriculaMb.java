@@ -115,17 +115,9 @@ public class RegistroMatriculaMb {
         //REGISTRO DE USUARIO
         matriculaDao = new MatriculaDao();
         gd = new GenericDao();
-<<<<<<< HEAD
 
         usuario.setIdRol(rol);
         usuario.setIdEstado(estado);
-=======
- 
-
-        usuario.setIdRol(rol);
-        usuario.setIdEstado(estado);
- 
->>>>>>> Developer
 
         //REGISTRO DE ALUMNO
         alumno.setIdEncargado(encargado);
@@ -186,18 +178,12 @@ public class RegistroMatriculaMb {
         System.out.println("ALUMNO :" + matricula.getIdAlumno().getIdAlumno());
         System.out.println("TIPO MATRICULA " + matricula.getIdTipo().getNombre());
         System.out.println("OPCION " + matricula.getIdOpcion().getDescripcion());
-<<<<<<< HEAD
         
         
         encargado = (Encargados) gd.insertarEntidad(encargado);
         usuario = (Usuarios) gd.insertarEntidad(usuario);
         alumno = (Alumnos) gd.insertarEntidad(alumno);
 
-=======
-
-        encargado = (Encargados) gd.insertarEntidad(encargado);
-        usuario = (Usuarios) gd.insertarEntidad(usuario);
->>>>>>> Developer
         mat = (Matricula) gd.insertarEntidad(matricula);
 
 // ----------------------------------------------------------------------

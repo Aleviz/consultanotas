@@ -21,12 +21,13 @@ and open the template in the editor.
         <h:form>
             <div style="margin-bottom: 10px;">
                 <p:menubar>
-                    <p:menuitem value="Inicio" url="index.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Usuarios" url="Usuarios.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Empleados" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <f:facet name="options">
-                        <p:commandButton value="Login" action="Login.xhtml"/>
-                    </f:facet>
+                    <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
+                    <p:submenu label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
+                        <p:menuitem value="Logout" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                    </p:submenu>
                 </p:menubar>
             </div>
         </h:form>
@@ -36,38 +37,43 @@ and open the template in the editor.
                 <p:tab>
                     <p:panel header="Datos de Alumno">
                         <center>
-                            <h:panelGrid columns="3">
-                                <p:outputLabel value="Primer Nombre"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.primerNombre}" id="error1" required="true"/>
-                                <p:message for="error1" display="icon"/>
+                            <h:panelGrid columns="2">
+                                <h:panelGrid columns="3">
+                                    <p:outputLabel value="Primer Nombre"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.primerNombre}" id="error1" required="true"/>
+                                    <p:message for="error1" display="icon"/>
 
-                                <p:outputLabel value="Segundo Nombre"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.segundoNombre}" id="error2" required="true"/>
-                                <p:message for="error2" display="icon"/>
+                                    <p:outputLabel value="Segundo Nombre"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.segundoNombre}" id="error2" required="true"/>
+                                    <p:message for="error2" display="icon"/>
 
-                                <p:outputLabel value="Primer Apellido"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.primerApellido}" id="error3" required="true"/>
-                                <p:message for="error3" display="icon"/>
+                                    <p:outputLabel value="Primer Apellido"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.primerApellido}" id="error3" required="true"/>
+                                    <p:message for="error3" display="icon"/>
 
-                                <p:outputLabel value="Segudo Apellido"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.segundoApellido}" id="error4" required="true"/>
-                                <p:message for="error4" display="icon"/>
+                                    <p:outputLabel value="Segudo Apellido"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.segundoApellido}" id="error4" required="true"/>
+                                    <p:message for="error4" display="icon"/>
+                                </h:panelGrid>
 
-                                <p:outputLabel value="Fecha de Nacimiento"/>
-                                <p:calendar value="#{registroMatriculaMb.alumno.fechaNacimiento}" id="error5" required="true"/>
-                                <p:message for="error5" display="icon"/>
+                                <h:panelGrid columns="3">
+                                    <p:outputLabel value="Fecha de Nacimiento"/>
+                                    <p:calendar value="#{registroMatriculaMb.alumno.fechaNacimiento}" id="error5" required="true"/>
+                                    <p:message for="error5" display="icon"/>
 
-                                <p:outputLabel value="Telefono"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.telefono}" id="error6" required="true"/>
-                                <p:message for="error6" display="icon"/>
+                                    <p:outputLabel value="Telefono"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.telefono}" id="error6" required="true"/>
+                                    <p:message for="error6" display="icon"/>
 
-                                <p:outputLabel value="Direccion"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.direccion}" id="error7" required="true"/>
-                                <p:message for="error7" display="icon"/>
+                                    <p:outputLabel value="Direccion"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.direccion}" id="error7" required="true"/>
+                                    <p:message for="error7" display="icon"/>
 
-                                <p:outputLabel value="Carnet"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.carnet}" id="error8" required="true"/>
-                                <p:message for="error8" display="icon"/>
+                                    <p:outputLabel value="Carnet"/>
+                                    <p:inputText value="#{registroMatriculaMb.alumno.carnet}" id="error8" required="true"/>
+                                    <p:message for="error8" display="icon"/>
+                                </h:panelGrid>
+
                             </h:panelGrid>
                         </center>
                     </p:panel>
@@ -170,31 +176,31 @@ and open the template in the editor.
                                 <p:selectOneMenu value="#{registroMatriculaMb.opcionEspe}">
                                     <p:ajax event="valueChange" listener="#{registroMatriculaMb.obtenerOpcionEspe()}" update="formAddMatr:opes"/>
                                     <f:selectItem itemLabel="Seleccione una opcion" itemValue="0"/>
-                                    
+
                                     <f:selectItems value="#{registroMatriculaMb.esSelect}"/>
 
-                            </p:selectOneMenu>
+                                </p:selectOneMenu>
 
-                            <p:outputLabel value="Seccion"/>
-                            <p:selectOneMenu id="opes" value="#{registroMatriculaMb.opcion.idOpcion}">
-                                <f:selectItem itemLabel="Seleccione la seccion" itemValue="0"/>
-                                <f:selectItems value="#{registroMatriculaMb.opcionSelect}"/>
+                                <p:outputLabel value="Seccion"/>
+                                <p:selectOneMenu id="opes" value="#{registroMatriculaMb.opcion.idOpcion}">
+                                    <f:selectItem itemLabel="Seleccione la seccion" itemValue="0"/>
+                                    <f:selectItems value="#{registroMatriculaMb.opcionSelect}"/>
 
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid columns="3">
-                            <p:outputLabel value="Fecha de Matricula" />
-                            <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}" id="error20" required="true"/>
-                            <p:message for="error20" display="icon"/>
-                        </h:panelGrid>
-                    </center>
-                </p:panel>
-                <p:commandButton value="Matricular" action="#{registroMatriculaMb.guardar()}"/>
-            </p:tab>
-        </p:wizard>
-    </h:form>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Fecha de Matricula" />
+                                <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}" id="error20" required="true"/>
+                                <p:message for="error20" display="icon"/>
+                            </h:panelGrid>
+                        </center>
+                    </p:panel>
+                    <p:commandButton value="Matricular" action="#{registroMatriculaMb.guardar()}"/>
+                </p:tab>
+            </p:wizard>
+        </h:form>
 
 
 
-</h:body>
+    </h:body>
 </html>

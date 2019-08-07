@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "empleados")
@@ -51,50 +51,38 @@ public class Empleados implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_empleado")
     private Integer idEmpleado;
-    
     @Size(max = 30)
     @Column(name = "primer_nombre")
     private String primerNombre;
-    
     @Size(max = 30)
     @Column(name = "segundo_nombre")
     private String segundoNombre;
-    
     @Size(max = 30)
     @Column(name = "primer_apellido")
     private String primerApellido;
-    
     @Size(max = 30)
     @Column(name = "segundo_apellido")
     private String segundoApellido;
-    
     @Size(max = 10)
     @Column(name = "telefono")
     private String telefono;
-    
     @Size(max = 250)
     @Column(name = "direccion")
     private String direccion;
-    
     @Size(max = 250)
     @Column(name = "correo")
     private String correo;
-    
     @Size(max = 10)
     @Column(name = "dui")
     private String dui;
-    
     @Size(max = 17)
     @Column(name = "nit")
     private String nit;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
     private List<Evaluacion> evaluacionList;
-    
     @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
     @ManyToOne
     private Materias idMateria;
-    
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuarios idUsuario;

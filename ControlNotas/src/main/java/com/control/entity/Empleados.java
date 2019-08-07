@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "empleados")
@@ -42,8 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Empleados.findByDireccion", query = "SELECT e FROM Empleados e WHERE e.direccion = :direccion")
     , @NamedQuery(name = "Empleados.findByCorreo", query = "SELECT e FROM Empleados e WHERE e.correo = :correo")
     , @NamedQuery(name = "Empleados.findByDui", query = "SELECT e FROM Empleados e WHERE e.dui = :dui")
-    , @NamedQuery(name = "Empleados.findByNit", query = "SELECT e FROM Empleados e WHERE e.nit = :nit")
-    , @NamedQuery(name = "Empleados.findByEstado", query = "SELECT e FROM Empleados e WHERE e.estado = :estado")})
+    , @NamedQuery(name = "Empleados.findByNit", query = "SELECT e FROM Empleados e WHERE e.nit = :nit")})
 public class Empleados implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,41 +51,50 @@ public class Empleados implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_empleado")
     private Integer idEmpleado;
+    
     @Size(max = 30)
     @Column(name = "primer_nombre")
     private String primerNombre;
+    
     @Size(max = 30)
     @Column(name = "segundo_nombre")
     private String segundoNombre;
+    
     @Size(max = 30)
     @Column(name = "primer_apellido")
     private String primerApellido;
+    
     @Size(max = 30)
     @Column(name = "segundo_apellido")
     private String segundoApellido;
+    
     @Size(max = 10)
     @Column(name = "telefono")
     private String telefono;
+    
     @Size(max = 250)
     @Column(name = "direccion")
     private String direccion;
+    
     @Size(max = 250)
     @Column(name = "correo")
     private String correo;
+    
     @Size(max = 10)
     @Column(name = "dui")
     private String dui;
+    
     @Size(max = 17)
     @Column(name = "nit")
     private String nit;
-    @Size(max = 11)
-    @Column(name = "estado")
-    private String estado;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
     private List<Evaluacion> evaluacionList;
+    
     @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
     @ManyToOne
     private Materias idMateria;
+    
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuarios idUsuario;
@@ -176,14 +184,6 @@ public class Empleados implements Serializable {
 
     public void setNit(String nit) {
         this.nit = nit;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     @XmlTransient

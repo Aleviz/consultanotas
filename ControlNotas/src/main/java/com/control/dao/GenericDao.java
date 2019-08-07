@@ -19,7 +19,7 @@ public class GenericDao {
         try {
             em.getTransaction().begin();
             em.persist(obj);
-            em.flush();
+//            em.flush();
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
-<<<<<<< HEAD
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "materias")
@@ -47,19 +44,21 @@ public class Materias implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_materia")
     private Integer idMateria;
+    
     @Size(max = 50)
     @Column(name = "materia")
     private String materia;
+    
     @Size(max = 250)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(mappedBy = "idMateria")
+   
+    @OneToMany(mappedBy = "idMateria", cascade = CascadeType.PERSIST)
     private List<Empleados> empleadosList;
+   
     @JoinColumn(name = "opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne
     private OpcionEspe opcionEspe;
-    @OneToMany(mappedBy = "idMateria")
-    private List<MateriaEspecialidad> materiaEspecialidadList;
 
     public Materias() {
     }
@@ -107,15 +106,6 @@ public class Materias implements Serializable {
 
     public void setOpcionEspe(OpcionEspe opcionEspe) {
         this.opcionEspe = opcionEspe;
-    }
-
-    @XmlTransient
-    public List<MateriaEspecialidad> getMateriaEspecialidadList() {
-        return materiaEspecialidadList;
-    }
-
-    public void setMateriaEspecialidadList(List<MateriaEspecialidad> materiaEspecialidadList) {
-        this.materiaEspecialidadList = materiaEspecialidadList;
     }
 
     @Override

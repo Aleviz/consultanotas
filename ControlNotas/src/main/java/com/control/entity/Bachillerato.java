@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "bachillerato")
@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Bachillerato.findAll", query = "SELECT b FROM Bachillerato b")
     , @NamedQuery(name = "Bachillerato.findByIdBachillerato", query = "SELECT b FROM Bachillerato b WHERE b.idBachillerato = :idBachillerato")
-    , @NamedQuery(name = "Bachillerato.findByGrado", query = "SELECT b FROM Bachillerato b WHERE b.grado = :grado")
-    , @NamedQuery(name = "Bachillerato.findBySeccionBachillerato", query = "SELECT b FROM Bachillerato b WHERE b.seccionBachillerato = :seccionBachillerato")})
+    , @NamedQuery(name = "Bachillerato.findBySeccionBachillerato", query = "SELECT b FROM Bachillerato b WHERE b.seccionBachillerato = :seccionBachillerato")
+    , @NamedQuery(name = "Bachillerato.findByGrado", query = "SELECT b FROM Bachillerato b WHERE b.grado = :grado")})
 public class Bachillerato implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,12 +39,12 @@ public class Bachillerato implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_bachillerato")
     private Integer idBachillerato;
-    @Column(name = "grado")
-    private Integer grado;
     @Column(name = "seccion_bachillerato")
     private Character seccionBachillerato;
+    @Column(name = "grado")
+    private Integer grado;
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Especialidades idEspecialidad;
 
     public Bachillerato() {
@@ -62,20 +62,20 @@ public class Bachillerato implements Serializable {
         this.idBachillerato = idBachillerato;
     }
 
-    public Integer getGrado() {
-        return grado;
-    }
-
-    public void setGrado(Integer grado) {
-        this.grado = grado;
-    }
-
     public Character getSeccionBachillerato() {
         return seccionBachillerato;
     }
 
     public void setSeccionBachillerato(Character seccionBachillerato) {
         this.seccionBachillerato = seccionBachillerato;
+    }
+
+    public Integer getGrado() {
+        return grado;
+    }
+
+    public void setGrado(Integer grado) {
+        this.grado = grado;
     }
 
     public Especialidades getIdEspecialidad() {

@@ -5,7 +5,7 @@
  */
 package com.control.dao;
 
-import com.control.entity.Bachillerato;
+import com.control.entity.Colegio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,12 +21,12 @@ public class BachilleratoDao {
     EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
     EntityManager em = f.createEntityManager();
 
-    private List<Bachillerato> bachilleratolist;
-    private Bachillerato bachillerato;
+    private List<Colegio> bachilleratolist;
+    private Colegio bachillerato;
 
-    public List<Bachillerato> bachillertaoAll() {
+    public List<Colegio> bachillertaoAll() {
         try {
-            bachilleratolist = new ArrayList<Bachillerato>();
+            bachilleratolist = new ArrayList<Colegio>();
             bachilleratolist = em.createNamedQuery("Bachillerato.findAll").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,20 +34,20 @@ public class BachilleratoDao {
         return bachilleratolist;
     }
 
-    public Bachillerato bachilleratoById(Bachillerato b) {
+    public Colegio bachilleratoById(Colegio b) {
         try {
-            bachillerato = new Bachillerato();
-            bachillerato = (Bachillerato) em.createNamedQuery("Bachillerato.findByIdBachillerato").setParameter("idBachillerato", b.getIdBachillerato()).getResultList();
+            bachillerato = new Colegio();
+            bachillerato = (Colegio) em.createNamedQuery("Bachillerato.findByIdBachillerato").setParameter("idBachillerato", b.getIdColegio()).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return bachillerato;
     }
     
-    public String eliminarBachillerato(Bachillerato b){
+    public String eliminarBachillerato(Colegio b){
         String mensaje = "";
         try {
-            em.remove(em.find(Bachillerato.class, b.getIdBachillerato()));
+            em.remove(em.find(Colegio.class, b.getIdColegio()));
             mensaje = "Bachillerato eliminado";
         } catch (Exception e) {
             e.printStackTrace();

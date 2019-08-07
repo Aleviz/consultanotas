@@ -10,11 +10,8 @@
             body{
                 height: 100%;
                 width: 100%;
-                overflow-x: hidden;
-                background-color: #5c5c5c;
             }
             .divPadre{
-                margin: 0px;
                 height: auto !important;
                 min-height: 100%;
                 padding: 18%;
@@ -26,29 +23,25 @@
             }
             .divHijo{
                 margin:0 auto;
-                background-color: #343434;
+                background-color: #242424;
                 width: 350px;
                 min-width: 250px;
                 color: #fff;
-                border-radius: 13px;
             }
         </style>
     </h:head>
     <h:body>
         <div class="divPadre">
             <div class="divHijo">
-                <div id="header" style="width: 350px; height: 50px; background-color: black; color: white; margin: 0px; margin-top: -20px; text-align: center; border-top-left-radius: 13px; border-top-right-radius: 13px;">
-                    <h2 style="padding-top: 10px; font-family: sans-serif;">Inicio de Sesion</h2>
-                </div>
                 <center>
                     <h:form>
                         <h:panelGrid>
-                            <p:outputLabel value="Usuario: " style="font-size: 16px;"/>
+                            <p:outputLabel value="Usuario: "/>
                             <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}"/>
-                            <p:outputLabel value="Contraseña: " style="font-size: 16px;"/>
+                            <p:outputLabel value="Contraseña: "/>
                             <p:password value="#{registroEmpleadosMb.usuarios.pass}"/>
                         </h:panelGrid>
-                        <p:commandButton value="Login" style="margin-top: 10px; margin-bottom: 10px; font-size: 15.5px;"/>
+                        <p:commandButton value="Guardar" style="margin-top: 10px; margin-bottom: 10px;"/>
                     </h:form>
                 </center>
 

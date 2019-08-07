@@ -22,11 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
-<<<<<<< HEAD
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "evaluacion")
@@ -91,9 +87,11 @@ public class Evaluacion implements Serializable {
     private BigDecimal proEva3;
     @Column(name = "proEvato")
     private BigDecimal proEvato;
+    
     @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno")
     @ManyToOne(optional = false)
     private Alumnos idAlumno;
+   
     @JoinColumn(name = "id_profesor", referencedColumnName = "id_empleado")
     @ManyToOne(optional = false)
     private Empleados idProfesor;

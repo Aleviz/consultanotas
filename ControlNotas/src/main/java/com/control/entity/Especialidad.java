@@ -24,11 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
-<<<<<<< HEAD
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "especialidad")
@@ -45,9 +41,11 @@ public class Especialidad implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_especialidad")
     private Integer idEspecialidad;
+    
     @Size(max = 50)
     @Column(name = "especialidad")
     private String especialidad;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
     private List<OpcionEspe> opcionEspeList;
 

@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,11 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
-<<<<<<< HEAD
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "encargados")
@@ -52,33 +49,43 @@ public class Encargados implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_encargado")
     private Integer idEncargado;
+    
     @Size(max = 30)
     @Column(name = "primer_nombre")
     private String primerNombre;
+    
     @Size(max = 30)
     @Column(name = "segundo_nombre")
     private String segundoNombre;
+    
     @Size(max = 30)
     @Column(name = "primer_apellido")
     private String primerApellido;
+    
     @Size(max = 30)
     @Column(name = "segundo_apellido")
     private String segundoApellido;
+    
     @Size(max = 10)
     @Column(name = "dui")
     private String dui;
+    
     @Size(max = 17)
     @Column(name = "nit")
     private String nit;
+    
     @Size(max = 10)
     @Column(name = "telefono")
     private String telefono;
+    
     @Size(max = 250)
     @Column(name = "direccion")
     private String direccion;
+    
     @Column(name = "edad")
     private Integer edad;
-    @OneToMany(mappedBy = "idEncargado")
+    
+    @OneToMany(mappedBy = "idEncargado" , cascade = CascadeType.PERSIST)
     private List<Alumnos> alumnosList;
 
     public Encargados() {

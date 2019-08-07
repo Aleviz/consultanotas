@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author david.rodriguezusam
  */
 @Entity
 @Table(name = "materia_especialidad")
@@ -38,10 +38,10 @@ public class MateriaEspecialidad implements Serializable {
     @Column(name = "id_mat_esp")
     private Integer idMatEsp;
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Especialidades idEspecialidad;
     @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Materias idMateria;
 
     public MateriaEspecialidad() {

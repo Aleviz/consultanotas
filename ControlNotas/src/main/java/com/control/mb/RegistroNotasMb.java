@@ -9,7 +9,7 @@ import com.control.dao.AlumnosDao;
 import com.control.dao.EspecialidadesDao;
 import com.control.dao.EvaluacionDao;
 import com.control.dao.GenericDao;
-import com.control.dao.OpcionesDao;
+import com.control.dao.OpcionDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Especialidad;
 import com.control.entity.Evaluacion;
@@ -40,7 +40,7 @@ public class RegistroNotasMb {
     private List<Evaluacion> evaluacionList;
     private AlumnosDao alumnosDao;
     private EspecialidadesDao especialidadDao;
-    private OpcionesDao opcionDao;
+    private OpcionDao opcionDao;
     private GenericDao genericDao;
     private EvaluacionDao notasDao;
     private Map<String, String > selectEspecialidad;
@@ -62,7 +62,7 @@ public class RegistroNotasMb {
     evaluacionList = new ArrayList<Evaluacion>();
     alumnosDao = new AlumnosDao();
     especialidadDao = new EspecialidadesDao();
-    opcionDao = new OpcionesDao();
+    opcionDao = new OpcionDao();
     genericDao = new GenericDao();
     notasDao = new EvaluacionDao();
     selectAlumno = new HashMap<String, String>();
@@ -186,13 +186,15 @@ public class RegistroNotasMb {
         this.especialidadDao = especialidadDao;
     }
 
-    public OpcionesDao getOpcionDao() {
+    public OpcionDao getOpcionDao() {
         return opcionDao;
     }
 
-    public void setOpcionDao(OpcionesDao opcionDao) {
+    public void setOpcionDao(OpcionDao opcionDao) {
         this.opcionDao = opcionDao;
     }
+
+  
 
     public GenericDao getGenericDao() {
         return genericDao;

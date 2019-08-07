@@ -5,7 +5,9 @@
  */
 package com.control.dao;
 
+import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,6 +23,7 @@ public class OpcionDao {
 
     private Opciones op;
     private List<Opciones> opList;
+    private List<OpcionEspe> opEsList;
 
     public List<Opciones> allOpcion() {
         try {
@@ -29,6 +32,27 @@ public class OpcionDao {
             e.printStackTrace();
         }
         return opList;
+    }
+    
+    public List<OpcionEspe> allOpcionEspe (){
+        try {
+            opEsList = em.createNamedQuery("OpcionEspe.findAll").getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opEsList;
+    }
+    
+    public List<Opciones> obtenerOpcionesXEspe(int idOpcionEspe){
+        try {
+            opList = new ArrayList<Opciones>();
+            opList = em.createNamedQuery("Opciones.findAllxOpcionEspe").setParameter("idOpcionEspe", idOpcionEspe).getResultList();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opList;
+    
     }
     
     public Opciones porOpcion(int opcion){

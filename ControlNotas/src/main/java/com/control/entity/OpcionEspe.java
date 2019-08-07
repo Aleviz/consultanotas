@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "opcion_espe")

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "estados")

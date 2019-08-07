@@ -23,7 +23,11 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
+<<<<<<< HEAD
  * @author david.rodriguezusam
+=======
+ * @author alexander.emesticaus
+>>>>>>> Developer
  */
 @Entity
 @Table(name = "encargados")

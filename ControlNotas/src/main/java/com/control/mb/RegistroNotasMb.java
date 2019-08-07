@@ -49,7 +49,6 @@ public class RegistroNotasMb {
     private Integer idEspecialidad;
     private Integer idGrado;
     private Integer idAlumno;
-    private Integer idEspecialidadOpcion;
     
     @PostConstruct
     public void init(){
@@ -71,18 +70,12 @@ public class RegistroNotasMb {
     selectGrado = new HashMap<String, String>();
     llenarSelectAlumno();
     llenarSelectEspecialidad();
+    llenarSelectGrado();
     llenarNotas();
     llenarDatosPersonales();
     }
     
     public void llenarSelectEspecialidad(){
-        especialidadList = especialidadDao.allEspecialidades();
-        System.out.println("-------------------"+especialidadList.size());
-        for(Especialidad e : especialidadList){
-            selectEspecialidad.put(e.getEspecialidad(), String.valueOf(e.getIdEspecialidad()));
-        }
-    }
-    public void llenarSelectEspecialidadOpcion(){
         especialidadList = especialidadDao.allEspecialidades();
         System.out.println("-------------------"+especialidadList.size());
         for(Especialidad e : especialidadList){
@@ -263,14 +256,6 @@ public class RegistroNotasMb {
 
     public void setIdAlumno(Integer idAlumno) {
         this.idAlumno = idAlumno;
-    }
-
-    public Integer getIdEspecialidadOpcion() {
-        return idEspecialidadOpcion;
-    }
-
-    public void setIdEspecialidadOpcion(Integer idEspecialidadOpcion) {
-        this.idEspecialidadOpcion = idEspecialidadOpcion;
     }
     
     

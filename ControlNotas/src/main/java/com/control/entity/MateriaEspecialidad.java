@@ -39,7 +39,7 @@ public class MateriaEspecialidad implements Serializable {
     private Integer idMatEsp;
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne
-    private Especialidad idEspecialidad;
+    private Especialidades idEspecialidad;
     @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
     @ManyToOne
     private Materias idMateria;
@@ -59,11 +59,11 @@ public class MateriaEspecialidad implements Serializable {
         this.idMatEsp = idMatEsp;
     }
 
-    public Especialidad getIdEspecialidad() {
+    public Especialidades getIdEspecialidad() {
         return idEspecialidad;
     }
 
-    public void setIdEspecialidad(Especialidad idEspecialidad) {
+    public void setIdEspecialidad(Especialidades idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
     }
 

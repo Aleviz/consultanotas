@@ -36,7 +36,6 @@ and open the template in the editor.
                 <p:tab>
                     <p:panel header="Datos de Alumno">
                         <center>
-<<<<<<< HEAD
                             <h:panelGrid columns="3">
                                 <p:outputLabel value="Primer Nombre"/>
                                 <p:inputText value="#{registroMatriculaMb.alumno.primerNombre}" id="error1" required="true"/>
@@ -70,40 +69,12 @@ and open the template in the editor.
                                 <p:inputText value="#{registroMatriculaMb.alumno.carnet}" id="error8" required="true"/>
                                 <p:message for="error8" display="icon"/>
                             </h:panelGrid>
-=======
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Primer Nombre"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.primerNombre}"/>
-
-                                <p:outputLabel value="Segundo Nombre"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.segundoNombre}"/>
-
-                                <p:outputLabel value="Primer Apellido"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.primerApellido}"/>
-
-                                <p:outputLabel value="Segudo Apellido"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.segundoApellido}"/>
-
-                                <p:outputLabel value="Fecha de Nacimiento"/>
-                                <p:calendar value="#{registroMatriculaMb.alumno.fechaNacimiento}"/>
-
-                                <p:outputLabel value="Telefono"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.telefono}"/>
-
-                                <p:outputLabel value="Direccion"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.direccion}"/>
-
-                                <p:outputLabel value="Carnet"/>
-                                <p:inputText value="#{registroMatriculaMb.alumno.carnet}"/>
-                            </p:panelGrid>
->>>>>>> Developer
                         </center>
                     </p:panel>
                 </p:tab>
                 <p:tab>
                     <p:panel header="Datos de Encargado">
                         <center>
-<<<<<<< HEAD
                             <h:panelGrid columns="3">
                                 <p:outputLabel value="Primer Nombre"/>
                                 <p:inputText value="#{registroMatriculaMb.encargado.primerNombre}" id="error9" required="true"/>
@@ -150,43 +121,12 @@ and open the template in the editor.
                                 <p:message for="error17" display="icon"/>
 
                             </h:panelGrid>
-=======
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Primer Nombre"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.primerNombre}"/>
-
-                                <p:outputLabel value="Segundo Nombre"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.segundoNombre}"/>
-
-                                <p:outputLabel value="Primer Apellido"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.primerApellido}"/>
-
-                                <p:outputLabel value="Segudo Apellido"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.segundoApellido}"/>
-
-                                <p:outputLabel value="DUI"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.dui}"/>
-
-                                <p:outputLabel value="NIT"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.nit}"/>
-
-                                <p:outputLabel value="Telefono"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.telefono}"/>
-
-                                <p:outputLabel value="Direccion"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.direccion}"/>
-
-                                <p:outputLabel value="Edad"/>
-                                <p:inputText value="#{registroMatriculaMb.encargado.edad}"/>
-                            </p:panelGrid>
->>>>>>> Developer
                         </center>
                     </p:panel>
                 </p:tab>
                 <p:tab>
                     <p:panel header="Registro de Usuario">
                         <center>
-<<<<<<< HEAD
                             <h:panelGrid columns="3">
                                 <p:outputLabel value="Usuario"/>
                                 <p:inputText value="#{registroMatriculaMb.usuario.usuario}" id="error18" required="true"/>
@@ -200,15 +140,6 @@ and open the template in the editor.
 
                             </h:panelGrid>
                             <h:panelGrid columns="2">
-=======
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Usuario"/>
-                                <p:inputText value="#{registroMatriculaMb.usuario.usuario}"/>
-
-                                <p:outputLabel value="Pass"/>
-                                <p:password value="#{registroMatriculaMb.usuario.pass}"/>
-
->>>>>>> Developer
                                 <p:outputLabel value="Alumno"/>
                                 <p:selectOneMenu value="#{registroMatriculaMb.rol.idRol}">
                                     <f:selectItem itemLabel="Alumno" itemValue="5"/>
@@ -220,29 +151,20 @@ and open the template in the editor.
                                 </p:selectOneMenu>
 
 
-<<<<<<< HEAD
                             </h:panelGrid>
-=======
-                            </p:panelGrid>
->>>>>>> Developer
                         </center>
                     </p:panel>
                 </p:tab>
                 <p:tab>
                     <p:panel header="Registro de matricula">
                         <center>
-<<<<<<< HEAD
                             <h:panelGrid columns="2">
-=======
-                            <p:panelGrid columns="2">
->>>>>>> Developer
 
                                 <p:outputLabel value="Seleccion el tipo de matricula"/>
                                 <p:selectOneMenu value="#{registroMatriculaMb.tipoMatricula.idTipoMat}">
                                     <f:selectItem itemLabel="Nuevo Ingreso" itemValue="1" />
                                     <f:selectItem itemLabel="Antiguo Ingreso" itemValue="2" />
                                 </p:selectOneMenu>
-<<<<<<< HEAD
 
                                 <p:outputLabel value="Opcion"/>
                                 <p:selectOneMenu value="#{registroMatriculaMb.opcionEspe}">
@@ -250,15 +172,6 @@ and open the template in the editor.
                                     <f:selectItem itemLabel="Electronica" itemValue="2" />
                                     <f:selectItem itemLabel="Mecanica" itemValue="3" />
                                 </p:selectOneMenu>
-=======
-                                
-                                    <p:outputLabel value="Opcion"/>
-                                    <p:selectOneMenu value="#{registroMatriculaMb.opcionEspe}">
-                                    <f:selectItem itemLabel="General" itemValue="1" />
-                                    <f:selectItem itemLabel="Electronica" itemValue="2" />
-                                    <f:selectItem itemLabel="Mecanica" itemValue="3" />
-                                    </p:selectOneMenu>
->>>>>>> Developer
 
                                 <p:outputLabel value="Seccion"/>
                                 <p:selectOneMenu value="#{registroMatriculaMb.opcion.idOpcion}">
@@ -272,7 +185,6 @@ and open the template in the editor.
                                     <f:selectItem itemLabel="Primer año de Tecnico Industrial en Mecanica A" itemValue="8" />
                                     <f:selectItem itemLabel="Segundo año de Tecnico Industrial en Mecanica A" itemValue="9" />
                                     <f:selectItem itemLabel="Tercer año de Tecnico Industrial en Mecanica A" itemValue="10" />
-<<<<<<< HEAD
                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid columns="3">
@@ -280,15 +192,6 @@ and open the template in the editor.
                                 <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}" id="error20" required="true"/>
                                 <p:message for="error20" display="icon"/>
                             </h:panelGrid>
-=======
-
-                                </p:selectOneMenu>
-
-                                <p:outputLabel value="Fecha de Matricula"/>
-                                <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}"/>
-
-                            </p:panelGrid>
->>>>>>> Developer
                         </center>
                     </p:panel>
                     <p:commandButton value="Matricular" action="#{registroMatriculaMb.guardar()}"/>

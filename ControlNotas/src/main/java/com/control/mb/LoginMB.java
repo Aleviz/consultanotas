@@ -157,7 +157,7 @@ public class LoginMB {
                     alumno = usuario.getAlumnosList().get(0);
                 }
             }
-            return "index.xhtml";
+            return "index.xhtml?faces-redirect=true";
         }
 
         usuario = new Usuarios();

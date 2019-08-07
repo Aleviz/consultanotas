@@ -26,11 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
-<<<<<<< HEAD:ControlNotas/src/main/java/com/control/entity/Opcion.java
  * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer:ControlNotas/src/main/java/com/control/entity/Opciones.java
  */
 @Entity
 @Table(name = "opciones")

@@ -26,7 +26,7 @@ public class EspecialidadesDao {
     
     public List<Especialidad> allEspecialidades(){
         try {
-            especialidadList = em.createNamedQuery("Especialidades.findAll").getResultList();
+            especialidadList = em.createNamedQuery("Especialidad.findAll").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }

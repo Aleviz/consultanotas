@@ -25,11 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
-<<<<<<< HEAD
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "matricula")
@@ -46,17 +42,21 @@ public class Matricula implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_matricula")
     private Integer idMatricula;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_matricula")
     @Temporal(TemporalType.DATE)
     private Date fechaMatricula;
+    
     @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo_mat")
     @ManyToOne
     private TipoMatricula idTipo;
+    
     @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno")
     @ManyToOne(optional = false)
     private Alumnos idAlumno;
+    
     @JoinColumn(name = "id_opcion", referencedColumnName = "id_opcion")
     @ManyToOne(optional = false)
     private Opciones idOpcion;

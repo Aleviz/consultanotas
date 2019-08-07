@@ -26,11 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
-<<<<<<< HEAD:ControlNotas/src/main/java/com/control/entity/Opcion.java
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer:ControlNotas/src/main/java/com/control/entity/Opciones.java
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "opciones")
@@ -40,7 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Opciones.findByIdOpcion", query = "SELECT o FROM Opciones o WHERE o.idOpcion = :idOpcion")
     , @NamedQuery(name = "Opciones.findBySeccion", query = "SELECT o FROM Opciones o WHERE o.seccion = :seccion")
     , @NamedQuery(name = "Opciones.findByA\u00f1o", query = "SELECT o FROM Opciones o WHERE o.a\u00f1o = :a\u00f1o")
-    , @NamedQuery(name = "Opciones.findByDescripcion", query = "SELECT o FROM Opciones o WHERE o.descripcion = :descripcion")})
+    , @NamedQuery(name = "Opciones.findByDescripcion", query = "SELECT o FROM Opciones o WHERE o.descripcion = :descripcion")
+    , @NamedQuery(name= "Opciones.findAllxOpcionEspe", query = "SELECT o FROM Opciones o WHERE o.idOpcionEspe.idOpcionEspe = :idOpcionEspe")
+})
 public class Opciones implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,17 +47,22 @@ public class Opciones implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_opcion")
     private Integer idOpcion;
+    
     @Size(max = 3)
     @Column(name = "seccion")
     private String seccion;
+    
     @Column(name = "a\u00f1o")
     private Integer año;
+    
     @Size(max = 250)
     @Column(name = "descripcion")
     private String descripcion;
+    
     @JoinColumn(name = "id_opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne(optional = false)
     private OpcionEspe idOpcionEspe;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOpcion")
     private List<Matricula> matriculaList;
 

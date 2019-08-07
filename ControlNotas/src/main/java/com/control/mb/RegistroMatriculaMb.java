@@ -9,6 +9,7 @@ import com.control.dao.EmpleadosDao;
 import com.control.dao.GenericDao;
 import com.control.dao.MateriasDao;
 import com.control.dao.MatriculaDao;
+import com.control.dao.OpcionDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Encargados;
@@ -16,12 +17,15 @@ import com.control.entity.Estados;
 import com.control.entity.Evaluacion;
 import com.control.entity.Materias;
 import com.control.entity.Matricula;
+import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
 import com.control.entity.Roles;
 import com.control.entity.TipoMatricula;
 import com.control.entity.Usuarios;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -29,10 +33,8 @@ import javax.faces.bean.ViewScoped;
 /**
  *
  * @author manuel.rodriguezusam
- * 
+ *
  */
-
-
 @ManagedBean
 @ViewScoped
 public class RegistroMatriculaMb {
@@ -54,20 +56,28 @@ public class RegistroMatriculaMb {
 
     private Empleados profesor;
 
+    private Map<String, String> opcionSelect;
+    private Map<String, String> esSelect;
+
     //LIST
     private List<Matricula> matriculaList;
     private List<Materias> materiasList;
     private List<Empleados> profesorList;
+    private List<Opciones> opcionesList;
+    private List<OpcionEspe> opEsList;
 
     //INTEGER
-    Integer idAlumno;
-    Integer idTipo;
-    Integer idOpcion;
-    Integer opcionEspe;
-    Integer idRol;
-    Integer idUser;
-    Integer idEstado;
-    Integer idEncargado;
+    private Integer idAlumno;
+    private Integer idTipo;
+    private Integer idOpcion;
+    private int opcionEspe;
+    private Integer idRol;
+    private Integer idUser;
+    private Integer idEstado;
+    private Integer idEncargado;
+
+    private String valorRol;
+
     Object[] id;
 
     //DAOS
@@ -75,6 +85,7 @@ public class RegistroMatriculaMb {
     private MatriculaDao matriculaDao;
     private MateriasDao materiasDao;
     private EmpleadosDao empDao;
+    private OpcionDao opDao;
 
     @PostConstruct
     public void init() {
@@ -94,57 +105,51 @@ public class RegistroMatriculaMb {
         matriculaList = new ArrayList<Matricula>();
         materiasList = new ArrayList<Materias>();
         profesorList = new ArrayList<Empleados>();
+        opcionesList = new ArrayList<Opciones>();
+        idRol = 0;
+        opcionSelect = new HashMap<String, String>();
+        esSelect = new HashMap<String, String>();
 
         //DAOS
         gd = new GenericDao();
         matriculaDao = new MatriculaDao();
         materiasDao = new MateriasDao();
         empDao = new EmpleadosDao();
+        opDao = new OpcionDao();
         //METODOS
         allMatricula();
 //        porAlumno();
 //        porOpcion();
 //        porTipo();
+obtenerOpcionEspecialidad();
+obtenerOpcionEspe();
     }
 
     public void guardar() {
 
-        System.out.println("id " + idAlumno);
-        
         //REGISTRO DE USUARIO
-        rol.setIdRol(idRol);
+        matriculaDao = new MatriculaDao();
+        gd = new GenericDao();
+
         usuario.setIdRol(rol);
-        System.out.println("el Rol del usuario es "+usuario.getIdRol().getRol());
-        
-        estado.setIdEstado(idEstado);
         usuario.setIdEstado(estado);
-        System.out.println("El estado del usuario es "+usuario.getIdEstado().getEstado());
-        
+
         //REGISTRO DE ALUMNO
         alumno.setIdEncargado(encargado);
         alumno.setIdUsuario(usuario);
-        System.out.println("El encargado del alumno es "+alumno.getIdEncargado().getPrimerNombre()+"y el usuario del alumno es "+alumno.getIdUsuario().getUsuario());
- //      -----------------------------------------
- //     REGISTRO DE MATRICULA       
-        
-        alumno.setIdAlumno(idAlumno);
+        //      -----------------------------------------
+        //     REGISTRO DE MATRICULA       
+
         matricula.setIdAlumno(alumno);
 
-        tipoMatricula.setIdTipoMat(idTipo);
+//        tipoMatricula.setIdTipoMat(idTipo);
         matricula.setIdTipo(tipoMatricula);
 
-        opcion.setIdOpcion(idOpcion);
+//        opcion.setIdOpcion(idOpcion);
         matricula.setIdOpcion(opcion);
         Matricula mat = new Matricula();
 
         profesorList = empDao.profXMateria(opcionEspe);
-
-        System.out.println("profesorList.get(0)  " + profesorList.get(3).getIdEmpleado());
-        System.out.println("todo se supone " + profesorList);
-
-        System.out.println("Tipo matricula " + idTipo);
-        System.out.println("Opcion  " + idOpcion);
-        System.out.println("Especialidad " + opcionEspe);
 
         int x = profesorList.size();
         System.out.println("x " + x);
@@ -161,11 +166,40 @@ public class RegistroMatriculaMb {
 //            listEva.add(evaluacion);
             evaluacion = (Evaluacion) gd.insertarEntidad(evaluacion);
         }
-        
-        encargado = (Encargados)gd.insertarEntidad(encargado);
-        usuario = (Usuarios)gd.insertarEntidad(usuario);
+
+        System.out.println("DATOS DE ALUMNOS: ");
+        System.out.println("ID ALUMNO : " + alumno.getIdAlumno());
+        System.out.println("primer nombre: " + alumno.getPrimerNombre());
+        System.out.println("primer nombre: " + alumno.getSegundoNombre());
+        System.out.println("primer nombre: " + alumno.getPrimerApellido());
+        System.out.println("primer nombre: " + alumno.getSegundoApellido());
+        System.out.println("ID DEL USUARIO: " + alumno.getIdUsuario().getIdUsuario());
+        System.out.println("ID DE ENCARGADO: " + alumno.getIdEncargado().getIdEncargado());
+
+        System.out.println("DATOS DE ENCARGADOS: ");
+        System.out.println("ID DE ENCARGADO " + encargado.getIdEncargado());
+        System.out.println("primer nombre " + encargado.getPrimerNombre());
+        System.out.println("segund nombre " + encargado.getSegundoNombre());
+        System.out.println("primer apellido " + encargado.getPrimerApellido());
+        System.out.println("segundo apellido " + encargado.getSegundoApellido());
+
+        System.out.println("DATOS DE USUARIO :");
+        System.out.println("usuario " + usuario.getUsuario());
+        System.out.println("pass " + usuario.getPass());
+        System.out.println("rol " + usuario.getIdRol().getIdRol());
+        System.out.println("estado " + usuario.getIdEstado().getIdEstado());
+
+        System.out.println("DATOS DE MATRICULA: ");
+        System.out.println("ALUMNO :" + matricula.getIdAlumno().getIdAlumno());
+        System.out.println("TIPO MATRICULA " + matricula.getIdTipo().getNombre());
+        System.out.println("OPCION " + matricula.getIdOpcion().getDescripcion());
+
+        encargado = (Encargados) gd.insertarEntidad(encargado);
+        usuario = (Usuarios) gd.insertarEntidad(usuario);
+        alumno = (Alumnos) gd.insertarEntidad(alumno);
+
         mat = (Matricula) gd.insertarEntidad(matricula);
-  
+
 // ----------------------------------------------------------------------
 //      
     }
@@ -190,6 +224,26 @@ public class RegistroMatriculaMb {
     public void porTipo() {
         matricula = new Matricula();
         matricula = matriculaDao.porTipo(idTipo);
+    }
+    
+    public void obtenerOpcionEspecialidad(){
+        opEsList = opDao.allOpcionEspe();
+        for(OpcionEspe op : opEsList){
+            esSelect.put(op.getDescripcion(), String.valueOf(op.getIdOpcionEspe()));
+        }
+    }
+
+    public void obtenerOpcionEspe() {
+        OpcionEspe opEs = new OpcionEspe();
+        opEs.setIdOpcionEspe(opcionEspe);
+        System.out.println("Valor del opcion especialdiad " + opcionEspe);
+        opcionesList = opDao.obtenerOpcionesXEspe(opcionEspe);
+        opcionSelect = new HashMap<String, String>();
+        for (Opciones o : opcionesList) {
+            opcionSelect.put(o.getDescripcion(), String.valueOf(o.getIdOpcion()));
+        }
+        System.out.println("OpcionList " + opcionesList.size());
+        System.out.println("OpcionSelect " + opcionSelect.size());
     }
 
     //GETTER Y SETTER
@@ -330,8 +384,6 @@ public class RegistroMatriculaMb {
         this.id = id;
     }
 
-   
-
     public Evaluacion getEvaluacion() {
         return evaluacion;
     }
@@ -426,6 +478,46 @@ public class RegistroMatriculaMb {
 
     public void setMatriculaDao(MatriculaDao matriculaDao) {
         this.matriculaDao = matriculaDao;
+    }
+
+    public String getValorRol() {
+        return valorRol;
+    }
+
+    public void setValorRol(String valorRol) {
+        this.valorRol = valorRol;
+    }
+
+    public Map<String, String> getOpcionSelect() {
+        return opcionSelect;
+    }
+
+    public void setOpcionSelect(Map<String, String> opcionSelect) {
+        this.opcionSelect = opcionSelect;
+    }
+
+    public List<Opciones> getOpcionesList() {
+        return opcionesList;
+    }
+
+    public void setOpcionesList(List<Opciones> opcionesList) {
+        this.opcionesList = opcionesList;
+    }
+
+    public OpcionDao getOpDao() {
+        return opDao;
+    }
+
+    public void setOpDao(OpcionDao opDao) {
+        this.opDao = opDao;
+    }
+
+    public Map<String, String> getEsSelect() {
+        return esSelect;
+    }
+
+    public void setEsSelect(Map<String, String> esSelect) {
+        this.esSelect = esSelect;
     }
 
 }

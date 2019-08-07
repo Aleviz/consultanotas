@@ -10,33 +10,191 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Facelet Title</title>
+        <style>
+            body{
+                background-color: #5c5c5c;
+            }
+        </style>
     </h:head>
     <h:body>
         <h:form>
-            <p:panelGrid columns="2">
-
-                <p:outputLabel value="ID del Alumno"/>
-                <p:inputText value="#{registroMatriculaMB.idAlumno}"/>
-
-                <p:outputLabel value="Seleccion el tipo de matricula"/>
-                <p:selectOneMenu value="#{registroMatriculaMB.idTipo}">
-                    <f:selectItem itemLabel="Nuevo Ingreso" itemValue="1" />
-                    <f:selectItem itemLabel="Antiguo Ingreso" itemValue="2" />
-                </p:selectOneMenu>
-                
-                <p:outputLabel value="Ubicacion"/>
-                <p:inputText value="#{registroMatriculaMB.idOpcion}"/>
-                
-                <p:outputLabel value="Fecha de Matricula"/>
-                <p:calendar value="#{registroMatriculaMB.matricula.fechaMatricula}"/>
-
-            </p:panelGrid>
-
+            <div style="margin-bottom: 10px;">
+                <p:menubar>
+                    <p:menuitem value="Inicio" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Empleados" url="Empleados.xhtml" style="font-size: 18px;"/>
+                    <f:facet name="options">
+                        <p:commandButton value="Login" action="Login.xhtml"/>
+                    </f:facet>
+                </p:menubar>
+            </div>
         </h:form>
-        <p:commandButton value="Matricular" action="#{registroMatriculaMB.guardar()}"/>
+        <h:form id="formAddMatr">
+            <p:growl id="growlAdd"/>
+            <p:wizard backLabel="Atras" nextLabel="Siguiente">
+                <p:tab>
+                    <p:panel header="Datos de Alumno">
+                        <center>
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Primer Nombre"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.primerNombre}" id="error1" required="true"/>
+                                <p:message for="error1" display="icon"/>
+
+                                <p:outputLabel value="Segundo Nombre"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.segundoNombre}" id="error2" required="true"/>
+                                <p:message for="error2" display="icon"/>
+
+                                <p:outputLabel value="Primer Apellido"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.primerApellido}" id="error3" required="true"/>
+                                <p:message for="error3" display="icon"/>
+
+                                <p:outputLabel value="Segudo Apellido"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.segundoApellido}" id="error4" required="true"/>
+                                <p:message for="error4" display="icon"/>
+
+                                <p:outputLabel value="Fecha de Nacimiento"/>
+                                <p:calendar value="#{registroMatriculaMb.alumno.fechaNacimiento}" id="error5" required="true"/>
+                                <p:message for="error5" display="icon"/>
+
+                                <p:outputLabel value="Telefono"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.telefono}" id="error6" required="true"/>
+                                <p:message for="error6" display="icon"/>
+
+                                <p:outputLabel value="Direccion"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.direccion}" id="error7" required="true"/>
+                                <p:message for="error7" display="icon"/>
+
+                                <p:outputLabel value="Carnet"/>
+                                <p:inputText value="#{registroMatriculaMb.alumno.carnet}" id="error8" required="true"/>
+                                <p:message for="error8" display="icon"/>
+                            </h:panelGrid>
+                        </center>
+                    </p:panel>
+                </p:tab>
+                <p:tab>
+                    <p:panel header="Datos de Encargado">
+                        <center>
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Primer Nombre"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.primerNombre}" id="error9" required="true"/>
+                                <p:message for="error9" display="icon"/>
 
 
-    </h:body>
+                                <p:outputLabel value="Segundo Nombre"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.segundoNombre}" id="error10" required="true"/>
+                                <p:message for="error10" display="icon"/>
+
+
+                                <p:outputLabel value="Primer Apellido"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.primerApellido}" id="error11" required="true"/>
+                                <p:message for="error11" display="icon"/>
+
+
+                                <p:outputLabel value="Segudo Apellido"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.segundoApellido}" id="error12" required="true"/>
+                                <p:message for="error12" display="icon"/>
+
+
+                                <p:outputLabel value="DUI"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.dui}" id="error13" required="true"/>
+                                <p:message for="error13" display="icon"/>
+
+
+                                <p:outputLabel value="NIT"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.nit}" id="error14" required="true"/>
+                                <p:message for="error14" display="icon"/>
+
+
+                                <p:outputLabel value="Telefono"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.telefono}" id="error15" required="true"/>
+                                <p:message for="error15" display="icon"/>
+
+
+                                <p:outputLabel value="Direccion"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.direccion}" id="error16" required="true"/>
+                                <p:message for="error16" display="icon"/>
+
+
+                                <p:outputLabel value="Edad"/>
+                                <p:inputText value="#{registroMatriculaMb.encargado.edad}" id="error17" required="true"/>
+                                <p:message for="error17" display="icon"/>
+
+                            </h:panelGrid>
+                        </center>
+                    </p:panel>
+                </p:tab>
+                <p:tab>
+                    <p:panel header="Registro de Usuario">
+                        <center>
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Usuario"/>
+                                <p:inputText value="#{registroMatriculaMb.usuario.usuario}" id="error18" required="true"/>
+                                <p:message for="error18" display="icon"/>
+
+
+                                <p:outputLabel value="Pass"/>
+                                <p:password value="#{registroMatriculaMb.usuario.pass}" id="error19" required="true"/>
+                                <p:message for="error19" display="icon"/>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Alumno"/>
+                                <p:selectOneMenu value="#{registroMatriculaMb.rol.idRol}">
+                                    <f:selectItem itemLabel="Alumno" itemValue="5"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Estado"/>
+                                <p:selectOneMenu value="#{registroMatriculaMb.estado.idEstado}">
+                                    <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                </p:selectOneMenu>
+
+
+                            </h:panelGrid>
+                        </center>
+                    </p:panel>
+                </p:tab>
+                <p:tab>
+                    <p:panel header="Registro de matricula">
+                        <center>
+                            <h:panelGrid columns="2">
+
+                                <p:outputLabel value="Seleccion el tipo de matricula"/>
+                                <p:selectOneMenu value="#{registroMatriculaMb.tipoMatricula.idTipoMat}">
+                                    <f:selectItem itemLabel="Nuevo Ingreso" itemValue="1" />
+                                    <f:selectItem itemLabel="Antiguo Ingreso" itemValue="2" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Opcion"/>
+                                <p:selectOneMenu value="#{registroMatriculaMb.opcionEspe}">
+                                    <p:ajax event="valueChange" listener="#{registroMatriculaMb.obtenerOpcionEspe()}" update="formAddMatr:opes"/>
+                                    <f:selectItem itemLabel="Seleccione una opcion" itemValue="0"/>
+                                    
+                                    <f:selectItems value="#{registroMatriculaMb.esSelect}"/>
+
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Seccion"/>
+                            <p:selectOneMenu id="opes" value="#{registroMatriculaMb.opcion.idOpcion}">
+                                <f:selectItem itemLabel="Seleccione la seccion" itemValue="0"/>
+                                <f:selectItems value="#{registroMatriculaMb.opcionSelect}"/>
+
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <h:panelGrid columns="3">
+                            <p:outputLabel value="Fecha de Matricula" />
+                            <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}" id="error20" required="true"/>
+                            <p:message for="error20" display="icon"/>
+                        </h:panelGrid>
+                    </center>
+                </p:panel>
+                <p:commandButton value="Matricular" action="#{registroMatriculaMb.guardar()}"/>
+            </p:tab>
+        </p:wizard>
+    </h:form>
+
+
+
+</h:body>
 </html>

@@ -36,7 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Opciones.findByIdOpcion", query = "SELECT o FROM Opciones o WHERE o.idOpcion = :idOpcion")
     , @NamedQuery(name = "Opciones.findBySeccion", query = "SELECT o FROM Opciones o WHERE o.seccion = :seccion")
     , @NamedQuery(name = "Opciones.findByA\u00f1o", query = "SELECT o FROM Opciones o WHERE o.a\u00f1o = :a\u00f1o")
-    , @NamedQuery(name = "Opciones.findByDescripcion", query = "SELECT o FROM Opciones o WHERE o.descripcion = :descripcion")})
+    , @NamedQuery(name = "Opciones.findByDescripcion", query = "SELECT o FROM Opciones o WHERE o.descripcion = :descripcion")
+    , @NamedQuery(name= "Opciones.findAllxOpcionEspe", query = "SELECT o FROM Opciones o WHERE o.idOpcionEspe.idOpcionEspe = :idOpcionEspe")
+})
 public class Opciones implements Serializable {
 
     private static final long serialVersionUID = 1L;

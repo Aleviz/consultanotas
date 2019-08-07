@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,19 +44,25 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_usuario")
     private Integer idUsuario;
+    
     @Size(max = 50)
     @Column(name = "usuario")
     private String usuario;
+    
     @Size(max = 250)
     @Column(name = "pass")
     private String pass;
-    @OneToMany(mappedBy = "idUsuario")
+    
+    @OneToMany(mappedBy = "idUsuario" , cascade = CascadeType.PERSIST)
     private List<Alumnos> alumnosList;
-    @OneToMany(mappedBy = "idUsuario")
+    
+    @OneToMany(mappedBy = "idUsuario" ,cascade = CascadeType.PERSIST)
     private List<Empleados> empleadosList;
+    
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne
     private Estados idEstado;
+    
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne
     private Roles idRol;

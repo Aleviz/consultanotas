@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexander.emesticaus
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "alumnos")
@@ -53,39 +53,51 @@ public class Alumnos implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_alumno")
     private Integer idAlumno;
+    
     @Size(max = 30)
     @Column(name = "primer_nombre")
     private String primerNombre;
+    
     @Size(max = 30)
     @Column(name = "segundo_nombre")
     private String segundoNombre;
+    
     @Size(max = 30)
     @Column(name = "primer_apellido")
     private String primerApellido;
+    
     @Size(max = 30)
     @Column(name = "segundo_apellido")
     private String segundoApellido;
+    
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
+    
     @Size(max = 9)
     @Column(name = "telefono")
     private String telefono;
+    
     @Size(max = 250)
     @Column(name = "direccion")
     private String direccion;
+    
     @Size(max = 15)
     @Column(name = "carnet")
     private String carnet;
+    
     @JoinColumn(name = "id_encargado", referencedColumnName = "id_encargado")
     @ManyToOne
     private Encargados idEncargado;
+    
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuarios idUsuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAlumno")
+    
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idAlumno")
     private List<Evaluacion> evaluacionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAlumno")
+    
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idAlumno")
     private List<Matricula> matriculaList;
 
     public Alumnos() {

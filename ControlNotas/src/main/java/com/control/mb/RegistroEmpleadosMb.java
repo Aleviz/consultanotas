@@ -172,6 +172,10 @@ public class RegistroEmpleadosMb {
     }
 
     public void actualizarUsuarios() {
+        
+        Estados idEstado = new Estados();
+        idEstado.setIdEstado(idEstadoVista);
+        usuarios.setIdEstado(idEstado);
 
         Roles idRoles = new Roles();
         idRoles.setIdRol(idRolVista);

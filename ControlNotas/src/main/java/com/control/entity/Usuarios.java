@@ -26,10 +26,14 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  *
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @author alexander.emesticaus
 =======
  * @author david.rodriguezusam
 >>>>>>> Developer
+=======
+ * @author alexander.emesticaus
+>>>>>>> parent of f2c08fd... Merge branch 'FeaturesM' into Developer
  */
 @Entity
 @Table(name = "usuarios")

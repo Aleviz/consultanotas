@@ -5,21 +5,12 @@
  */
 package com.control.mb;
 
-import com.control.dao.EmpleadosDao;
 import com.control.dao.GenericDao;
-import com.control.dao.MateriasDao;
 import com.control.dao.MatriculaDao;
 import com.control.entity.Alumnos;
-import com.control.entity.Empleados;
-import com.control.entity.Encargados;
-import com.control.entity.Estados;
-import com.control.entity.Evaluacion;
-import com.control.entity.Materias;
 import com.control.entity.Matricula;
-import com.control.entity.Opciones;
-import com.control.entity.Roles;
+import com.control.entity.Opcion;
 import com.control.entity.TipoMatricula;
-import com.control.entity.Usuarios;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -29,10 +20,7 @@ import javax.faces.bean.ViewScoped;
 /**
  *
  * @author manuel.rodriguezusam
- * 
  */
-
-
 @ManagedBean
 @ViewScoped
 public class RegistroMatriculaMb {
@@ -41,188 +29,76 @@ public class RegistroMatriculaMb {
     private Matricula matricula;
     private Alumnos alumno;
     private TipoMatricula tipoMatricula;
-    private Opciones opcion;
-    private Usuarios usuario;
-    private Roles rol;
-    private Estados estado;
-    private Encargados encargado;
-
-    private Evaluacion evaluacion;
-    private List<Evaluacion> listEva;
-
-    private Materias materias;
-
-    private Empleados profesor;
+    private Opcion opcion;
 
     //LIST
     private List<Matricula> matriculaList;
-    private List<Materias> materiasList;
-    private List<Empleados> profesorList;
 
     //INTEGER
-    Integer idAlumno;
-    Integer idTipo;
-    Integer idOpcion;
-    Integer opcionEspe;
-    Integer idRol;
-    Integer idUser;
-    Integer idEstado;
-    Integer idEncargado;
-    Object[] id;
+    private int idAlumno;
+    private int idTipo;
+    private int idOpcion;
 
     //DAOS
     private GenericDao gd;
     private MatriculaDao matriculaDao;
-    private MateriasDao materiasDao;
-    private EmpleadosDao empDao;
 
     @PostConstruct
     public void init() {
-        System.out.println("porque no me agarra ");
+
         //ENTITY
         matricula = new Matricula();
         alumno = new Alumnos();
         tipoMatricula = new TipoMatricula();
-        opcion = new Opciones();
-        materias = new Materias();
-        profesor = new Empleados();
-        usuario = new Usuarios();
-        rol = new Roles();
-        estado = new Estados();
-        encargado = new Encargados();
+        opcion = new Opcion();
+
         //LIST
         matriculaList = new ArrayList<Matricula>();
-        materiasList = new ArrayList<Materias>();
-        profesorList = new ArrayList<Empleados>();
+
+        //INTEGER
+        idAlumno = 0;
+        idTipo = 0;
+        idOpcion = 0;
 
         //DAOS
         gd = new GenericDao();
         matriculaDao = new MatriculaDao();
-        materiasDao = new MateriasDao();
-        empDao = new EmpleadosDao();
+        
         //METODOS
         allMatricula();
-//        porAlumno();
-//        porOpcion();
-//        porTipo();
+        porAlumno();
+        porOpcion();
+        porTipo();
     }
-
-    public void guardar() {
-
-        System.out.println("id " + idAlumno);
-        
-        //REGISTRO DE USUARIO
-        rol.setIdRol(idRol);
-        usuario.setIdRol(rol);
-        System.out.println("el Rol del usuario es "+usuario.getIdRol().getRol());
-        
-        estado.setIdEstado(idEstado);
-        usuario.setIdEstado(estado);
-        System.out.println("El estado del usuario es "+usuario.getIdEstado().getEstado());
-        
-        //REGISTRO DE ALUMNO
-        alumno.setIdEncargado(encargado);
-        alumno.setIdUsuario(usuario);
-        System.out.println("El encargado del alumno es "+alumno.getIdEncargado().getPrimerNombre()+"y el usuario del alumno es "+alumno.getIdUsuario().getUsuario());
- //      -----------------------------------------
- //     REGISTRO DE MATRICULA       
-        
+    
+    public void guardar(){
+    
         alumno.setIdAlumno(idAlumno);
         matricula.setIdAlumno(alumno);
-
+        
         tipoMatricula.setIdTipoMat(idTipo);
         matricula.setIdTipo(tipoMatricula);
-
+        
         opcion.setIdOpcion(idOpcion);
         matricula.setIdOpcion(opcion);
-        Matricula mat = new Matricula();
-
-        profesorList = empDao.profXMateria(opcionEspe);
-
-        System.out.println("profesorList.get(0)  " + profesorList.get(3).getIdEmpleado());
-        System.out.println("todo se supone " + profesorList);
-
-        System.out.println("Tipo matricula " + idTipo);
-        System.out.println("Opcion  " + idOpcion);
-        System.out.println("Especialidad " + opcionEspe);
-
-        int x = profesorList.size();
-        System.out.println("x " + x);
-
-        for (int i = 0; i < x; i++) {
-            evaluacion = new Evaluacion();
-            System.out.println("ENTRO AL FOR");
-            Empleados profe = profesorList.get(i);
-            int idpr = profe.getIdEmpleado();
-
-            System.out.println("idpr " + idpr);
-            evaluacion.setIdAlumno(alumno);
-            evaluacion.setIdProfesor(profe);
-//            listEva.add(evaluacion);
-            evaluacion = (Evaluacion) gd.insertarEntidad(evaluacion);
-        }
         
-        encargado = (Encargados)gd.insertarEntidad(encargado);
-        usuario = (Usuarios)gd.insertarEntidad(usuario);
-        mat = (Matricula) gd.insertarEntidad(matricula);
-  
-// ----------------------------------------------------------------------
-//      
+        matricula = (Matricula)gd.insertarEntidad(matricula);
     }
-
-    public void allMatricula() {
-        System.out.println("holaaaaaaaaaaaaa");
-
+    
+    public void allMatricula(){
         matriculaList = matriculaDao.matriculaAll();
-        System.out.println("matricula lista " + matriculaList.size());
     }
-
-    public void porAlumno() {
-        matricula = new Matricula();
-        matricula = matriculaDao.porAlumno(idAlumno);
+    
+    public void porAlumno(){
+        matricula =  matriculaDao.porAlumno(idAlumno);
     }
-
-    public void porOpcion() {
-        matricula = new Matricula();
+    
+    public void porOpcion(){
         matricula = matriculaDao.porOpcion(idOpcion);
     }
 
-    public void porTipo() {
-        matricula = new Matricula();
+    public void porTipo(){
         matricula = matriculaDao.porTipo(idTipo);
-    }
-
-    //GETTER Y SETTER
-    public Integer getIdAlumno() {
-        if (idAlumno == null) {
-
-            System.out.println("NULOOOO IDALUMNO");
-        } else {
-            System.out.println("No viene nulo");
-        }
-        return idAlumno;
-
-    }
-
-    public void setIdAlumno(Integer idAlumno) {
-        this.idAlumno = idAlumno;
-    }
-
-    public Integer getIdTipo() {
-
-        return idTipo;
-    }
-
-    public void setIdTipo(Integer idTipo) {
-        this.idTipo = idTipo;
-    }
-
-    public Integer getIdOpcion() {
-        return idOpcion;
-    }
-
-    public void setIdOpcion(Integer idOpcion) {
-        this.idOpcion = idOpcion;
     }
 
     public Matricula getMatricula() {
@@ -234,7 +110,6 @@ public class RegistroMatriculaMb {
     }
 
     public Alumnos getAlumno() {
-
         return alumno;
     }
 
@@ -258,6 +133,7 @@ public class RegistroMatriculaMb {
         this.opcion = opcion;
     }
 
+<<<<<<< HEAD
     public Usuarios getUsuario() {
         return usuario;
     }
@@ -382,34 +258,38 @@ public class RegistroMatriculaMb {
 
     public Integer getOpcionEspe() {
         return opcionEspe;
-    }
-
-    public void setOpcionEspe(Integer opcionEspe) {
-        this.opcionEspe = opcionEspe;
-    }
-
-    public MateriasDao getMateriasDao() {
-        return materiasDao;
-    }
-
-    public void setMateriasDao(MateriasDao materiasDao) {
-        this.materiasDao = materiasDao;
-    }
-
-    public EmpleadosDao getEmpDao() {
-        return empDao;
-    }
-
-    public void setEmpDao(EmpleadosDao empDao) {
-        this.empDao = empDao;
-    }
-
+=======
     public List<Matricula> getMatriculaList() {
         return matriculaList;
+>>>>>>> parent of f2c08fd... Merge branch 'FeaturesM' into Developer
     }
 
     public void setMatriculaList(List<Matricula> matriculaList) {
         this.matriculaList = matriculaList;
+    }
+
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public int getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(int idTipo) {
+        this.idTipo = idTipo;
+    }
+
+    public int getIdOpcion() {
+        return idOpcion;
+    }
+
+    public void setIdOpcion(int idOpcion) {
+        this.idOpcion = idOpcion;
     }
 
     public GenericDao getGd() {
@@ -427,5 +307,6 @@ public class RegistroMatriculaMb {
     public void setMatriculaDao(MatriculaDao matriculaDao) {
         this.matriculaDao = matriculaDao;
     }
-
+    
+    
 }

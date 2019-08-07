@@ -5,7 +5,7 @@
  */
 package com.control.dao;
 
-import com.control.entity.Opciones;
+import com.control.entity.Opcion;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,10 +19,10 @@ public class OpcionesDao {
      EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
     EntityManager em = f.createEntityManager();
 
-    private Opciones op;
-    private List<Opciones> opList;
+    private Opcion op;
+    private List<Opcion> opList;
 
-    public List<Opciones> allOpcion() {
+    public List<Opcion> allOpcion() {
         try {
             opList = em.createNamedQuery("Opcion.findAll").getResultList();
         } catch (Exception e) {
@@ -31,10 +31,10 @@ public class OpcionesDao {
         return opList;
     }
     
-    public Opciones porOpcion(int opcion){
+    public Opcion porOpcion(int opcion){
         String sql = "SELECT o.id_opcion, o.id_especialidad, o.seccion, o.año, o.descripcion FROM opcion o WHERE o.id_opcion ="+opcion;
         try {
-            op = (Opciones)em.createNativeQuery(sql, Opciones.class).getSingleResult();
+            op = (Opcion)em.createNativeQuery(sql, Opcion.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,10 +42,10 @@ public class OpcionesDao {
     }
 
     
-    public String eliminarOpcion(Opciones op){
+    public String eliminarOpcion(Opcion op){
         String mensaje ="";
         try {
-            em.remove(em.find(Opciones.class, op.getIdOpcion()));
+            em.remove(em.find(Opcion.class, op.getIdOpcion()));
             mensaje = "Exito";
         } catch (Exception e) {
             e.printStackTrace();

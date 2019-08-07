@@ -20,7 +20,7 @@
                     <p:menuitem value="Usuarios" url="Usuarios.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Empleados" url="Empleados.xhtml" style="font-size: 18px;"/>
                     <f:facet name="options">
-                        <p:commandButton value="Login" action="Login.xhtml" style="margin-top: 2.5px;"/>
+                        <p:commandButton value="Login" action="Login.xhtml"/>
                     </f:facet>
                 </p:menubar>
             </div>
@@ -119,8 +119,9 @@
                     <p:column headerText="Direccion"/>
                     <p:column headerText="Correo"/>
                     <p:column headerText="DUI" width="75"/>
+                    <p:column headerText="NIT"/>
                     <p:column headerText="Materia"/>
-                    <p:column headerText="" width="30"/>
+                    <p:column headerText=""/>
                 </p:columnGroup>
                 <p:column >
                     <p:outputLabel value="#{empleados.idEmpleado}"/>
@@ -150,14 +151,17 @@
                     <p:outputLabel value="#{empleados.dui}"/>
                 </p:column>
                 <p:column >
+                    <p:outputLabel value="#{empleados.nit}"/>
+                </p:column>
+                <p:column >
                     <p:outputLabel value="#{empleados.idMateria.materia}"/>
                 </p:column>
                 <p:column>
-                    <p:commandButton icon="fa fa-fw fa-edit" action="#{registroEmpleadosMb.selectByIdEmpleado(empleados)}" oncomplete="PF('updateEmpleado').show()" update="dialogEmpleados" style="width: 30px;"/>
+                    <p:commandButton value="Actualizar" action="#{registroEmpleadosMb.selectByIdEmpleado(empleados)}" oncomplete="PF('updateEmpleado').show()" update="dialogEmpleados"/>
                 </p:column>
             </p:dataTable>
         </h:form>
-        <p:dialog header="Actualizar Usuarios" id="dialogEmpleados" widgetVar="updateEmpleado" modal="true">
+        <p:dialog header="Actualizar Usuarios" id="dialogEmpleados" widgetVar="updateEmpleado">
             <h:form>
                 <center>
                     <h:panelGrid columns="3">

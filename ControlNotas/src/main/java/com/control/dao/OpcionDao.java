@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
  *
  * @author manuel.rodriguezusam
  */
-public class OpcionesDao {
+public class OpcionDao {
      EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
     EntityManager em = f.createEntityManager();
 

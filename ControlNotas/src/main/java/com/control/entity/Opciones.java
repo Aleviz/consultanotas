@@ -26,11 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
-<<<<<<< HEAD:ControlNotas/src/main/java/com/control/entity/Opcion.java
- * @author david.rodriguezusam
-=======
- * @author alexander.emesticaus
->>>>>>> Developer:ControlNotas/src/main/java/com/control/entity/Opciones.java
+ * @author manuel.rodriguezusam
  */
 @Entity
 @Table(name = "opciones")
@@ -49,17 +45,22 @@ public class Opciones implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_opcion")
     private Integer idOpcion;
+    
     @Size(max = 3)
     @Column(name = "seccion")
     private String seccion;
+    
     @Column(name = "a\u00f1o")
     private Integer año;
+    
     @Size(max = 250)
     @Column(name = "descripcion")
     private String descripcion;
+    
     @JoinColumn(name = "id_opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne(optional = false)
     private OpcionEspe idOpcionEspe;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOpcion")
     private List<Matricula> matriculaList;
 

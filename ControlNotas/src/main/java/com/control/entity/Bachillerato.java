@@ -45,7 +45,7 @@ public class Bachillerato implements Serializable {
     private Character seccionBachillerato;
     @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
     @ManyToOne
-    private Especialidades idEspecialidad;
+    private Especialidad idEspecialidad;
 
     public Bachillerato() {
     }
@@ -78,11 +78,11 @@ public class Bachillerato implements Serializable {
         this.seccionBachillerato = seccionBachillerato;
     }
 
-    public Especialidades getIdEspecialidad() {
+    public Especialidad getIdEspecialidad() {
         return idEspecialidad;
     }
 
-    public void setIdEspecialidad(Especialidades idEspecialidad) {
+    public void setIdEspecialidad(Especialidad idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
     }
 

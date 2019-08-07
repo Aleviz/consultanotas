@@ -14,14 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author manuel.rodriguezusam
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class LoginMB {
 
     //ENTITY
@@ -156,12 +157,17 @@ public class LoginMB {
                     alumno = usuario.getAlumnosList().get(0);
                 }
             }
-            return "prueba.xhtml";
+            return "index.xhtml";
         }
 
         usuario = new Usuarios();
-        return "acceso.xhtml";
+        return "Login.xhtml";
 
+    }
+    
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/Login.xhtml?faces-redirect=true";
     }
 
     public AccesoDao getAcces() {

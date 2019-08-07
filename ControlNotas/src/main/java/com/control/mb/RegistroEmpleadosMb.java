@@ -18,7 +18,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
  * @author alexander.emesticaus
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class RegistroEmpleadosMb {
 
     FacesMessage msg = new FacesMessage();

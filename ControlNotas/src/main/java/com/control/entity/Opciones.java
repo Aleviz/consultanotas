@@ -26,18 +26,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
+<<<<<<< HEAD:ControlNotas/src/main/java/com/control/entity/Opcion.java
  * @author david.rodriguezusam
+=======
+ * @author alexander.emesticaus
+>>>>>>> Developer:ControlNotas/src/main/java/com/control/entity/Opciones.java
  */
 @Entity
-@Table(name = "opcion")
+@Table(name = "opciones")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Opcion.findAll", query = "SELECT o FROM Opcion o")
-    , @NamedQuery(name = "Opcion.findByIdOpcion", query = "SELECT o FROM Opcion o WHERE o.idOpcion = :idOpcion")
-    , @NamedQuery(name = "Opcion.findBySeccion", query = "SELECT o FROM Opcion o WHERE o.seccion = :seccion")
-    , @NamedQuery(name = "Opcion.findByA\u00f1o", query = "SELECT o FROM Opcion o WHERE o.a\u00f1o = :a\u00f1o")
-    , @NamedQuery(name = "Opcion.findByDescripcion", query = "SELECT o FROM Opcion o WHERE o.descripcion = :descripcion")})
-public class Opcion implements Serializable {
+    @NamedQuery(name = "Opciones.findAll", query = "SELECT o FROM Opciones o")
+    , @NamedQuery(name = "Opciones.findByIdOpcion", query = "SELECT o FROM Opciones o WHERE o.idOpcion = :idOpcion")
+    , @NamedQuery(name = "Opciones.findBySeccion", query = "SELECT o FROM Opciones o WHERE o.seccion = :seccion")
+    , @NamedQuery(name = "Opciones.findByA\u00f1o", query = "SELECT o FROM Opciones o WHERE o.a\u00f1o = :a\u00f1o")
+    , @NamedQuery(name = "Opciones.findByDescripcion", query = "SELECT o FROM Opciones o WHERE o.descripcion = :descripcion")})
+public class Opciones implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,16 +57,16 @@ public class Opcion implements Serializable {
     @Size(max = 250)
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
+    @JoinColumn(name = "id_opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne(optional = false)
-    private Especialidad idEspecialidad;
+    private OpcionEspe idOpcionEspe;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOpcion")
     private List<Matricula> matriculaList;
 
-    public Opcion() {
+    public Opciones() {
     }
 
-    public Opcion(Integer idOpcion) {
+    public Opciones(Integer idOpcion) {
         this.idOpcion = idOpcion;
     }
 
@@ -98,12 +102,12 @@ public class Opcion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Especialidad getIdEspecialidad() {
-        return idEspecialidad;
+    public OpcionEspe getIdOpcionEspe() {
+        return idOpcionEspe;
     }
 
-    public void setIdEspecialidad(Especialidad idEspecialidad) {
-        this.idEspecialidad = idEspecialidad;
+    public void setIdOpcionEspe(OpcionEspe idOpcionEspe) {
+        this.idOpcionEspe = idOpcionEspe;
     }
 
     @XmlTransient
@@ -125,10 +129,10 @@ public class Opcion implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Opcion)) {
+        if (!(object instanceof Opciones)) {
             return false;
         }
-        Opcion other = (Opcion) object;
+        Opciones other = (Opciones) object;
         if ((this.idOpcion == null && other.idOpcion != null) || (this.idOpcion != null && !this.idOpcion.equals(other.idOpcion))) {
             return false;
         }
@@ -137,7 +141,7 @@ public class Opcion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.control.entity.Opcion[ idOpcion=" + idOpcion + " ]";
+        return "com.control.entity.Opciones[ idOpcion=" + idOpcion + " ]";
     }
     
 }

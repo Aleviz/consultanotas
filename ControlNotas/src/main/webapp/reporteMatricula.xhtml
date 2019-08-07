@@ -19,23 +19,23 @@ and open the template in the editor.
                 <p:panelGrid columns="2">
 
                     <p:column headerText="ID" >
-                        <p:outputLabel value="#{registroMatriculaMB.matricula.idMatricula}"/>
+                        <p:outputLabel value="#{ver.idMatricula}"/>
                     </p:column>
 
                     <p:column headerText="Primer apellido del Alumno">
-                        <p:outputLabel value="#{registroMatriculaMB.matricula.idAlumno.primerApellido}"/>
+                        <p:outputLabel value="#{ver.idAlumno.primerApellido}"/>
                     </p:column>
 
                     <p:column headerText="Tipo de Matricula">
-                        <p:outputLabel value="#{registroMatriculaMB.matricula.tipoMat}"/>
+                        <p:outputLabel value="#{ver.idTipo.nombre}"/>
                     </p:column>
                     
                     <p:column headerText="Tipo de Bachillerato">
-                        <p:outputLabel value="#{registroMatriculaMB.matricula.idBachillerato.seccionBachillerato}"/>
+                        <p:outputLabel value="#{ver.idOpcion.seccion}"/>
                     </p:column>
 
                     <p:column headerText="Fecha de la matricula">
-                        <p:outputLabel value="#{registroMatriculaMB.matricula.fechaMatricula}"/>
+                        <p:outputLabel value="#{ver.fechaMatricula}"/>
                     </p:column>
                     
                 </p:panelGrid>

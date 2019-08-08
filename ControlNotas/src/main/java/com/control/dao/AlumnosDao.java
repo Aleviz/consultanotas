@@ -6,7 +6,6 @@
 package com.control.dao;
 
 import com.control.entity.Alumnos;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +24,6 @@ public class AlumnosDao {
     
     private Alumnos alumnos;
     private List<Alumnos> alumnosList;
-    private List<Alumnos> alumnosXGradoList;
     
     public List<Alumnos> allAlumnos(){
         try {
@@ -35,11 +33,11 @@ public class AlumnosDao {
         }
         return alumnosList;
     }
-        
+    
     public Alumnos porAlumnos(int idAlumno){
-        String sql = "SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_alumno="+idAlumno;
+        String sql = "SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_alumnos="+idAlumno;
         try {
-            alumnos = (Alumnos)em.createNativeQuery(sql,Alumnos.class).getSingleResult();
+            alumnos = (Alumnos)em.createNativeQuery(sql).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }

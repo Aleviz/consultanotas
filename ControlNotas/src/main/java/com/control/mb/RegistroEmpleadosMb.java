@@ -11,6 +11,7 @@ import com.control.entity.Estados;
 import com.control.entity.Materias;
 import com.control.entity.Roles;
 import com.control.entity.Usuarios;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class RegistroEmpleadosMb {
+public class RegistroEmpleadosMb implements Serializable{
 
     FacesMessage msg = new FacesMessage();
 
@@ -110,6 +111,7 @@ public class RegistroEmpleadosMb {
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
         mostrarEmpleados();
+        mostrarUsuarios();
     }
 
     public void mostrarEmpleados() {

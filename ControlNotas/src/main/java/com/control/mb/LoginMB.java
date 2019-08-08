@@ -28,7 +28,7 @@ public class LoginMB implements Serializable{
 
     //ENTITY
     private Usuarios usuario;
-    private String rol;
+    private Integer rol;
     private Alumnos alumno;
     private Empleados empleado;
 
@@ -84,10 +84,10 @@ public class LoginMB implements Serializable{
         usuario = acces.logeado(usuariio, pass);
 
         if (usuario != null) {
-            rol = usuario.getIdRol().getRol();
+            rol = usuario.getIdRol().getIdRol();
             System.out.println("USUARIO LOGEADO");
 
-            if (rol.equalsIgnoreCase("Director")) {
+            if (rol==1) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = true;
@@ -98,13 +98,13 @@ public class LoginMB implements Serializable{
                 System.out.println("ES::::::::::::::::");
 
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                    System.out.println("ACA:::::::::::");
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                    System.out.println("ACA:::::::::::");
+//                }
                 System.out.println("END::::::::::::::::");
 
-            } else if (rol.equalsIgnoreCase("Sub-Director")) {
+            } else if (rol==2) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -114,11 +114,11 @@ public class LoginMB implements Serializable{
                 direcXSub = true;
                 System.out.println("sub::::::::::::::");
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                }
 
-            } else if (rol.equalsIgnoreCase("Empleado")) {
+            } else if (rol==4) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -128,11 +128,11 @@ public class LoginMB implements Serializable{
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                }
 
-            } else if (rol.equalsIgnoreCase("Docente")) {
+            } else if (rol==3) {
                 esAlumno = false;
                 esProfesor = true;
                 esDirector = false;
@@ -142,11 +142,11 @@ public class LoginMB implements Serializable{
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                }
 
-            } else if (rol.equalsIgnoreCase("Alumno")) {
+            } else if (rol==5) {
                 esAlumno = true;
                 esProfesor = false;
                 esDirector = false;
@@ -157,9 +157,9 @@ public class LoginMB implements Serializable{
 
                 usuario.getAlumnosList();
 
-                if (usuario.getAlumnosList().get(0) != null) {
-                    alumno = usuario.getAlumnosList().get(0);
-                }
+//                if (usuario.getAlumnosList().get(0) != null) {
+//                    alumno = usuario.getAlumnosList().get(0);
+//                }
             }
             System.out.println("IR::::::::::");
             return "index.xhtml";
@@ -225,13 +225,15 @@ public class LoginMB implements Serializable{
         this.usuarioDao = usuarioDao;
     }
 
-    public String getRol() {
+    public Integer getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Integer rol) {
         this.rol = rol;
     }
+    
+    
 
     public boolean isEsAlumno() {
         return esAlumno;

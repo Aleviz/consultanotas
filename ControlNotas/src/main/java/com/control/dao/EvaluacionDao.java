@@ -38,6 +38,16 @@ public class EvaluacionDao {
         }
         return evaluacion;
     }
+    
+      public Evaluacion porAlumnos(int idAlumno, int idProfesor){
+        String sql = "SELECT * FROM bdcne.evaluacion where id_alumno="+idAlumno+" and id_profesor="+idProfesor;
+        try {
+            evaluacion = (Evaluacion)em.createNativeQuery(sql,Evaluacion.class).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return evaluacion;
+    }
 
     public String eliminarEvaluacion(Evaluacion ev) {
         String mensaje = "";

@@ -5,7 +5,9 @@
  */
 package com.control.dao;
 
+import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,14 +23,37 @@ public class OpcionDao {
 
     private Opciones op;
     private List<Opciones> opList;
+    private List<Opciones> opXEspList;
+    private List<OpcionEspe> opEspList;
 
     public List<Opciones> allOpcion() {
         try {
-            opList = em.createNamedQuery("Opcion.findAll").getResultList();
+            opList = em.createNamedQuery("Opciones.findAll").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return opList;
+    }
+    
+    public List<Opciones> obtenerOpcionXEspecialidad(Integer idOpcion){
+        String sql="select * from opciones where id_opcion_espe="+idOpcion+";";
+        try {
+            opXEspList = new ArrayList<Opciones>();
+            opXEspList = em.createNativeQuery(sql, Opciones.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opXEspList;
+    }
+    
+    public List<OpcionEspe> allOpcionEspe(){
+        try {
+            opEspList = new ArrayList<OpcionEspe>();
+            opEspList = em.createNamedQuery("OpcionEspe.findAll").getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opEspList;
     }
     
     public Opciones porOpcion(int opcion){

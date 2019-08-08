@@ -23,24 +23,38 @@ public class OpcionDao {
 
     private Opciones op;
     private List<Opciones> opList;
+    private List<Opciones> opXEspList;
+    private List<OpcionEspe> opEspList;
     private List<OpcionEspe> opEsList;
 
     public List<Opciones> allOpcion() {
         try {
-            opList = em.createNamedQuery("Opcion.findAll").getResultList();
+            opList = em.createNamedQuery("Opciones.findAll").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return opList;
     }
     
-    public List<OpcionEspe> allOpcionEspe (){
+    public List<Opciones> obtenerOpcionXEspecialidad(Integer idOpcion){
+        String sql="select * from opciones where id_opcion_espe="+idOpcion+";";
         try {
-            opEsList = em.createNamedQuery("OpcionEspe.findAll").getResultList();
+            opXEspList = new ArrayList<Opciones>();
+            opXEspList = em.createNativeQuery(sql, Opciones.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return opEsList;
+        return opXEspList;
+    }
+    
+    public List<OpcionEspe> allOpcionEspe(){
+        try {
+            opEspList = new ArrayList<OpcionEspe>();
+            opEspList = em.createNamedQuery("OpcionEspe.findAll").getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opEspList;
     }
     
     public List<Opciones> obtenerOpcionesXEspe(int idOpcionEspe){
@@ -54,7 +68,6 @@ public class OpcionDao {
         return opList;
     
     }
-    
     public Opciones porOpcion(int opcion){
         String sql = "SELECT o.id_opcion, o.id_especialidad, o.seccion, o.año, o.descripcion FROM opcion o WHERE o.id_opcion ="+opcion;
         try {

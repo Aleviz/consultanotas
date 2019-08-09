@@ -25,6 +25,7 @@ public class OpcionDao {
     private List<Opciones> opList;
     private List<Opciones> opXEspList;
     private List<OpcionEspe> opEspList;
+    private List<OpcionEspe> opEsList;
 
     public List<Opciones> allOpcion() {
         try {
@@ -36,7 +37,7 @@ public class OpcionDao {
     }
     
     public List<Opciones> obtenerOpcionXEspecialidad(Integer idOpcion){
-        String sql="";
+        String sql="select * from opciones where id_opcion_espe="+idOpcion+";";
         try {
             opXEspList = new ArrayList<Opciones>();
             opXEspList = em.createNativeQuery(sql, Opciones.class).getResultList();
@@ -56,6 +57,17 @@ public class OpcionDao {
         return opEspList;
     }
     
+    public List<Opciones> obtenerOpcionesXEspe(int idOpcionEspe){
+        try {
+            opList = new ArrayList<Opciones>();
+            opList = em.createNamedQuery("Opciones.findAllxOpcionEspe").setParameter("idOpcionEspe", idOpcionEspe).getResultList();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opList;
+    
+    }
     public Opciones porOpcion(int opcion){
         String sql = "SELECT o.id_opcion, o.id_especialidad, o.seccion, o.año, o.descripcion FROM opcion o WHERE o.id_opcion ="+opcion;
         try {
@@ -78,3 +90,4 @@ public class OpcionDao {
         return mensaje;
     }
 }
+

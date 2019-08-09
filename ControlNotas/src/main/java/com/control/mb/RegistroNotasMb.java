@@ -74,7 +74,7 @@ public class RegistroNotasMb {
         opcionDao = new OpcionDao();
         genericDao = new GenericDao();
         notasDao = new EvaluacionDao();
-        idEspecialidad = 1;
+        idEspecialidad = 0;
         idAlumno = 0;
         idGrado = 0;
         selectAlumno = new HashMap<String, String>();
@@ -373,6 +373,4 @@ public class RegistroNotasMb {
         this.modificar3 = modificar3;
     }
 
-
-    
 }

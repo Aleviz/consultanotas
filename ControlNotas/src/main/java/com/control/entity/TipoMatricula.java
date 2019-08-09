@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "tipo_matricula")

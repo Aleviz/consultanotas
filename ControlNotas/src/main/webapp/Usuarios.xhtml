@@ -16,12 +16,13 @@
         <h:form>
             <div style="margin-bottom: 10px;">
                 <p:menubar>
-                    <p:menuitem value="Inicio" url="index.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Usuarios" url="Usuarios.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Empleados" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <f:facet name="options">
-                        <p:commandButton value="Login" action="Login.xhtml"/>
-                    </f:facet>
+                    <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
+                    <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
+                        <p:menuitem icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                    </p:submenu>
                 </p:menubar>
             </div>
         </h:form>
@@ -34,9 +35,6 @@
                 <p:column headerText="Usuario">
                     <p:outputLabel value="#{usr.usuario}"/>
                 </p:column>
-                <p:column headerText="Contraseña">
-                    <p:outputLabel value="#{usr.pass}"/>
-                </p:column>
                 <p:column headerText="Estado">
                     <p:outputLabel value="#{usr.idEstado.estado}"/>
                 </p:column>
@@ -44,7 +42,7 @@
                     <p:outputLabel value="#{usr.idRol.rol}"/>
                 </p:column>
                 <p:column>
-                    <p:commandButton value="Seleccionar" action="#{registroEmpleadosMb.selectByIdUsuario(usr)}" oncomplete="PF('updateUsuarios').show()" update="dialogUpdate"/>
+                    <p:commandButton icon="fa fa-fw fa-edit" action="#{registroEmpleadosMb.selectByIdUsuario(usr)}" oncomplete="PF('updateUsuarios').show()" update="dialogUpdate"/>
                 </p:column>
             </p:dataTable>
         </h:form>

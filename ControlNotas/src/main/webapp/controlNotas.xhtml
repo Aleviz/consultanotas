@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <style type="text/css">
+            .ui-g div {
+
+                text-align: center;
+                border: 1px solid #fafafa;
+            }
+        </style>
+        <h1>dsadsa</h1>
+        <h:form>
+            <h:outputText value="Especialidad"/>
+            <p:selectOneMenu value="#{registroNotasMb.idEspecialidad}">
+                <f:selectItem itemLabel="seleccione"/>
+                <f:selectItems value="#{registroNotasMb.selectEspecialidad}"/>
+            </p:selectOneMenu>
+            <h:outputText value="Grado"/>
+            <p:selectOneMenu value="#{registroNotasMb.idGrado}">
+                <f:selectItem itemLabel="seleccione"/>
+                <f:selectItems value="#{registroNotasMb.selectGrado}"/>
+            </p:selectOneMenu>
+            <h:outputText value="Alumno"/>
+            <p:selectOneMenu value="#{registroNotasMb.idAlumno}">
+                <f:selectItem itemLabel="seleccione"/>
+                <f:selectItems value="#{registroNotasMb.selectAlumno}"/>
+            </p:selectOneMenu>
+        </h:form>
+        <h:form>
+            <p:panel>
+                <div class="ui-g">
+                    <div class="ui-g-11">
+                        <p:inputText value="#{registroNotasMb.alumno.fechaNacimiento}" style="float: right"/>
+                        <p:outputLabel value="Fecha" style="float: right"/>
+                    </div>
+                    <div class="ui-g-1"></div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-5">
+                        <p:outputLabel value="Nombres"/>
+                        <p:inputText value="#{registroNotasMb.alumno.primerNombre}, 
+                                     #{registroNotasMb.alumno.segundoNombre}"/>   
+                    </div>
+                    <div class="ui-g-5">
+                        <p:outputLabel value="Apellidos"/>
+                        <p:inputText value="#{registroNotasMb.alumno.primerApellido}"/>   
+                    </div>
+                    <div class="ui-g-1"></div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-5">
+                        <p:outputLabel value="Direccion"/>
+                        <p:inputTextarea value="#{registroNotasMb.alumno.direccion}"/>  
+                    </div>
+                    <div class="ui-g-5">
+                        <p:outputLabel value="Telefono"/>
+                        <p:inputText value="#{registroNotasMb.alumno.telefono}"/>
+                        <p:outputLabel value="Telefono"/>
+                        <p:inputText value="#{registroNotasMb.alumno.telefono}"/>
+                    </div>
+                    <div class="ui-g-1"></div>
+                </div>
+            </p:panel>
+        </h:form>
+        <h:form>
+            <p:dataTable id="ad" var="e" value="#{registroNotasMb.alumnosList}">
+                <p:column>
+                    <p:outputLabel value="#{e.carnet}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

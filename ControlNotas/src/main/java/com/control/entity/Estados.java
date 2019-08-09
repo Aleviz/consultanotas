@@ -8,7 +8,6 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "estados")
@@ -40,13 +39,11 @@ public class Estados implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_estado")
-    
     private Integer idEstado;
     @Size(max = 8)
     @Column(name = "estado")
     private String estado;
-   
-    @OneToMany(mappedBy = "idEstado", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "idEstado")
     private List<Usuarios> usuariosList;
 
     public Estados() {

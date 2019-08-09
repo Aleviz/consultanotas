@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "opciones")
@@ -35,10 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Opciones.findAll", query = "SELECT o FROM Opciones o")
     , @NamedQuery(name = "Opciones.findByIdOpcion", query = "SELECT o FROM Opciones o WHERE o.idOpcion = :idOpcion")
     , @NamedQuery(name = "Opciones.findBySeccion", query = "SELECT o FROM Opciones o WHERE o.seccion = :seccion")
-    , @NamedQuery(name = "Opciones.findByA\u00f1o", query = "SELECT o FROM Opciones o WHERE o.a\u00f1o = :a\u00f1o")
+    , @NamedQuery(name = "Opciones.findByAnio", query = "SELECT o FROM Opciones o WHERE o.anio = :anio")
     , @NamedQuery(name = "Opciones.findByDescripcion", query = "SELECT o FROM Opciones o WHERE o.descripcion = :descripcion")
-    , @NamedQuery(name= "Opciones.findAllxOpcionEspe", query = "SELECT o FROM Opciones o WHERE o.idOpcionEspe.idOpcionEspe = :idOpcionEspe")
-})
+   , @NamedQuery(name= "Opciones.findAllxOpcionEspe", query = "SELECT o FROM Opciones o WHERE o.idOpcionEspe.idOpcionEspe = :idOpcionEspe")})
 public class Opciones implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,22 +46,17 @@ public class Opciones implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_opcion")
     private Integer idOpcion;
-    
     @Size(max = 3)
     @Column(name = "seccion")
     private String seccion;
-    
-    @Column(name = "a\u00f1o")
-    private Integer año;
-    
+    @Column(name = "anio")
+    private Integer anio;
     @Size(max = 250)
     @Column(name = "descripcion")
     private String descripcion;
-    
     @JoinColumn(name = "id_opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne(optional = false)
     private OpcionEspe idOpcionEspe;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOpcion")
     private List<Matricula> matriculaList;
 
@@ -89,12 +83,12 @@ public class Opciones implements Serializable {
         this.seccion = seccion;
     }
 
-    public Integer getAño() {
-        return año;
+    public Integer getAnio() {
+        return anio;
     }
 
-    public void setAño(Integer año) {
-        this.año = año;
+    public void setAnio(Integer anio) {
+        this.anio = anio;
     }
 
     public String getDescripcion() {

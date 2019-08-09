@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "colegio")
@@ -42,29 +42,24 @@ public class Colegio implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_colegio")
     private Integer idColegio;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "nombre")
     private String nombre;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 75)
     @Column(name = "direccion")
     private String direccion;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "telefono")
     private String telefono;
-    
     @Lob
     @Column(name = "logo")
     private byte[] logo;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)

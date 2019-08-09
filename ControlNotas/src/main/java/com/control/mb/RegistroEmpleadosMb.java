@@ -178,6 +178,10 @@ public class RegistroEmpleadosMb implements Serializable{
         Roles idRoles = new Roles();
         idRoles.setIdRol(idRolVista);
         usuarios.setIdRol(idRoles);
+        
+        Estados idEstados = new Estados();
+        idEstados.setIdEstado(idEstadoVista);
+        usuarios.setIdEstado(idEstados);
 
         String mensaje = genericDao.modificarEntidad(usuarios);
         msg = new FacesMessage(mensaje);

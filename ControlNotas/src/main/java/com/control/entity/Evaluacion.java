@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author manuel.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "evaluacion")
@@ -91,7 +91,6 @@ public class Evaluacion implements Serializable {
     @JoinColumn(name = "id_alumno", referencedColumnName = "id_alumno")
     @ManyToOne(optional = false)
     private Alumnos idAlumno;
-   
     @JoinColumn(name = "id_profesor", referencedColumnName = "id_empleado")
     @ManyToOne(optional = false)
     private Empleados idProfesor;

@@ -11,6 +11,7 @@ import com.control.entity.Estados;
 import com.control.entity.Materias;
 import com.control.entity.Roles;
 import com.control.entity.Usuarios;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,8 +27,8 @@ import javax.faces.context.FacesContext;
  * @author alexander.emesticaus
  */
 @ManagedBean
-@ViewScoped
-public class RegistroEmpleadosMb {
+@SessionScoped
+public class RegistroEmpleadosMb implements Serializable{
 
     FacesMessage msg = new FacesMessage();
 
@@ -110,6 +111,7 @@ public class RegistroEmpleadosMb {
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
         mostrarEmpleados();
+        mostrarUsuarios();
     }
 
     public void mostrarEmpleados() {

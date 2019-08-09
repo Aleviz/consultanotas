@@ -10,19 +10,21 @@ import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Usuarios;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author manuel.rodriguezusam
  */
 @ManagedBean
-@RequestScoped
-public class LoginMB {
+@SessionScoped
+public class LoginMB implements Serializable{
 
     //ENTITY
     private Usuarios usuario;
@@ -74,7 +76,7 @@ public class LoginMB {
     public String logear() {
         String usuariio = "";
         String pass = "";
-
+        
         usuariio = usuario.getUsuario();
         pass = usuario.getPass();
         System.out.println("usuario en login= " + usuariio + " pass en login= " + pass);
@@ -93,11 +95,14 @@ public class LoginMB {
                 sonEmpleados = true;
                 esSubDirector = false;
                 direcXSub = true;
+                System.out.println("ES::::::::::::::::");
 
                 usuario.getEmpleadosList();
                 if (usuario.getEmpleadosList().get(0) != null) {
                     empleado = usuario.getEmpleadosList().get(0);
+                    System.out.println("ACA:::::::::::");
                 }
+                System.out.println("END::::::::::::::::");
 
             } else if (rol.equalsIgnoreCase("Sub-Director")) {
                 esAlumno = false;
@@ -107,7 +112,7 @@ public class LoginMB {
                 sonEmpleados = true;
                 esSubDirector = true;
                 direcXSub = true;
-
+                System.out.println("sub::::::::::::::");
                 usuario.getEmpleadosList();
                 if (usuario.getEmpleadosList().get(0) != null) {
                     empleado = usuario.getEmpleadosList().get(0);
@@ -156,12 +161,19 @@ public class LoginMB {
                     alumno = usuario.getAlumnosList().get(0);
                 }
             }
-            return "prueba.xhtml";
+            System.out.println("IR::::::::::");
+            return "index.xhtml";
         }
 
         usuario = new Usuarios();
-        return "acceso.xhtml";
+        return "Login.xhtml";
 
+    }
+    
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        System.out.println("Number: "+usuario.getUsuario());
+        return "/Login.xhtml?faces-redirect=true";
     }
 
     public AccesoDao getAcces() {

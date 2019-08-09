@@ -24,27 +24,42 @@
             .divHijo{
                 margin:0 auto;
                 background-color: #242424;
+                border-radius: 13px;
                 width: 350px;
                 min-width: 250px;
                 color: #fff;
+            }
+            #header{
+                width: 350px;
+                height: 50px;
+                background-color: black;
+                color: white;
+                margin: 0px;
+                margin-top: -20px;
+                margin-bottom: 10px;
+                text-align: center;
+                border-top-left-radius: 13px;
+                border-top-right-radius: 13px;
             }
         </style>
     </h:head>
     <h:body>
         <div class="divPadre">
             <div class="divHijo">
+                <div id="header" style="">
+                    <h2 style="padding-top: 10px; font-family: sans-serif;">Inicio de Sesion</h2>
+                </div>
                 <center>
                     <h:form>
                         <h:panelGrid>
-                            <p:outputLabel value="Usuario: "/>
-                            <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}"/>
-                            <p:outputLabel value="Contraseña: "/>
-                            <p:password value="#{registroEmpleadosMb.usuarios.pass}"/>
+                            <p:outputLabel value="Usuario: " style="font-size: 16px;"/>
+                            <p:inputText value="#{loginMB.usuario.usuario}"/>
+                            <p:outputLabel value="Contraseña: " style="font-size: 16px;"/>
+                            <p:password value="#{loginMB.usuario.pass}"/>
                         </h:panelGrid>
-                        <p:commandButton value="Guardar" style="margin-top: 10px; margin-bottom: 10px;"/>
+                        <p:commandButton value="Login" action="#{loginMB.logear()}" style="margin-top: 10px; margin-bottom: 10px; font-size: 15.5px;"/>
                     </h:form>
                 </center>
-
             </div>
         </div>
     </h:body>

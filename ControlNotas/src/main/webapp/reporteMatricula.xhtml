@@ -68,17 +68,17 @@ and open the template in the editor.
         </h:form>
         <br></br>
         <h:form>
-            <p:dataTable var="matricula" value="#{registroMatriculaMb.matriculaList}" rows="8">
+            <p:dataTable var="matricula" value="#{registroMatriculaMb.matriculaList}" rows="8" >
                 <p:column headerText="Matricula">
                     <p:outputLabel value="#{matricula.idMatricula}"/>
                 </p:column>
 
                 <p:column headerText="Nombre del Alumno">
-                    <p:outputLabel value="#{matricula.idAlumno.primerNombre} , #{matricula.idAlumno.segundoNombre}"/>
+                    <p:outputLabel value="#{matricula.idAlumno.primerNombre}  #{matricula.idAlumno.segundoNombre}"/>
                 </p:column>
 
                 <p:column headerText="Apellido del Alumno">
-                    <p:outputLabel value="#{matricula.idAlumno.primerApellido} , #{matricula.idAlumno.segundoApellido}"/>
+                    <p:outputLabel value="#{matricula.idAlumno.primerApellido} #{matricula.idAlumno.segundoApellido}"/>
                 </p:column>
 
                 <p:column headerText="Opcion">

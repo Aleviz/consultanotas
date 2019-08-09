@@ -22,7 +22,6 @@ public class MatriculaDao {
     EntityManager em = f.createEntityManager();
 
     private List<Matricula> matriculaList;
-    private List<Matricula> alumnosXGrado;
     private Matricula matricula;
 
     public List<Matricula> matriculaAll() {
@@ -35,18 +34,6 @@ public class MatriculaDao {
             e.printStackTrace();
         }
         return matriculaList;
-    }
-    
-    public List<Matricula> AlumnosXGrado(Integer idGrado){
-        String sql="select * from matricula m inner join alumnos a on m.id_alumno = a.id_alumno where id_opcion = "+idGrado;
-        try {
-            alumnosXGrado = new ArrayList<Matricula>();
-            alumnosXGrado = em.createNativeQuery(sql, Matricula.class).getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return alumnosXGrado;
-            
     }
 
     public Matricula matriculaById(Matricula m) {

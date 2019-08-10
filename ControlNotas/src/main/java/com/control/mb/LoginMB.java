@@ -186,7 +186,7 @@ public class LoginMB  {
 
    
 
-    }
+    
     
     public void logout() throws IOException{
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -247,6 +247,7 @@ public class LoginMB  {
     public Integer getRol() {
         return rol;
     }
+
 
     public void setRol(Integer rol) {
         this.rol = rol;
@@ -315,7 +316,5 @@ public class LoginMB  {
     public void setnEmpleado(int nEmpleado) {
         this.nEmpleado = nEmpleado;
     }
-
-
 
 }

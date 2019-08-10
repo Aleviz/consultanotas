@@ -10,12 +10,14 @@ import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Usuarios;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -170,10 +172,12 @@ public class LoginMB implements Serializable{
 
     }
     
-    public String logout(){
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        System.out.println("Number: "+usuario.getUsuario());
-        return "/Login.xhtml?faces-redirect=true";
+    public void logout() throws IOException{
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath()+"/Login.xhtml");
+//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//        System.out.println("Number: "+usuario.getUsuario());
+//        return "/Login.xhtml?faces-redirect=true";
     }
 
     public AccesoDao getAcces() {

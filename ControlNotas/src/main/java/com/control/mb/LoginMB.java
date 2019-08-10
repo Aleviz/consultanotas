@@ -35,6 +35,7 @@ public class LoginMB  {
     private Alumnos alumno;
     private Empleados empleado;
 
+
     //LIST
     private List<Usuarios> usuarioList;
 
@@ -50,6 +51,7 @@ public class LoginMB  {
     private boolean sonEmpleados;
     private boolean esSubDirector;
     private boolean direcXSub;
+    private boolean noEstaLogeado;
 
     @PostConstruct
     public void init() {
@@ -75,6 +77,9 @@ public class LoginMB  {
         sonEmpleados = false;
         esSubDirector = false;
         direcXSub = false;
+        noEstaLogeado = false;
+
+
     }
 
     public String logear() {
@@ -172,10 +177,14 @@ public class LoginMB  {
             System.out.println("IR::::::::::");
             System.out.println("empleado " + empleado.getPrimerApellido());
             return "index.xhtml";
-        }
+        } else {
 
-        usuario = new Usuarios();
-        return "Login.xhtml";
+            usuario = new Usuarios();
+            return "Login.xhtml";
+        }
+    }
+
+   
 
     }
     

@@ -62,7 +62,7 @@ public class MatriculaDao {
     public Matricula porAlumno(int idAlumno) {
         try {
             matricula = new Matricula();
-            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_alumno.id_alumno=" + idAlumno;
+            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_alumno=" + idAlumno;
             matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();

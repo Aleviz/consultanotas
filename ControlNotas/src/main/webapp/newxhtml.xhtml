@@ -1,7 +1,13 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"    
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
@@ -18,18 +24,22 @@
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Notas" icon="fa fa-user" url="controlNotas.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
                         <p:menuitem icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
                     </p:submenu>
                 </p:menubar>
             </div>
         </h:form>
-        <h:form>
+        <h:form id="reporte">
+
+        
+                    <p:commandLink action="#{utilReport.reporteToPdf()}" ajax="false">
+                        <img src="res/icon/oficina_pdf.png" alt="" title="Exportar a PDF"/>
+                    </p:commandLink>
+           
 
         </h:form>
-
+      
     </h:body>
 </html>

@@ -22,6 +22,7 @@ public class MatriculaDao {
     EntityManager em = f.createEntityManager();
 
     private List<Matricula> matriculaList;
+    private List<Matricula> alumnosXGrado;
     private Matricula matricula;
 
     public List<Matricula> matriculaAll() {
@@ -34,6 +35,18 @@ public class MatriculaDao {
             e.printStackTrace();
         }
         return matriculaList;
+    }
+    
+    public List<Matricula> AlumnosXGrado(Integer idGrado){
+        String sql="select * from matricula m inner join alumnos a on m.id_alumno = a.id_alumno where id_opcion = "+idGrado;
+        try {
+            alumnosXGrado = new ArrayList<Matricula>();
+            alumnosXGrado = em.createNativeQuery(sql, Matricula.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return alumnosXGrado;
+            
     }
 
     public Matricula matriculaById(Matricula m) {
@@ -49,7 +62,7 @@ public class MatriculaDao {
     public Matricula porAlumno(int idAlumno) {
         try {
             matricula = new Matricula();
-            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_alumno.id_alumno=" + idAlumno;
+            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_alumno=" + idAlumno;
             matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();

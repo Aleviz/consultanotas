@@ -218,7 +218,7 @@ obtenerOpcionEspe();
 
     public void porOpcion() {
         matricula = new Matricula();
-        matricula = matriculaDao.porOpcion(idOpcion);
+//        matricula = matriculaDao.porOpcion(idOpcion);
     }
 
     public void porTipo() {

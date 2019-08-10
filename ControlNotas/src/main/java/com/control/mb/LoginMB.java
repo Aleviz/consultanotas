@@ -24,13 +24,14 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginMB implements Serializable{
+public class LoginMB implements Serializable {
 
     //ENTITY
     private Usuarios usuario;
     private Integer rol;
     private Alumnos alumno;
     private Empleados empleado;
+
 
     //LIST
     private List<Usuarios> usuarioList;
@@ -47,6 +48,7 @@ public class LoginMB implements Serializable{
     private boolean sonEmpleados;
     private boolean esSubDirector;
     private boolean direcXSub;
+    private boolean noEstaLogeado;
 
     @PostConstruct
     public void init() {
@@ -71,12 +73,15 @@ public class LoginMB implements Serializable{
         sonEmpleados = false;
         esSubDirector = false;
         direcXSub = false;
+        noEstaLogeado = false;
+
+
     }
 
     public String logear() {
         String usuariio = "";
         String pass = "";
-        
+
         usuariio = usuario.getUsuario();
         pass = usuario.getPass();
         System.out.println("usuario en login= " + usuariio + " pass en login= " + pass);
@@ -87,7 +92,7 @@ public class LoginMB implements Serializable{
             rol = usuario.getIdRol().getIdRol();
             System.out.println("USUARIO LOGEADO");
 
-            if (rol==1) {
+            if (rol == 1) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = true;
@@ -104,7 +109,7 @@ public class LoginMB implements Serializable{
 //                }
                 System.out.println("END::::::::::::::::");
 
-            } else if (rol==2) {
+            } else if (rol == 2) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -118,7 +123,7 @@ public class LoginMB implements Serializable{
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
 
-            } else if (rol==4) {
+            } else if (rol == 4) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -132,7 +137,7 @@ public class LoginMB implements Serializable{
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
 
-            } else if (rol==3) {
+            } else if (rol == 3) {
                 esAlumno = false;
                 esProfesor = true;
                 esDirector = false;
@@ -146,7 +151,7 @@ public class LoginMB implements Serializable{
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
 
-            } else if (rol==5) {
+            } else if (rol == 5) {
                 esAlumno = true;
                 esProfesor = false;
                 esDirector = false;
@@ -163,16 +168,18 @@ public class LoginMB implements Serializable{
             }
             System.out.println("IR::::::::::");
             return "index.xhtml";
+        } else {
+
+            usuario = new Usuarios();
+            return "Login.xhtml";
         }
-
-        usuario = new Usuarios();
-        return "Login.xhtml";
-
     }
-    
-    public String logout(){
+
+   
+
+    public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        System.out.println("Number: "+usuario.getUsuario());
+        System.out.println("Number: " + usuario.getUsuario());
         return "/Login.xhtml?faces-redirect=true";
     }
 
@@ -216,7 +223,6 @@ public class LoginMB implements Serializable{
         this.usuarioList = usuarioList;
     }
 
-
     public UsuariosDao getUsuarioDao() {
         return usuarioDao;
     }
@@ -232,8 +238,6 @@ public class LoginMB implements Serializable{
     public void setRol(Integer rol) {
         this.rol = rol;
     }
-    
-    
 
     public boolean isEsAlumno() {
         return esAlumno;
@@ -289,6 +293,14 @@ public class LoginMB implements Serializable{
 
     public void setDirecXSub(boolean direcXSub) {
         this.direcXSub = direcXSub;
+    }
+
+    public boolean isNoEstaLogeado() {
+        return noEstaLogeado;
+    }
+
+    public void setNoEstaLogeado(boolean noEstaLogeado) {
+        this.noEstaLogeado = noEstaLogeado;
     }
 
 }

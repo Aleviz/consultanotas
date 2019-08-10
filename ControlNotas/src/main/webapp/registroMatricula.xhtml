@@ -17,14 +17,14 @@ and open the template in the editor.
             }
         </style>
     </h:head>
-    <h:body>
+    <h:body >
         <h:form>
             <div style="margin-bottom: 10px;">
                 <p:menubar>
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;" action="#{loginMB.logeoo()}"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
                         <p:menuitem icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
                     </p:submenu>
@@ -195,7 +195,7 @@ and open the template in the editor.
                             </h:panelGrid>
                         </center>
                     </p:panel>
-                    <p:commandButton value="Matricular" action="#{registroMatriculaMb.guardar()}"/>
+                    <p:commandButton value="Matricular" action="#{registroMatriculaMb.guardar()}" />
                 </p:tab>
             </p:wizard>
         </h:form>

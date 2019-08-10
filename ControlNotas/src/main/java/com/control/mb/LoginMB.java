@@ -10,23 +10,27 @@ import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Usuarios;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author manuel.rodriguezusam
  */
 @ManagedBean
-@RequestScoped
-public class LoginMB {
+@SessionScoped
+public class LoginMB implements Serializable{
 
     //ENTITY
     private Usuarios usuario;
-    private String rol;
+    private Integer rol;
     private Alumnos alumno;
     private Empleados empleado;
 
@@ -74,7 +78,7 @@ public class LoginMB {
     public String logear() {
         String usuariio = "";
         String pass = "";
-
+        
         usuariio = usuario.getUsuario();
         pass = usuario.getPass();
         System.out.println("usuario en login= " + usuariio + " pass en login= " + pass);
@@ -82,10 +86,10 @@ public class LoginMB {
         usuario = acces.logeado(usuariio, pass);
 
         if (usuario != null) {
-            rol = usuario.getIdRol().getRol();
+            rol = usuario.getIdRol().getIdRol();
             System.out.println("USUARIO LOGEADO");
 
-            if (rol.equalsIgnoreCase("Director")) {
+            if (rol==1) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = true;
@@ -93,13 +97,16 @@ public class LoginMB {
                 sonEmpleados = true;
                 esSubDirector = false;
                 direcXSub = true;
+                System.out.println("ES::::::::::::::::");
 
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                    System.out.println("ACA:::::::::::");
+//                }
+                System.out.println("END::::::::::::::::");
 
-            } else if (rol.equalsIgnoreCase("Sub-Director")) {
+            } else if (rol==2) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -107,13 +114,13 @@ public class LoginMB {
                 sonEmpleados = true;
                 esSubDirector = true;
                 direcXSub = true;
-
+                System.out.println("sub::::::::::::::");
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                }
 
-            } else if (rol.equalsIgnoreCase("Empleado")) {
+            } else if (rol==4) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -123,11 +130,11 @@ public class LoginMB {
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                }
 
-            } else if (rol.equalsIgnoreCase("Docente")) {
+            } else if (rol==3) {
                 esAlumno = false;
                 esProfesor = true;
                 esDirector = false;
@@ -137,11 +144,11 @@ public class LoginMB {
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
-                if (usuario.getEmpleadosList().get(0) != null) {
-                    empleado = usuario.getEmpleadosList().get(0);
-                }
+//                if (usuario.getEmpleadosList().get(0) != null) {
+//                    empleado = usuario.getEmpleadosList().get(0);
+//                }
 
-            } else if (rol.equalsIgnoreCase("Alumno")) {
+            } else if (rol==5) {
                 esAlumno = true;
                 esProfesor = false;
                 esDirector = false;
@@ -152,16 +159,25 @@ public class LoginMB {
 
                 usuario.getAlumnosList();
 
-                if (usuario.getAlumnosList().get(0) != null) {
-                    alumno = usuario.getAlumnosList().get(0);
-                }
+//                if (usuario.getAlumnosList().get(0) != null) {
+//                    alumno = usuario.getAlumnosList().get(0);
+//                }
             }
-            return "prueba.xhtml";
+            System.out.println("IR::::::::::");
+            return "index.xhtml";
         }
 
         usuario = new Usuarios();
-        return "acceso.xhtml";
+        return "Login.xhtml";
 
+    }
+    
+    public void logout() throws IOException{
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath()+"/Login.xhtml");
+//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//        System.out.println("Number: "+usuario.getUsuario());
+//        return "/Login.xhtml?faces-redirect=true";
     }
 
     public AccesoDao getAcces() {
@@ -213,13 +229,15 @@ public class LoginMB {
         this.usuarioDao = usuarioDao;
     }
 
-    public String getRol() {
+    public Integer getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Integer rol) {
         this.rol = rol;
     }
+    
+    
 
     public boolean isEsAlumno() {
         return esAlumno;

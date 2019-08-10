@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Materias.findAll", query = "SELECT m FROM Materias m")
     , @NamedQuery(name = "Materias.findByIdMateria", query = "SELECT m FROM Materias m WHERE m.idMateria = :idMateria")
     , @NamedQuery(name = "Materias.findByMateria", query = "SELECT m FROM Materias m WHERE m.materia = :materia")
-    , @NamedQuery(name = "Materias.findByDescripcion", query = "SELECT m FROM Materias m WHERE m.descripcion = :descripcion")})
+    , @NamedQuery(name = "Materias.findByDescripcion", query = "SELECT m FROM Materias m WHERE m.descripcion = :descripcion")
+    , @NamedQuery(name = "Materias.findByOpcionEspecialidad", query = "SELECT m FROM Materias m WHERE m.opcionEspe.idOpcionEspe = :opcionEspe")})
 public class Materias implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,8 +55,6 @@ public class Materias implements Serializable {
     @JoinColumn(name = "opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne
     private OpcionEspe opcionEspe;
-    @OneToMany(mappedBy = "idMateria")
-    private List<MateriaEspecialidad> materiaEspecialidadList;
 
     public Materias() {
     }
@@ -105,15 +104,6 @@ public class Materias implements Serializable {
         this.opcionEspe = opcionEspe;
     }
 
-    @XmlTransient
-    public List<MateriaEspecialidad> getMateriaEspecialidadList() {
-        return materiaEspecialidadList;
-    }
-
-    public void setMateriaEspecialidadList(List<MateriaEspecialidad> materiaEspecialidadList) {
-        this.materiaEspecialidadList = materiaEspecialidadList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -138,5 +128,5 @@ public class Materias implements Serializable {
     public String toString() {
         return "com.control.entity.Materias[ idMateria=" + idMateria + " ]";
     }
-    
+
 }

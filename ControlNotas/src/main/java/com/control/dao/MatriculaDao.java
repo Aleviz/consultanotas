@@ -70,23 +70,37 @@ public class MatriculaDao {
         return matricula;
     }
 
-    public Matricula porOpcion(int opcion) {
+    public List<Matricula> porOpcion(int opcion) {
 
         try {
-            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_opcion.id_opcion=" + opcion;
+            String sql = "select * from matricula inner join opciones on opciones.id_opcion = matricula.id_opcion where opciones.id_opcion =" + opcion;
 
-            matricula = new Matricula();
-            matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();
+            matriculaList = new ArrayList<Matricula>();
+            matriculaList = em.createNativeQuery(sql, Matricula.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return matricula;
+        return matriculaList;
     }
-
-    public Matricula porTipo(int tipo) {
+    
+     public List<Matricula> porSeccion(String seccion) {
 
         try {
-            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_tipo.id_tipo_mat=" + tipo;
+           String sql = "select * from matricula inner join opciones on opciones.id_opcion = matricula.id_opcion where opciones.seccion ='"+seccion+"'";
+
+            matriculaList = new ArrayList<Matricula>();
+            matriculaList = em.createNativeQuery(sql, Matricula.class).getResultList();
+            System.out.println("matriculaList dao "+matriculaList.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matriculaList;
+    }
+
+    public Matricula porTipo(int idTipo) {
+
+        try {
+            String sql = "SELECT m.id_matricula, m.id_alumno , m.id_tipo, m.id_opcion, m.fecha_matricula FROM matricula m WHERE m.id_tipo.seccion=" + idTipo;
 
             matricula = new Matricula();
             matricula = (Matricula) em.createNativeQuery(sql, Matricula.class).getSingleResult();

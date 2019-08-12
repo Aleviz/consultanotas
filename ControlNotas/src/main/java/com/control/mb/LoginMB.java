@@ -26,13 +26,15 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginMB implements Serializable{
+public class LoginMB  {
 
     //ENTITY
     private Usuarios usuario;
     private Integer rol;
+    private int nEmpleado;
     private Alumnos alumno;
     private Empleados empleado;
+
 
     //LIST
     private List<Usuarios> usuarioList;
@@ -49,6 +51,7 @@ public class LoginMB implements Serializable{
     private boolean sonEmpleados;
     private boolean esSubDirector;
     private boolean direcXSub;
+    private boolean noEstaLogeado;
 
     @PostConstruct
     public void init() {
@@ -57,6 +60,7 @@ public class LoginMB implements Serializable{
         usuario = new Usuarios();
         alumno = new Alumnos();
         empleado = new Empleados();
+       
 
         //LIST
         usuarioList = new ArrayList<Usuarios>();
@@ -73,12 +77,15 @@ public class LoginMB implements Serializable{
         sonEmpleados = false;
         esSubDirector = false;
         direcXSub = false;
+        noEstaLogeado = false;
+
+
     }
 
     public String logear() {
         String usuariio = "";
         String pass = "";
-        
+
         usuariio = usuario.getUsuario();
         pass = usuario.getPass();
         System.out.println("usuario en login= " + usuariio + " pass en login= " + pass);
@@ -89,7 +96,7 @@ public class LoginMB implements Serializable{
             rol = usuario.getIdRol().getIdRol();
             System.out.println("USUARIO LOGEADO");
 
-            if (rol==1) {
+            if (rol == 1) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = true;
@@ -106,7 +113,7 @@ public class LoginMB implements Serializable{
 //                }
                 System.out.println("END::::::::::::::::");
 
-            } else if (rol==2) {
+            } else if (rol == 2) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -120,7 +127,7 @@ public class LoginMB implements Serializable{
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
 
-            } else if (rol==4) {
+            } else if (rol == 4) {
                 esAlumno = false;
                 esProfesor = false;
                 esDirector = false;
@@ -130,11 +137,11 @@ public class LoginMB implements Serializable{
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
+
 //                if (usuario.getEmpleadosList().get(0) != null) {
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
-
-            } else if (rol==3) {
+            } else if (rol == 3) {
                 esAlumno = false;
                 esProfesor = true;
                 esDirector = false;
@@ -144,11 +151,15 @@ public class LoginMB implements Serializable{
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
+                empleado = usuario.getEmpleadosList().get(0);
+                nEmpleado = empleado.getIdEmpleado();
+                System.out.println("empleado docente " + empleado.getPrimerNombre());
+                System.out.println("empleado " + nEmpleado);
 //                if (usuario.getEmpleadosList().get(0) != null) {
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
 
-            } else if (rol==5) {
+            } else if (rol == 5) {
                 esAlumno = true;
                 esProfesor = false;
                 esDirector = false;
@@ -164,13 +175,18 @@ public class LoginMB implements Serializable{
 //                }
             }
             System.out.println("IR::::::::::");
+            System.out.println("empleado " + empleado.getPrimerApellido());
             return "index.xhtml";
+        } else {
+
+            usuario = new Usuarios();
+            return "Login.xhtml";
         }
-
-        usuario = new Usuarios();
-        return "Login.xhtml";
-
     }
+
+   
+
+    
     
     public void logout() throws IOException{
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -220,7 +236,6 @@ public class LoginMB implements Serializable{
         this.usuarioList = usuarioList;
     }
 
-
     public UsuariosDao getUsuarioDao() {
         return usuarioDao;
     }
@@ -233,11 +248,10 @@ public class LoginMB implements Serializable{
         return rol;
     }
 
+
     public void setRol(Integer rol) {
         this.rol = rol;
     }
-    
-    
 
     public boolean isEsAlumno() {
         return esAlumno;
@@ -293,6 +307,14 @@ public class LoginMB implements Serializable{
 
     public void setDirecXSub(boolean direcXSub) {
         this.direcXSub = direcXSub;
+    }
+
+    public int getnEmpleado() {
+        return nEmpleado;
+    }
+
+    public void setnEmpleado(int nEmpleado) {
+        this.nEmpleado = nEmpleado;
     }
 
 }

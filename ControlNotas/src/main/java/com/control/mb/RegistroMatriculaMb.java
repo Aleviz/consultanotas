@@ -121,8 +121,8 @@ public class RegistroMatriculaMb {
 //        porAlumno();
 //        porOpcion();
 //        porTipo();
-obtenerOpcionEspecialidad();
-obtenerOpcionEspe();
+        obtenerOpcionEspecialidad();
+        obtenerOpcionEspe();
     }
 
     public void guardar() {
@@ -154,18 +154,7 @@ obtenerOpcionEspe();
         int x = profesorList.size();
         System.out.println("x " + x);
 
-        for (int i = 0; i < x; i++) {
-            evaluacion = new Evaluacion();
-            System.out.println("ENTRO AL FOR");
-            Empleados profe = profesorList.get(i);
-            int idpr = profe.getIdEmpleado();
 
-            System.out.println("idpr " + idpr);
-            evaluacion.setIdAlumno(alumno);
-            evaluacion.setIdProfesor(profe);
-//            listEva.add(evaluacion);
-            evaluacion = (Evaluacion) gd.insertarEntidad(evaluacion);
-        }
 
         System.out.println("DATOS DE ALUMNOS: ");
         System.out.println("ID ALUMNO : " + alumno.getIdAlumno());
@@ -199,6 +188,19 @@ obtenerOpcionEspe();
         alumno = (Alumnos) gd.insertarEntidad(alumno);
 
         mat = (Matricula) gd.insertarEntidad(matricula);
+        
+                for (int i = 0; i < x; i++) {
+            evaluacion = new Evaluacion();
+            System.out.println("ENTRO AL FOR");
+            Empleados profe = profesorList.get(i);
+            int idpr = profe.getIdEmpleado();
+
+            System.out.println("idpr " + idpr);
+            evaluacion.setIdAlumno(alumno);
+            evaluacion.setIdProfesor(profe);
+//            listEva.add(evaluacion);
+            gd.insertarEntidad(evaluacion);
+        }
 
 // ----------------------------------------------------------------------
 //      
@@ -225,10 +227,10 @@ obtenerOpcionEspe();
         matricula = new Matricula();
         matricula = matriculaDao.porTipo(idTipo);
     }
-    
-    public void obtenerOpcionEspecialidad(){
+
+    public void obtenerOpcionEspecialidad() {
         opEsList = opDao.allOpcionEspe();
-        for(OpcionEspe op : opEsList){
+        for (OpcionEspe op : opEsList) {
             esSelect.put(op.getDescripcion(), String.valueOf(op.getIdOpcionEspe()));
         }
     }

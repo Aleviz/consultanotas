@@ -48,6 +48,8 @@ public class UtilReport {
     private Integer porOpcion;
     private String porSeccion;
 
+    private Integer porMateria=1;
+
     private boolean vistaxOpcion;
     private boolean vistaxSeccion;
 
@@ -153,11 +155,10 @@ public class UtilReport {
 //        }
 //
 //    }
-//    ------------------------------------------------------------------------------
-
+//    ------------------------------Todas las notas------------------------------------------------
     public void reporteNotas() {
         try {
-            
+
             reporteLista = new ArrayList<Reporte>();
             evaluacion = new Evaluacion();
             evaluacionList = new ArrayList<Evaluacion>();
@@ -169,8 +170,37 @@ public class UtilReport {
                 reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
                 reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
                 Matricula m = new Matricula();
-                m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());               
-                reporte.setOpcion(m.getIdOpcion().getDescripcion()+ " " + m.getIdOpcion().getSeccion());
+                m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());
+                reporte.setOpcion(m.getIdOpcion().getDescripcion() + " " + m.getIdOpcion().getSeccion());
+                reporte.setMateria(eva.getIdProfesor().getIdMateria().getMateria());
+                reporte.setPro1(BigDecimal.valueOf(eva.getProEva1()));
+                reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
+                reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
+                reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
+                reporteLista.add(reporte);
+            }
+        } catch (Exception e) {
+        }
+    }
+//    ---------------------------------Notas por Materia---------------------------------------------
+
+    public void reporteNotasXMateria() {
+        try {
+
+            reporteLista = new ArrayList<Reporte>();
+            evaluacion = new Evaluacion();
+            evaluacionList = new ArrayList<Evaluacion>();
+            evaluacionList = evaluacionDao.evaluacionXMateria(porMateria);
+            System.out.println("evaluacionXMateria "+evaluacionList.size());
+
+            for (Evaluacion eva : evaluacionList) {
+                reporte = new Reporte();
+                reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
+                reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
+                reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
+                Matricula m = new Matricula();
+                m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());
+                reporte.setOpcion(m.getIdOpcion().getDescripcion() + " " + m.getIdOpcion().getSeccion());
                 reporte.setMateria(eva.getIdProfesor().getIdMateria().getMateria());
                 reporte.setPro1(BigDecimal.valueOf(eva.getProEva1()));
                 reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
@@ -185,13 +215,14 @@ public class UtilReport {
     public void reporteToPdf() throws IOException, JRException {
 //        filtroMatricula();
         reporteNotas();
+//        reporteNotasXMateria();
         System.out.println("---");
         JRBeanCollectionDataSource jdbc = new JRBeanCollectionDataSource(reporteLista);
         System.out.println("---");
         String reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Notas.jasper");
         System.out.println("---");
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println("---");  
+        System.out.println("---");
         jp = JasperFillManager.fillReport(reportPatch, map, jdbc);
         System.out.println("---");
         nombre = "matricula.pdf";

@@ -6,6 +6,7 @@
 package com.control.dao;
 
 import com.control.entity.Materias;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,6 +23,16 @@ public class MateriasDao {
 
     private Materias materias;
     private List<Materias> materiasList;
+    
+    public List<Materias> seleccionarMateriasPorOpcEspe(int idOpcionEspe){
+        try {
+            materiasList = new ArrayList<Materias>();
+            materiasList = em.createNamedQuery("Materias.findByOpcionEspecialidad").setParameter("opcionEspe", idOpcionEspe).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return materiasList;
+    }
 
     public List<Materias> allMaterias() {
         try {

@@ -5,6 +5,7 @@
  */
 package com.control.dao;
 
+import com.control.entity.Materias;
 import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
 import java.util.ArrayList;

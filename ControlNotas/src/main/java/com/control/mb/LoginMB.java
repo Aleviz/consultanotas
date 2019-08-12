@@ -10,12 +10,14 @@ import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Usuarios;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -33,6 +35,7 @@ public class LoginMB  {
     private Alumnos alumno;
     private Empleados empleado;
 
+
     //LIST
     private List<Usuarios> usuarioList;
 
@@ -48,6 +51,7 @@ public class LoginMB  {
     private boolean sonEmpleados;
     private boolean esSubDirector;
     private boolean direcXSub;
+    private boolean noEstaLogeado;
 
     @PostConstruct
     public void init() {
@@ -73,6 +77,9 @@ public class LoginMB  {
         sonEmpleados = false;
         esSubDirector = false;
         direcXSub = false;
+        noEstaLogeado = false;
+
+
     }
 
     public String logear() {
@@ -170,16 +177,23 @@ public class LoginMB  {
             System.out.println("IR::::::::::");
             System.out.println("empleado " + empleado.getPrimerApellido());
             return "index.xhtml";
+        } else {
+
+            usuario = new Usuarios();
+            return "Login.xhtml";
         }
-
-        usuario = new Usuarios();
-        return "Login.xhtml";
-
     }
 
-    public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/Login.xhtml?faces-redirect=true";
+   
+
+    
+    
+    public void logout() throws IOException{
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath()+"/Login.xhtml");
+//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//        System.out.println("Number: "+usuario.getUsuario());
+//        return "/Login.xhtml?faces-redirect=true";
     }
 
     public AccesoDao getAcces() {
@@ -233,6 +247,7 @@ public class LoginMB  {
     public Integer getRol() {
         return rol;
     }
+
 
     public void setRol(Integer rol) {
         this.rol = rol;
@@ -301,7 +316,5 @@ public class LoginMB  {
     public void setnEmpleado(int nEmpleado) {
         this.nEmpleado = nEmpleado;
     }
-
-
 
 }

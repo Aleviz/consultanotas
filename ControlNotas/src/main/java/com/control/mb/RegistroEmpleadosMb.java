@@ -121,6 +121,8 @@ public class RegistroEmpleadosMb implements Serializable {
         } else {
             msg = new FacesMessage("Error Al Guardar");
         }
+        empleados = new Empleados();
+        usuarios = new Usuarios();
         FacesContext.getCurrentInstance().addMessage(null, msg);
         mostrarEmpleados();
         mostrarUsuarios();

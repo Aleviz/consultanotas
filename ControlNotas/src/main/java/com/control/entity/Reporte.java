@@ -34,8 +34,6 @@ public class Reporte {
         this.matricula = matricula;
     }
 
-   
-
     public String getaNombre() {
         return aNombre;
     }

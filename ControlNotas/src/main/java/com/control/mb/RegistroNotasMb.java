@@ -132,10 +132,12 @@ public class RegistroNotasMb {
         double p2 = ((evaluacion.getEva5() + evaluacion.getEva6() + evaluacion.getEva7() + evaluacion.getEva8()) / 4);
         double p3 = ((evaluacion.getEva9() + evaluacion.getEva10() + evaluacion.getEva11() + evaluacion.getEva12()) / 4);
         double pf = (p1 + p2 + p3) / 3;
-        evaluacion.setProEva1(p1);
-        evaluacion.setProEva2(p2);
-        evaluacion.setProEva3(p3);
-        evaluacion.setProEvato(pf);
+        DecimalFormat formato = new DecimalFormat("##.##");
+        evaluacion.setProEva1(Double.parseDouble(formato.format(p1)));
+        evaluacion.setProEva2(Double.parseDouble(formato.format(p2)));
+        evaluacion.setProEva3(Double.parseDouble(formato.format(p3)));
+        
+        evaluacion.setProEvato(Double.parseDouble(formato.format(pf)));
         genericDao.modificarEntidad(evaluacion);
     }
 
@@ -184,11 +186,6 @@ public class RegistroNotasMb {
         System.out.println(alumno.getPrimerNombre());
         System.out.println("-----------empleado---------" + empleados);
         evaluacion = notasDao.porAlumnos(idAlumno, empleados);
-        DecimalFormat formato = new DecimalFormat("##.##");
-        formato.format(evaluacion.getProEva1());
-        formato.format(evaluacion.getProEva2());
-        formato.format(evaluacion.getProEva3());
-        formato.format(evaluacion.getProEvato());
         System.out.println(evaluacion.getIdAlumno().getPrimerNombre());
         System.out.println(evaluacion.getEva1());
     }

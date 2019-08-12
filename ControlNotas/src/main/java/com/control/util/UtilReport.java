@@ -157,8 +157,9 @@ public class UtilReport {
 //    }
 //    ------------------------------Todas las notas------------------------------------------------
     public void reporteNotas() {
+        System.out.println("1");
         try {
-
+            System.out.println("2");
             reporteLista = new ArrayList<Reporte>();
             evaluacion = new Evaluacion();
             evaluacionList = new ArrayList<Evaluacion>();
@@ -185,17 +186,19 @@ public class UtilReport {
 //    ---------------------------------Notas por Materia---------------------------------------------
 
     public void reporteNotasXMateria() {
-        try {
+        System.out.println("1"); 
+       try {
 
             reporteLista = new ArrayList<Reporte>();
             evaluacion = new Evaluacion();
             evaluacionList = new ArrayList<Evaluacion>();
             evaluacionList = evaluacionDao.evaluacionXMateria(porMateria);
             System.out.println("evaluacionXMateria "+evaluacionList.size());
-
             for (Evaluacion eva : evaluacionList) {
+                System.out.println("no entra");
                 reporte = new Reporte();
                 reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
+                System.out.println("--"+reporte.getaNombre());
                 reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
                 reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
                 Matricula m = new Matricula();
@@ -209,6 +212,8 @@ public class UtilReport {
                 reporteLista.add(reporte);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("no entra perro");
         }
     }
 

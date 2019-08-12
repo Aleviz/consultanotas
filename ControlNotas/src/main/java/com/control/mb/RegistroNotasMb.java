@@ -184,11 +184,6 @@ public class RegistroNotasMb {
         System.out.println(alumno.getPrimerNombre());
         System.out.println("-----------empleado---------" + empleados);
         evaluacion = notasDao.porAlumnos(idAlumno, empleados);
-        DecimalFormat formato = new DecimalFormat("##.##");
-        formato.format(evaluacion.getProEva1());
-        formato.format(evaluacion.getProEva2());
-        formato.format(evaluacion.getProEva3());
-        formato.format(evaluacion.getProEvato());
         System.out.println(evaluacion.getIdAlumno().getPrimerNombre());
         System.out.println(evaluacion.getEva1());
     }

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            body{
+                background-color: #dfdfdf;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div style="margin-bottom: 10px;">
+                <p:menubar>
+                    <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;">
+                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    <p:submenu label="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;">
+                        <p:menuitem value="Añadir Matricula" icon="fa fa-plus" url="registroMatricula.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Encargados" icon="fa fa-search" url="Encargados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+
+                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
+                    <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
+                    </p:submenu>
+                </p:menubar>
+            </div>
+        </h:form>
+        <h:form id="formAlumnos">
+            <p:growl id="messageAlumnos"/>
+            <p:dataTable id="tableAlumnos" var="alum" value="#{registroAlumnosMb.listaAlumnos}" paginator="true" rows="12" rowHover="true">
+                <p:columnGroup type="header">
+                    <p:column headerText="ID"/>
+                    <p:column headerText="Nombres" colspan="2"/>
+                    <p:column headerText="Apellidos" colspan="2"/>
+                    <p:column headerText="Telefono"/>
+                    <p:column headerText="Direccion"/>
+                    <p:column headerText="Carnet"/>
+                    <p:column headerText="Fecha de Nacimiento"/>
+                    <p:column headerText="" width="30"/>
+                </p:columnGroup>
+                <p:column>
+                    <p:outputLabel value="#{alum.idAlumno}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.primerNombre}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.segundoNombre}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.primerApellido}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.segundoApellido}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.telefono}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.direccion}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.carnet}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{alum.fechaNacimiento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </p:outputLabel>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="fa fa-fw fa-edit" value="#{registroAlumnosMb.selectByIdAlumno(alum)}" oncomplete="PF('updateAlumnos').show()" update="alumnosUpdate"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog id="alumnosUpdate" widgetVar="updateAlumnos" header="Editar Datos del Alumno" modal="true">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Primer Nombre:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.primerNombre}"/>
+                    <p:outputLabel value="Segundo Nombre:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.segundoNombre}"/>
+                    <p:outputLabel value="Primer Apellido:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.primerApellido}"/>
+                    <p:outputLabel value="Segundo Apellido:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.segundoApellido}"/>
+                    <p:outputLabel value="Direccion:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.direccion}"/>
+                    <p:outputLabel value="Telefono:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.telefono}"/>
+                    <p:outputLabel value="Carnet:"/>
+                    <p:inputText value="#{registroAlumnosMb.alumnos.carnet}"/>
+                    <p:outputLabel value="Fecha de Nacimiento:"/>
+                    <p:calendar value="#{registroMatriculaMb.alumno.fechaNacimiento}" pattern="dd-MM-yyyy" mask="true"/>
+                </h:panelGrid>
+                <center>
+                    <p:commandButton value="Actualizar" action="#{registroAlumnosMb.actualizarAlumno()}" oncomplete="PF('updateAlumnos').hide()" update="formAlumnos:messageAlumnos, formAlumnos:tableAlumnos"/>
+                </center>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

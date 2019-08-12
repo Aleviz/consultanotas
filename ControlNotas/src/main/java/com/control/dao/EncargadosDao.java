@@ -3,6 +3,7 @@ package com.control.dao;
 import com.control.entity.Encargados;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,6 +12,7 @@ import javax.persistence.Persistence;
  *
  * @author alexander.emesticaus
  */
+@Stateless
 public class EncargadosDao {
 
     EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");

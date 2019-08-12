@@ -15,7 +15,7 @@
                 border: 1px solid #fafafa;
             }
             body{
-                background-color: #5c5c5c;
+                background-color: #dfdfdf;
             }
         </style>
         <h:form>
@@ -24,10 +24,11 @@
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Notas" icon="fa fa-user" url="controlNotas.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
-                        <p:menuitem icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
                     </p:submenu>
                 </p:menubar>
             </div>

@@ -56,6 +56,7 @@ public class RegistroNotasMb {
     private Integer idEspecialidad;
     private Integer idGrado;
     private Integer idAlumno;
+    private int idAlumno2;
     private boolean modificar1;
     private boolean modificar2;
     private boolean modificar3;
@@ -136,7 +137,7 @@ public class RegistroNotasMb {
         evaluacion.setProEva1(Double.parseDouble(formato.format(p1)));
         evaluacion.setProEva2(Double.parseDouble(formato.format(p2)));
         evaluacion.setProEva3(Double.parseDouble(formato.format(p3)));
-        
+
         evaluacion.setProEvato(Double.parseDouble(formato.format(pf)));
         genericDao.modificarEntidad(evaluacion);
     }
@@ -168,20 +169,23 @@ public class RegistroNotasMb {
     public void llenarSelectAlumnoXGrado() {
         alumnosXGradoList = matriculaDao.AlumnosXGrado(idGrado);
         selectAlumno = new HashMap<String, String>();
-        for (int i = 0; i < alumnosXGradoList.size(); i++) {
+        for (Matricula m : alumnosXGradoList) {
             alumno = new Alumnos();
-            Matricula mat = alumnosXGradoList.get(i);
-            System.out.println("primer apellido " + mat.getIdAlumno().getPrimerApellido());
-            idAlumno = mat.getIdAlumno().getIdAlumno();
-            String apellido = mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre() + " " + mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido()
-                    + " - " + mat.getIdAlumno().getCarnet();
-            selectAlumno.put(apellido, String.valueOf(alumno.getIdAlumno()));
+            alumno = alumnosDao.porAlumnos(m.getIdAlumno().getIdAlumno());
+            String nombre = alumno.getPrimerNombre() + " " + alumno.getSegundoNombre() + " " + alumno.getPrimerApellido() + " " + alumno.getSegundoApellido() + " " + alumno.getCarnet();
+            selectAlumno.put(nombre, String.valueOf(alumno.getIdAlumno()));
+            System.out.println("id " + alumno.getIdAlumno());
         }
+    }
+
+    public void imprimir() {
+        System.out.println("123456 " + idAlumno);
     }
 //    -------------------------------------------------------------------------------
 
     public void llenarCamposAlumnos(int empleados) {
         System.out.println("---------------------" + idAlumno);
+        alumno = new Alumnos();
         alumno = alumnosDao.porAlumnos(idAlumno);
         System.out.println(alumno.getPrimerNombre());
         System.out.println("-----------empleado---------" + empleados);
@@ -388,6 +392,14 @@ public class RegistroNotasMb {
 
     public void setLogin(LoginMB login) {
         this.login = login;
+    }
+
+    public int getIdAlumno2() {
+        return idAlumno2;
+    }
+
+    public void setIdAlumno2(int idAlumno2) {
+        this.idAlumno2 = idAlumno2;
     }
 
 }

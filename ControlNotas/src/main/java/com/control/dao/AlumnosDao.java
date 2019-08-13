@@ -45,9 +45,8 @@ public class AlumnosDao {
     }
         
     public Alumnos porAlumnos(int idAlumno){
-        String sql = "SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_alumno="+idAlumno;
         try {
-            alumnos = (Alumnos)em.createNativeQuery(sql,Alumnos.class).getSingleResult();
+            alumnos = (Alumnos)em.createNamedQuery("Alumnos.findByIdAlumno").setParameter("idAlumno", idAlumno).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }

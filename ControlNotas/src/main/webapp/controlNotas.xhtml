@@ -61,6 +61,7 @@
                     <p:outputLabel value="Alumno"/>
                     <p:selectOneMenu value="#{registroNotasMb.idAlumno}" id="alumno" style="width: 350px;">
                         <f:selectItem itemLabel="seleccione " itemValue="0"/>
+                        <f:ajax event="valueChange" listener="#{registroNotasMb.imprimir()}"/>
                         <f:selectItems value="#{registroNotasMb.selectAlumno}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>

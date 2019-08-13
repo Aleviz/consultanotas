@@ -1,5 +1,6 @@
 package com.control.dao;
 
+import com.control.entity.Alumnos;
 import com.control.entity.Encargados;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class EncargadosDao {
         }
         return encargados;
     }
-
+    
     public String deleteEncargado(Encargados id) {
         String msg = null;
         try {

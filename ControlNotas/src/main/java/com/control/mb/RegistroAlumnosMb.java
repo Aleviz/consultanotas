@@ -61,8 +61,9 @@ public class RegistroAlumnosMb {
         alumnos = alumnosDao.selectByIdAlumno(id);
     }
 
-    public void selectByIdEncargado(Encargados id) {
-        encargados = encargadosDao.selectByIdEncargado(id);
+    public void selectByIdEncargado(Alumnos id) {
+        Encargados e = id.getIdEncargado();
+        encargados = encargadosDao.selectByIdEncargado(e);
     }
 
     public void actualizarAlumno() {

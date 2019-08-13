@@ -59,7 +59,7 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Alumno"/>
-                    <p:selectOneMenu value="#{registroNotasMb.idAlumno}" id="alumno" style="width: 350px;">
+                    <p:selectOneMenu value="#{registroNotasMb.idAlumno}" id="alumno" style="width: 350px;" filter="true">
                         <f:selectItem itemLabel="seleccione " itemValue="0"/>
                         <f:ajax event="valueChange" listener="#{registroNotasMb.imprimir()}"/>
                         <f:selectItems value="#{registroNotasMb.selectAlumno}"/>

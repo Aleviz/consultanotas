@@ -54,7 +54,7 @@ public class AlumnosDao {
     }
     
     public List<Alumnos> porEncargado (int encargado){
-        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_encargado.id_encargado="+encargado;
+        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_encargado="+encargado;
         try {
             alumnosList = em.createNativeQuery(sql).getResultList();
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class AlumnosDao {
     }
     
      public List<Alumnos> porUsuario (int usuario){
-        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_usuario.id_usuario="+usuario;
+        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_usuario="+usuario;
         try {
             alumnosList = em.createNativeQuery(sql).getResultList();
         } catch (Exception e) {

@@ -27,7 +27,7 @@
                         <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;"/>
                         <p:menuitem value="Consultar Encargados" icon="fa fa-search" url="Encargados.xhtml" style="font-size: 15px;"/>
                     </p:submenu>
-                    
+
                     <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
                     <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
@@ -46,6 +46,7 @@
                     <p:column headerText="Telefono"/>
                     <p:column headerText="Direccion"/>
                     <p:column headerText="Carnet"/>
+                    <p:column headerText="Encargado"/>
                     <p:column headerText="Fecha de Nacimiento"/>
                     <p:column headerText="" width="30"/>
                 </p:columnGroup>
@@ -72,6 +73,9 @@
                 </p:column>
                 <p:column>
                     <p:outputLabel value="#{alum.carnet}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Mostrar" action="#{registroAlumnosMb.selectByIdEncargado(alum)}" oncomplete="PF('updateEncargado').show()" update="encargadoUpdate"/>
                 </p:column>
                 <p:column>
                     <p:outputLabel value="#{alum.fechaNacimiento}">
@@ -106,6 +110,33 @@
                 <center>
                     <p:commandButton value="Actualizar" action="#{registroAlumnosMb.actualizarAlumno()}" oncomplete="PF('updateAlumnos').hide()" update="formAlumnos:messageAlumnos, formAlumnos:tableAlumnos"/>
                 </center>
+            </h:form>
+        </p:dialog>
+        <p:dialog id="encargadoUpdate" widgetVar="updateEncargado" header="Editar Datos del Encargado" modal="true">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Primer Nombre:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.primerNombre}"/>
+                    <p:outputLabel value="Segundo Nombre:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.segundoNombre}"/>
+                    <p:outputLabel value="Primer Apellido:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.primerApellido}"/>
+                    <p:outputLabel value="Segundo Apellido:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.segundoApellido}"/>
+                    <p:outputLabel value="DUI:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.dui}"/>
+                    <p:outputLabel value="NIT:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.nit}"/>
+                    <p:outputLabel value="Telefono:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.telefono}"/>
+                    <p:outputLabel value="Direccion:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.direccion}"/>
+                    <p:outputLabel value="Edad:"/>
+                    <p:inputText value="#{registroAlumnosMb.encargados.edad}"/>
+                </h:panelGrid>
+                <center>
+                    <p:commandButton value="actualizar" action="#{registroAlumnosMb.actualizarEncargado()}" update="formAlumnos:messageAlumnos, encargadoUpdate"/>
+                </center> 
             </h:form>
         </p:dialog>
     </h:body>

@@ -6,20 +6,25 @@
 package com.control.mb;
 
 import com.control.dao.AlumnosDao;
-import com.control.dao.EspecialidadesDao;
 import com.control.dao.EvaluacionDao;
 import com.control.dao.GenericDao;
+import com.control.dao.MatriculaDao;
 import com.control.dao.OpcionDao;
 import com.control.entity.Alumnos;
-import com.control.entity.Especialidad;
 import com.control.entity.Evaluacion;
+import com.control.entity.Matricula;
+import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
+import com.control.entity.Usuarios;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -31,79 +36,156 @@ import javax.faces.bean.ViewScoped;
 public class RegistroNotasMb {
 
     private List<Alumnos> alumnosList;
-    private List<Especialidad> especialidadList;
+    private List<Matricula> alumnosXGradoList;
     private List<Opciones> opcionList;
     private Opciones opcion;
-    private Especialidad especialidad;
     private Alumnos alumno;
+    private OpcionEspe especialidad;
+    private List<Opciones> opcionXEspecialidad;
+    private List<OpcionEspe> especialidadList;
     private Evaluacion evaluacion;
     private List<Evaluacion> evaluacionList;
     private AlumnosDao alumnosDao;
-    private EspecialidadesDao especialidadDao;
     private OpcionDao opcionDao;
+    private MatriculaDao matriculaDao;
     private GenericDao genericDao;
     private EvaluacionDao notasDao;
-    private Map<String, String > selectEspecialidad;
+    private Map<String, String> selectEspecialidad;
     private Map<String, String> selectGrado;
     private Map<String, String> selectAlumno;
     private Integer idEspecialidad;
     private Integer idGrado;
     private Integer idAlumno;
-    
+    private int idAlumno2;
+    private boolean modificar1;
+    private boolean modificar2;
+    private boolean modificar3;
+    @ManagedProperty(value = "#{LoginMB}")
+    private LoginMB login;
+
     @PostConstruct
-    public void init(){
-    alumnosList = new ArrayList<Alumnos>();
-    especialidadList = new ArrayList<Especialidad>();
-    opcionList = new ArrayList<Opciones>();
-    opcion = new Opciones();
-    especialidad = new Especialidad();
-    alumno = new Alumnos();
-    evaluacion = new Evaluacion();
-    evaluacionList = new ArrayList<Evaluacion>();
-    alumnosDao = new AlumnosDao();
-    especialidadDao = new EspecialidadesDao();
-    opcionDao = new OpcionDao();
-    genericDao = new GenericDao();
-    notasDao = new EvaluacionDao();
-    selectAlumno = new HashMap<String, String>();
-    selectEspecialidad = new HashMap<String, String>();
-    selectGrado = new HashMap<String, String>();
-    llenarSelectAlumno();
-    llenarSelectEspecialidad();
-    llenarSelectGrado();
-    llenarNotas();
-    llenarDatosPersonales();
+    public void init() {
+        alumnosList = new ArrayList<Alumnos>();
+        opcionList = new ArrayList<Opciones>();
+        alumnosXGradoList = new ArrayList<Matricula>();
+        opcionXEspecialidad = new ArrayList<Opciones>();
+        opcion = new Opciones();
+        matriculaDao = new MatriculaDao();
+        especialidad = new OpcionEspe();
+        especialidadList = new ArrayList<OpcionEspe>();
+        alumno = new Alumnos();
+        evaluacion = new Evaluacion();
+        evaluacionList = new ArrayList<Evaluacion>();
+        alumnosDao = new AlumnosDao();
+        opcionDao = new OpcionDao();
+        genericDao = new GenericDao();
+        notasDao = new EvaluacionDao();
+        idEspecialidad = 0;
+        idAlumno = 0;
+        idGrado = 0;
+        selectAlumno = new HashMap<String, String>();
+        selectEspecialidad = new HashMap<String, String>();
+        selectGrado = new HashMap<String, String>();
+        modificar1 = false;
+        modificar2 = false;
+        modificar3 = false;
+        llenarSelectAlumno();
+        llenarDatosPersonales();
+        llenarSelectOpciones();
+        llenarSelectGrado();
     }
-    
-    public void llenarSelectEspecialidad(){
-        especialidadList = especialidadDao.allEspecialidades();
-        System.out.println("-------------------"+especialidadList.size());
-        for(Especialidad e : especialidadList){
-            selectEspecialidad.put(e.getEspecialidad(), String.valueOf(e.getIdEspecialidad()));
-        }
-    }
-    
-    public void llenarDatosPersonales(){
+
+    public void llenarDatosPersonales() {
         alumnosList = alumnosDao.allAlumnos();
     }
-    
-    public void llenarNotas(){
+
+    public void llenarNotas() {
         evaluacionList = notasDao.evaluacionAll();
     }
-    
-    public void llenarSelectGrado(){
-        opcionList = opcionDao.allOpcion();
-        System.out.println("");
-        for(Opciones o : opcionList){
-            selectGrado.put(o.getDescripcion()+"-"+o.getSeccion(), String.valueOf(o.getIdOpcion()));
+
+    public void llenarSelectOpciones() {
+        especialidadList = opcionDao.allOpcionEspe();
+        System.out.println("-tamaño " + especialidadList.size());
+        for (OpcionEspe o : especialidadList) {
+            selectEspecialidad.put(o.getDescripcion(), String.valueOf(o.getIdOpcionEspe()));
         }
     }
-    
-    public void llenarSelectAlumno(){
-        alumnosList = alumnosDao.allAlumnos();
-        for(Alumnos a : alumnosList){
-            selectAlumno.put(a.getPrimerApellido()+" "+a.getSegundoApellido()+"-"+a.getCarnet(), String.valueOf(a.getIdAlumno()));
+
+    public void comparacion() {
+        if (evaluacion.getProEva1() > 0) {
+            modificar1 = true;
+            System.out.println(modificar1 + " m1");
         }
+        if (evaluacion.getProEva2() > 0) {
+            modificar2 = true;
+            System.out.println(modificar2 + "m2");
+        }
+        if (evaluacion.getProEva3() > 0) {
+            modificar3 = true;
+            System.out.println(modificar2 + "m2");
+        }
+
+    }
+
+    public void modificarNotas() {
+
+        double p1 = ((evaluacion.getEva1() + evaluacion.getEva2() + evaluacion.getEva3() + evaluacion.getEva4()) / 4);
+        double p2 = ((evaluacion.getEva5() + evaluacion.getEva6() + evaluacion.getEva7() + evaluacion.getEva8()) / 4);
+        double p3 = ((evaluacion.getEva9() + evaluacion.getEva10() + evaluacion.getEva11() + evaluacion.getEva12()) / 4);
+        double pf = (p1 + p2 + p3) / 3;
+        DecimalFormat formato = new DecimalFormat("##.##");
+        evaluacion.setProEva1(Double.parseDouble(formato.format(p1)));
+        evaluacion.setProEva2(Double.parseDouble(formato.format(p2)));
+        evaluacion.setProEva3(Double.parseDouble(formato.format(p3)));
+
+        evaluacion.setProEvato(Double.parseDouble(formato.format(pf)));
+        genericDao.modificarEntidad(evaluacion);
+    }
+
+    public void llenarSelectGrado() {
+        opcionList = opcionDao.allOpcion();
+        System.out.println("-tamaño " + opcionList.size());
+        for (Opciones o : opcionList) {
+            selectGrado.put(o.getDescripcion() + " - " + o.getSeccion(), String.valueOf(o.getIdOpcion()));
+        }
+    }
+
+    public void llenarSelectAlumno() {
+        alumnosList = alumnosDao.allAlumnos();
+        for (Alumnos a : alumnosList) {
+            selectAlumno.put(a.getPrimerApellido() + " " + a.getSegundoApellido() + "-" + a.getCarnet(), String.valueOf(a.getIdAlumno()));
+        }
+    }
+
+    public void llenarSelectOpcionxGrado() {
+        opcionXEspecialidad = opcionDao.obtenerOpcionXEspecialidad(idEspecialidad);
+        selectGrado = new HashMap<String, String>();
+        for (Opciones o : opcionXEspecialidad) {
+            selectGrado.put(o.getDescripcion() + " - " + o.getSeccion(), String.valueOf(o.getIdOpcion()));
+        }
+    }
+
+    public void llenarSelectAlumnoXGrado() {
+        alumnosXGradoList = matriculaDao.AlumnosXGrado(idGrado);
+        selectAlumno = new HashMap<String, String>();
+        for (Matricula m : alumnosXGradoList) {
+            alumno = new Alumnos();
+            alumno = alumnosDao.porAlumnos(m.getIdAlumno().getIdAlumno());
+            String nombre = alumno.getPrimerNombre() + " " + alumno.getSegundoNombre() + " " + alumno.getPrimerApellido() + " " + alumno.getSegundoApellido() + " " + alumno.getCarnet();
+            selectAlumno.put(nombre, String.valueOf(alumno.getIdAlumno()));
+        }
+    }
+
+    public void imprimir() {
+        System.out.println("123456 " + idAlumno);
+    }
+//    -------------------------------------------------------------------------------
+
+    public void llenarCamposAlumnos(int empleados) {
+        evaluacion = new Evaluacion();
+        alumno = new Alumnos();
+        alumno = alumnosDao.porAlumnos(idAlumno);
+        evaluacion = notasDao.porAlumnos(idAlumno, empleados);
     }
 
     public List<Alumnos> getAlumnosList() {
@@ -112,14 +194,6 @@ public class RegistroNotasMb {
 
     public void setAlumnosList(List<Alumnos> alumnosList) {
         this.alumnosList = alumnosList;
-    }
-
-    public List<Especialidad> getEspecialidadList() {
-        return especialidadList;
-    }
-
-    public void setEspecialidadList(List<Especialidad> especialidadList) {
-        this.especialidadList = especialidadList;
     }
 
     public List<Opciones> getOpcionList() {
@@ -136,14 +210,6 @@ public class RegistroNotasMb {
 
     public void setOpcion(Opciones opcion) {
         this.opcion = opcion;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
     }
 
     public Alumnos getAlumno() {
@@ -178,14 +244,6 @@ public class RegistroNotasMb {
         this.alumnosDao = alumnosDao;
     }
 
-    public EspecialidadesDao getEspecialidadDao() {
-        return especialidadDao;
-    }
-
-    public void setEspecialidadDao(EspecialidadesDao especialidadDao) {
-        this.especialidadDao = especialidadDao;
-    }
-
     public OpcionDao getOpcionDao() {
         return opcionDao;
     }
@@ -194,13 +252,11 @@ public class RegistroNotasMb {
         this.opcionDao = opcionDao;
     }
 
-  
-
     public GenericDao getGenericDao() {
         return genericDao;
     }
 
-  public void setGenericDao(GenericDao genericDao) {
+    public void setGenericDao(GenericDao genericDao) {
         this.genericDao = genericDao;
     }
 
@@ -259,6 +315,85 @@ public class RegistroNotasMb {
     public void setIdAlumno(Integer idAlumno) {
         this.idAlumno = idAlumno;
     }
-    
-    
+
+    public List<Matricula> getAlumnosXGradoList() {
+        return alumnosXGradoList;
+    }
+
+    public void setAlumnosXGradoList(List<Matricula> alumnosXGradoList) {
+        this.alumnosXGradoList = alumnosXGradoList;
+    }
+
+    public OpcionEspe getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(OpcionEspe especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public List<Opciones> getOpcionXEspecialidad() {
+        return opcionXEspecialidad;
+    }
+
+    public void setOpcionXEspecialidad(List<Opciones> opcionXEspecialidad) {
+        this.opcionXEspecialidad = opcionXEspecialidad;
+    }
+
+    public List<OpcionEspe> getEspecialidadList() {
+        return especialidadList;
+    }
+
+    public void setEspecialidadList(List<OpcionEspe> especialidadList) {
+        this.especialidadList = especialidadList;
+    }
+
+    public MatriculaDao getMatriculaDao() {
+        return matriculaDao;
+    }
+
+    public void setMatriculaDao(MatriculaDao matriculaDao) {
+        this.matriculaDao = matriculaDao;
+    }
+
+    public boolean isModificar1() {
+        return modificar1;
+    }
+
+    public void setModificar1(boolean modificar1) {
+        this.modificar1 = modificar1;
+    }
+
+    public boolean isModificar2() {
+        return modificar2;
+    }
+
+    public void setModificar2(boolean modificar2) {
+        this.modificar2 = modificar2;
+    }
+
+    public boolean isModificar3() {
+        return modificar3;
+    }
+
+    public void setModificar3(boolean modificar3) {
+        this.modificar3 = modificar3;
+    }
+
+    public LoginMB getLogin() {
+        return login;
+    }
+
+    public void setLogin(LoginMB login) {
+        this.login = login;
+    }
+
+    public int getIdAlumno2() {
+        return idAlumno2;
+    }
+
+    public void setIdAlumno2(int idAlumno2) {
+        this.idAlumno2 = idAlumno2;
+    }
+
 }

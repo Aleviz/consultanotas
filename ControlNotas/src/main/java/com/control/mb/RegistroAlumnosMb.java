@@ -2,19 +2,11 @@ package com.control.mb;
 
 import com.control.dao.AlumnosDao;
 import com.control.dao.EncargadosDao;
-import com.control.dao.EvaluacionDao;
 import com.control.dao.GenericDao;
-import com.control.dao.RolesDao;
-import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Encargados;
-import com.control.entity.Evaluacion;
-import com.control.entity.Roles;
-import com.control.entity.Usuarios;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,146 +21,95 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class RegistroAlumnosMb {
 
-    private List<Alumnos> alumnosList;
-    private Alumnos alumno;
-    private Encargados encargado;
-    private AlumnosDao alumnosDao;
-    private Evaluacion evaluacion;
-    private UsuariosDao usuarioDao;
-    private EncargadosDao encargadosDao;
-    private EvaluacionDao evaluacionDao;
+    private Alumnos alumnos;
+    private Encargados encargados;
+
+    private List<Alumnos> listaAlumnos;
+    private List<Encargados> listaEncargados;
+
     private GenericDao genericDao;
-    private Usuarios usuario;
-    private RolesDao rolesDao;
-    private List<Roles> rolesList;
-    private Roles roles;
-    private Map<String, String> selectRoles;
-    private Integer idRoles;
+    private AlumnosDao alumnosDao;
+    private EncargadosDao encargadosDao;
 
     @PostConstruct
     public void init() {
-        alumnosList = new ArrayList<Alumnos>();
-        alumnosDao = new AlumnosDao();
-        rolesDao = new RolesDao();
-        rolesList = new ArrayList<Roles>();
-        usuarioDao = new UsuariosDao();
-        selectRoles = new HashMap<String, String>();
-        encargadosDao = new EncargadosDao();
-        evaluacionDao = new EvaluacionDao();
+        alumnos = new Alumnos();
+        encargados = new Encargados();
+
+        listaAlumnos = new ArrayList<Alumnos>();
+        listaEncargados = new ArrayList<Encargados>();
+
         genericDao = new GenericDao();
-        usuario = new Usuarios();
-        evaluacion = new Evaluacion();
-        roles = new Roles();
-        llenarSelectRoles();
+        alumnosDao = new AlumnosDao();
+        encargadosDao = new EncargadosDao();
+
+        mostrarAlumnos();
+        mostrarEncargados();
     }
 
-    public void guardarAlumno() {
-        genericDao.insertarEntidad(encargado);
-        roles.setIdRol(idRoles);
-        usuario.setIdRol(roles);
-        genericDao.insertarEntidad(usuario);
-        FacesMessage msg = new FacesMessage("Guardardo con Exito");
+    public void mostrarAlumnos() {
+        alumnosDao = new AlumnosDao();
+        listaAlumnos = alumnosDao.allAlumnos();
+    }
+
+    public void mostrarEncargados() {
+        encargadosDao = new EncargadosDao();
+        listaEncargados = encargadosDao.selectAllEncargados();
+    }
+
+    public void selectByIdAlumno(Alumnos id) {
+        alumnos = alumnosDao.selectByIdAlumno(id);
+    }
+
+    public void selectByIdEncargado(Alumnos id) {
+        Encargados e = id.getIdEncargado();
+        encargados = encargadosDao.selectByIdEncargado(e);
+    }
+
+    public void actualizarAlumno() {
+        String mensaje = genericDao.modificarEntidad(alumnos);
+        FacesMessage msg = new FacesMessage(mensaje);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        mostrarAlumnos();
     }
 
-    public void llenarSelectRoles() {
-        rolesList = rolesDao.selectAllRoles();
-        System.out.println("lista" + rolesList.size());
-        for (Roles ro : rolesList) {
-            selectRoles.put(ro.getRol(), String.valueOf(ro.getIdRol()));
-        }
+    public void actualizarEncargado() {
+        String mensaje = genericDao.modificarEntidad(encargados);
+        FacesMessage msg = new FacesMessage(mensaje);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        mostrarEncargados();
     }
 
-    public void guardarRoles() {
-        genericDao.insertarEntidad(roles);
+    public Alumnos getAlumnos() {
+        return alumnos;
     }
 
-    public List<Alumnos> getAlumnosList() {
-        return alumnosList;
+    public void setAlumnos(Alumnos alumnos) {
+        this.alumnos = alumnos;
     }
 
-    public void setAlumnosList(List<Alumnos> alumnosList) {
-        this.alumnosList = alumnosList;
+    public Encargados getEncargados() {
+        return encargados;
     }
 
-    public Alumnos getAlumno() {
-        return alumno;
+    public void setEncargados(Encargados encargados) {
+        this.encargados = encargados;
     }
 
-    public void setAlumno(Alumnos alumno) {
-        this.alumno = alumno;
+    public List<Alumnos> getListaAlumnos() {
+        return listaAlumnos;
     }
 
-    public Encargados getEncargado() {
-        return encargado;
+    public void setListaAlumnos(List<Alumnos> listaAlumnos) {
+        this.listaAlumnos = listaAlumnos;
     }
 
-    public RolesDao getRolesDao() {
-        return rolesDao;
+    public List<Encargados> getListaEncargados() {
+        return listaEncargados;
     }
 
-    public void setRolesDao(RolesDao rolesDao) {
-        this.rolesDao = rolesDao;
-    }
-
-    public List<Roles> getRolesList() {
-        return rolesList;
-    }
-
-    public void setRolesList(List<Roles> rolesList) {
-        this.rolesList = rolesList;
-    }
-
-    public Map<String, String> getSelectRoles() {
-        return selectRoles;
-    }
-
-    public void setSelectRoles(Map<String, String> selectRoles) {
-        this.selectRoles = selectRoles;
-    }
-
-    public void setEncargado(Encargados encargado) {
-        this.encargado = encargado;
-    }
-
-    public AlumnosDao getAlumnosDao() {
-        return alumnosDao;
-    }
-
-    public void setAlumnosDao(AlumnosDao alumnosDao) {
-        this.alumnosDao = alumnosDao;
-    }
-
-    public Evaluacion getEvaluacion() {
-        return evaluacion;
-    }
-
-    public void setEvaluacion(Evaluacion evaluacion) {
-        this.evaluacion = evaluacion;
-    }
-
-    public UsuariosDao getUsuarioDao() {
-        return usuarioDao;
-    }
-
-    public void setUsuarioDao(UsuariosDao usuarioDao) {
-        this.usuarioDao = usuarioDao;
-    }
-
-    public EncargadosDao getEncargadosDao() {
-        return encargadosDao;
-    }
-
-    public void setEncargadosDao(EncargadosDao encargadosDao) {
-        this.encargadosDao = encargadosDao;
-    }
-
-    public EvaluacionDao getEvaluacionDao() {
-        return evaluacionDao;
-    }
-
-    public void setEvaluacionDao(EvaluacionDao evaluacionDao) {
-        this.evaluacionDao = evaluacionDao;
+    public void setListaEncargados(List<Encargados> listaEncargados) {
+        this.listaEncargados = listaEncargados;
     }
 
     public GenericDao getGenericDao() {
@@ -179,28 +120,20 @@ public class RegistroAlumnosMb {
         this.genericDao = genericDao;
     }
 
-    public Usuarios getUsuario() {
-        return usuario;
+    public AlumnosDao getAlumnosDao() {
+        return alumnosDao;
     }
 
-    public void setUsuario(Usuarios usuario) {
-        this.usuario = usuario;
+    public void setAlumnosDao(AlumnosDao alumnosDao) {
+        this.alumnosDao = alumnosDao;
     }
 
-    public Roles getRoles() {
-        return roles;
+    public EncargadosDao getEncargadosDao() {
+        return encargadosDao;
     }
 
-    public void setRoles(Roles roles) {
-        this.roles = roles;
-    }
-
-    public Integer getIdRoles() {
-        return idRoles;
-    }
-
-    public void setIdRoles(Integer idRoles) {
-        this.idRoles = idRoles;
+    public void setEncargadosDao(EncargadosDao encargadosDao) {
+        this.encargadosDao = encargadosDao;
     }
 
 }

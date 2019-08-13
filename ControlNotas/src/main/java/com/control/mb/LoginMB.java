@@ -10,12 +10,14 @@ import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Usuarios;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -24,11 +26,12 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginMB implements Serializable {
+public class LoginMB  {
 
     //ENTITY
     private Usuarios usuario;
     private Integer rol;
+    private int nEmpleado;
     private Alumnos alumno;
     private Empleados empleado;
 
@@ -57,6 +60,7 @@ public class LoginMB implements Serializable {
         usuario = new Usuarios();
         alumno = new Alumnos();
         empleado = new Empleados();
+       
 
         //LIST
         usuarioList = new ArrayList<Usuarios>();
@@ -133,10 +137,10 @@ public class LoginMB implements Serializable {
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
+
 //                if (usuario.getEmpleadosList().get(0) != null) {
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
-
             } else if (rol == 3) {
                 esAlumno = false;
                 esProfesor = true;
@@ -147,6 +151,10 @@ public class LoginMB implements Serializable {
                 direcXSub = false;
 
                 usuario.getEmpleadosList();
+                empleado = usuario.getEmpleadosList().get(0);
+                nEmpleado = empleado.getIdEmpleado();
+                System.out.println("empleado docente " + empleado.getPrimerNombre());
+                System.out.println("empleado " + nEmpleado);
 //                if (usuario.getEmpleadosList().get(0) != null) {
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
@@ -167,6 +175,7 @@ public class LoginMB implements Serializable {
 //                }
             }
             System.out.println("IR::::::::::");
+            System.out.println("empleado " + empleado.getPrimerApellido());
             return "index.xhtml";
         } else {
 
@@ -177,10 +186,14 @@ public class LoginMB implements Serializable {
 
    
 
-    public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        System.out.println("Number: " + usuario.getUsuario());
-        return "/Login.xhtml?faces-redirect=true";
+    
+    
+    public void logout() throws IOException{
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath()+"/Login.xhtml");
+//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//        System.out.println("Number: "+usuario.getUsuario());
+//        return "/Login.xhtml?faces-redirect=true";
     }
 
     public AccesoDao getAcces() {
@@ -234,6 +247,7 @@ public class LoginMB implements Serializable {
     public Integer getRol() {
         return rol;
     }
+
 
     public void setRol(Integer rol) {
         this.rol = rol;
@@ -295,12 +309,12 @@ public class LoginMB implements Serializable {
         this.direcXSub = direcXSub;
     }
 
-    public boolean isNoEstaLogeado() {
-        return noEstaLogeado;
+    public int getnEmpleado() {
+        return nEmpleado;
     }
 
-    public void setNoEstaLogeado(boolean noEstaLogeado) {
-        this.noEstaLogeado = noEstaLogeado;
+    public void setnEmpleado(int nEmpleado) {
+        this.nEmpleado = nEmpleado;
     }
 
 }

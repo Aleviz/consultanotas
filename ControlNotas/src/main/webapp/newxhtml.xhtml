@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"    
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            body{
+                background-color: #5c5c5c;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div style="margin-bottom: 10px;">
+                <p:menubar>
+                    <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
+                    <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
+                        <p:menuitem icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                    </p:submenu>
+                </p:menubar>
+            </div>
+        </h:form>
+        <h:form id="reporte">
+
+        
+                    <p:commandLink action="#{utilReport.reporteToPdf()}" ajax="false">
+                        <img src="res/icon/oficina_pdf.png" alt="" title="Exportar a PDF"/>
+                    </p:commandLink>
+           
+
+        </h:form>
+      
+    </h:body>
+</html>

@@ -6,39 +6,78 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
-    </h:head>
-    <h:body>
         <style type="text/css">
             .ui-g div {
 
                 text-align: center;
                 border: 1px solid #fafafa;
             }
-        </style>
-        <h1>dsadsa</h1>
+            body{
+                background-color: #dfdfdf;
+            }
+        </style> 
+    </h:head>
+    <h:body>
         <h:form>
-            <h:outputText value="Especialidad"/>
-            <p:selectOneMenu value="#{registroNotasMb.idEspecialidad}">
-                <f:selectItem itemLabel="seleccione"/>
-                <f:selectItems value="#{registroNotasMb.selectEspecialidad}"/>
-            </p:selectOneMenu>
-            <h:outputText value="Grado"/>
-            <p:selectOneMenu value="#{registroNotasMb.idGrado}">
-                <f:selectItem itemLabel="seleccione"/>
-                <f:selectItems value="#{registroNotasMb.selectGrado}"/>
-            </p:selectOneMenu>
-            <h:outputText value="Alumno"/>
-            <p:selectOneMenu value="#{registroNotasMb.idAlumno}">
-                <f:selectItem itemLabel="seleccione"/>
-                <f:selectItems value="#{registroNotasMb.selectAlumno}"/>
-            </p:selectOneMenu>
+            <div style="margin-bottom: 10px;">
+                <p:menubar>
+                    <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;">
+                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    <p:submenu label="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;">
+                        <p:menuitem value="Añadir Matricula" icon="fa fa-plus" url="registroMatricula.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Encargados" icon="fa fa-search" url="Encargados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    
+                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
+                    <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
+                    </p:submenu>
+                </p:menubar>
+            </div>
         </h:form>
-        <h:form>
+        <center>
+            <h:form style="margin-top: 75px;">
+                <h:panelGrid columns="6" cellpadding="10">
+                    <p:outputLabel value="Opcion"/>
+                    <p:selectOneMenu value="#{registroNotasMb.idEspecialidad}" style="width: 300px;">
+                        <f:selectItem itemLabel="seleccione Opcion" itemValue="0"/>
+                        <p:ajax event="valueChange" listener="#{registroNotasMb.llenarSelectOpcionxGrado()}" update="grado"/>
+                        <f:selectItems value="#{registroNotasMb.selectEspecialidad}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Grado"/>
+                    <p:selectOneMenu value="#{registroNotasMb.idGrado}" id="grado" style="width: 350px;">
+                        <f:selectItem itemLabel="seleccione" itemValue="0"/>
+                        <p:ajax event="valueChange" update="alumno" listener="#{registroNotasMb.llenarSelectAlumnoXGrado()}"/>
+                        <f:selectItems value="#{registroNotasMb.selectGrado}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Alumno"/>
+                    <p:selectOneMenu value="#{registroNotasMb.idAlumno}" id="alumno" style="width: 350px;" filter="true">
+                        <f:selectItem itemLabel="seleccione " itemValue="0"/>
+                        <f:ajax event="valueChange" listener="#{registroNotasMb.imprimir()}"/>
+                        <f:selectItems value="#{registroNotasMb.selectAlumno}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+            </h:form>
+            <h:form>
+                <p:commandButton action="#{registroNotasMb.llenarCamposAlumnos(loginMB.getnEmpleado())}" update="datos,form3:eva,FormNotas" value="Buscar" style="margin-bottom: 10px;"/>
+            </h:form>
+        </center>
+
+        <h:form id="datos">
             <p:panel>
                 <div class="ui-g">
                     <div class="ui-g-11">
-                        <p:inputText value="#{registroNotasMb.alumno.fechaNacimiento}" style="float: right"/>
-                        <p:outputLabel value="Fecha" style="float: right"/>
+                        <p:inputText value="#{registroNotasMb.alumno.carnet}" style="float: right"/>
+                        <p:outputLabel value="Carnet" style="float: right"/>
                     </div>
                     <div class="ui-g-1"></div>
                 </div>
@@ -46,12 +85,12 @@
                     <div class="ui-g-1"></div>
                     <div class="ui-g-5">
                         <p:outputLabel value="Nombres"/>
-                        <p:inputText value="#{registroNotasMb.alumno.primerNombre}, 
-                                     #{registroNotasMb.alumno.segundoNombre}"/>   
+
+                        <p:inputText value="#{registroNotasMb.alumno.primerNombre} , #{registroNotasMb.alumno.segundoNombre}"/>    
                     </div>
                     <div class="ui-g-5">
                         <p:outputLabel value="Apellidos"/>
-                        <p:inputText value="#{registroNotasMb.alumno.primerApellido}"/>   
+                        <p:inputText value="#{registroNotasMb.alumno.primerApellido} , #{registroNotasMb.alumno.segundoApellido}"/>   
                     </div>
                     <div class="ui-g-1"></div>
                 </div>
@@ -64,21 +103,130 @@
                     <div class="ui-g-5">
                         <p:outputLabel value="Telefono"/>
                         <p:inputText value="#{registroNotasMb.alumno.telefono}"/>
-                        <p:outputLabel value="Telefono"/>
-                        <p:inputText value="#{registroNotasMb.alumno.telefono}"/>
                     </div>
                     <div class="ui-g-1"></div>
                 </div>
             </p:panel>
         </h:form>
-        <h:form>
-            <p:dataTable id="ad" var="e" value="#{registroNotasMb.alumnosList}">
+        <h:form id="form3">
+            <p:dataTable id="eva" value="#{registroNotasMb.evaluacion}" var="e">
+                <p:columnGroup type="header">
+                    <p:column headerText="Evaluaciones" colspan="4"/>
+                    <p:column headerText="Promedio"/>
+                    <p:column headerText="Evaluaciones" colspan="4"/>
+                    <p:column headerText="Promedio"/>
+                    <p:column headerText="Evaluaciones" colspan="4"/>
+                    <p:column headerText="Promedio"/>
+                    <p:column headerText="Promedio Final"/>
+                    <p:column headerText="" width="30"/>
+                </p:columnGroup>
                 <p:column>
-                    <p:outputLabel value="#{e.carnet}"/>
+                    <p:outputLabel value="#{e.eva1}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva2}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva3}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva4}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEva1}" />
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva5}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva6}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva7}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva8}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEva2}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva9}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva10}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva11}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva12}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEva3}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEvato}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="fa fa-fw fa-edit" oncomplete="PF('wivNotas').show();" 
+                                     action="#{registroNotasMb.comparacion()}" update="FormNotas"/>
                 </p:column>
             </p:dataTable>
         </h:form>
 
+        <p:dialog id="dialogoNotas" widgetVar="wivNotas" header=" Modificar Notas">
+            <h:form id="FormNotas">
+                <p:panelGrid columns="4">
+                    <p:outputLabel value="Evaluacion 1"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva1}" readonly="#{registroNotasMb.modificar1}"
+                                 maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 2"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva2}" 
+                                 readonly="#{registroNotasMb.modificar1}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 3"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva3}" 
+                                 readonly="#{registroNotasMb.modificar1}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 4"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva4}" 
+                                 readonly="#{registroNotasMb.modificar1}" maxlength="4"/>
+                    <p:outputLabel value="Promedio Evaluativo 1"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.proEva1}" readonly="true" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 5"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva5}" 
+                                 readonly="#{registroNotasMb.modificar2}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 6"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva6}" 
+                                 readonly="#{registroNotasMb.modificar2}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 7"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva7}" 
+                                 readonly="#{registroNotasMb.modificar2}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 8"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva8}" 
+                                 readonly="#{registroNotasMb.modificar2}" maxlength="4"/>
+                    <p:outputLabel value="Promedio Evaluativo 2"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.proEva2}" readonly="true"/>
+                    <p:outputLabel value="Evaluacion 9"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva9}" 
+                                 readonly="#{registroNotasMb.modificar3}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 10"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva10}" 
+                                 readonly="#{registroNotasMb.modificar3}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 11"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva11}" 
+                                 readonly="#{registroNotasMb.modificar3}" maxlength="4"/>
+                    <p:outputLabel value="Evaluacion 12"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.eva12}" 
+                                 readonly="#{registroNotasMb.modificar3}" maxlength="4"/>
+                    <p:outputLabel value="Promedio Evaluativo 3"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.proEva3}" readonly="true"/>
+                    <p:outputLabel value="Promedio"/>
+                    <p:inputText value="#{registroNotasMb.evaluacion.proEvato}" readonly="true"/>
+                </p:panelGrid>
+                <p:commandButton value="Modificar" action="#{registroNotasMb.modificarNotas()}" 
+                                 oncomplete="PF('wivNotas').hide();" update="form3"/> 
+            </h:form>
+        </p:dialog>
+
     </h:body>
 </html>
-

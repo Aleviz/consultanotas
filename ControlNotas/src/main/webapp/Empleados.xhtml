@@ -20,14 +20,19 @@
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
                     <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;">
-                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 18px;"/>
-                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 18px;"/>
+                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 15px;"/>
                     </p:submenu>
-                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
+                    <p:submenu label="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;">
+                        <p:menuitem value="Añadir Matricula" icon="fa fa-plus" url="registroMatricula.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Encargados" icon="fa fa-search" url="Encargados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    
                     <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
                     <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
-                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
                     </p:submenu>
                 </p:menubar>
             </div>

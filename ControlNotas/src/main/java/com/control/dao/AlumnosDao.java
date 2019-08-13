@@ -17,7 +17,6 @@ import javax.persistence.Persistence;
  *
  * @author manuel.rodriguezusam
  */
-@Stateless
 public class AlumnosDao {
     
     EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");

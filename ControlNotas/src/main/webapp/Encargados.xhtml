@@ -80,7 +80,7 @@
                     <p:outputLabel value="#{encar.nit}"/>
                 </p:column>
                 <p:column>
-                    <p:commandButton icon="fa fa-fw fa-edit" value="#{registroAlumnosMb.selectByIdEncargado(encar)}" oncomplete="PF('updateEncargado').show()" update="encargadoUpdate"/>
+                    <p:commandButton icon="fa fa-fw fa-edit" action="#{registroAlumnosMb.selectByIdEncargado(encar)}" oncomplete="PF('updateEncargado').show()" update="encargadoUpdate"/>
                 </p:column>
             </p:dataTable>
         </h:form>

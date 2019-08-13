@@ -159,7 +159,6 @@ public class RegistroNotasMb {
 
     public void llenarSelectOpcionxGrado() {
         opcionXEspecialidad = opcionDao.obtenerOpcionXEspecialidad(idEspecialidad);
-        System.out.println("" + opcionXEspecialidad.size());
         selectGrado = new HashMap<String, String>();
         for (Opciones o : opcionXEspecialidad) {
             selectGrado.put(o.getDescripcion() + " - " + o.getSeccion(), String.valueOf(o.getIdOpcion()));
@@ -174,7 +173,6 @@ public class RegistroNotasMb {
             alumno = alumnosDao.porAlumnos(m.getIdAlumno().getIdAlumno());
             String nombre = alumno.getPrimerNombre() + " " + alumno.getSegundoNombre() + " " + alumno.getPrimerApellido() + " " + alumno.getSegundoApellido() + " " + alumno.getCarnet();
             selectAlumno.put(nombre, String.valueOf(alumno.getIdAlumno()));
-            System.out.println("id " + alumno.getIdAlumno());
         }
     }
 
@@ -184,14 +182,10 @@ public class RegistroNotasMb {
 //    -------------------------------------------------------------------------------
 
     public void llenarCamposAlumnos(int empleados) {
-        System.out.println("---------------------" + idAlumno);
+        evaluacion = new Evaluacion();
         alumno = new Alumnos();
         alumno = alumnosDao.porAlumnos(idAlumno);
-        System.out.println(alumno.getPrimerNombre());
-        System.out.println("-----------empleado---------" + empleados);
         evaluacion = notasDao.porAlumnos(idAlumno, empleados);
-        System.out.println(evaluacion.getIdAlumno().getPrimerNombre());
-        System.out.println(evaluacion.getEva1());
     }
 
     public List<Alumnos> getAlumnosList() {

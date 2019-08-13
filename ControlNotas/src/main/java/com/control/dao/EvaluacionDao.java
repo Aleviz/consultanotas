@@ -55,10 +55,12 @@ public class EvaluacionDao {
     public Evaluacion porAlumnos(int idAlumno, int idProfesor) {
         String sql = "SELECT * FROM bdcne.evaluacion where id_alumno=" + idAlumno + " and id_profesor=" + idProfesor;
         try {
+            evaluacion = new Evaluacion();
             evaluacion = (Evaluacion) em.createNativeQuery(sql, Evaluacion.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return evaluacion;
     }
 

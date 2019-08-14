@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            body{
+                background-color: #dfdfdf;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div style="margin-bottom: 10px;">
+                <p:menubar>
+                    <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
+                    <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;">
+                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    <p:submenu label="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;">
+                        <p:menuitem value="Añadir Matricula" icon="fa fa-plus" url="registroMatricula.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar Encargados" icon="fa fa-search" url="Encargados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+
+                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
+                    <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
+                    </p:submenu>
+                </p:menubar>
+            </div>
+        </h:form>
+        <h:form id="form3">
+            <p:dataTable id="eva" value="#{registroNotasMb.evaAlumno}" var="e">
+                <p:columnGroup type="header">
+                    <p:column width="150">
+                        <f:facet name="header">
+                            <h:outputText value="Materia" />
+                        </f:facet>
+                    </p:column>
+                    <p:column colspan="4">
+                        <f:facet name="header">
+                            <h:outputText value="Evaluaciones" />
+                        </f:facet>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Promedio" />
+                        </f:facet>
+                    </p:column>
+                    <p:column colspan="4">
+                        <f:facet name="header">
+                            <h:outputText value="Evaluaciones" />
+                        </f:facet>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Promedio" />
+                        </f:facet>
+                    </p:column>
+                    <p:column colspan="4">
+                        <f:facet name="header">
+                            <h:outputText value="Evaluaciones" />
+                        </f:facet>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Promedio" />
+                        </f:facet>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Promedio Final" />
+                        </f:facet>
+                    </p:column>
+                </p:columnGroup>
+                <p:column>
+                    <p:outputLabel value="#{e.idProfesor.idMateria.materia}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva1}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva2}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva3}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva4}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.proEva1}" />
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva5}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva6}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva7}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva8}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.proEva2}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.eva9}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{e.eva10}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{e.eva11}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{e.eva12}"/>
+                </p:column>
+                <p:column >
+                    <p:outputLabel value="#{e.proEva3}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.proEvato}" />
+                </p:column>
+            </p:dataTable>
+            <div style="float:right;padding-top: 5px;">
+                <h:commandLink>
+                    <p:graphicImage name="res/icon/oficina_pdf.png" />
+                    <p:dataExporter type="pdf" target="eva" fileName="Reporte-Notas"/>
+                </h:commandLink>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

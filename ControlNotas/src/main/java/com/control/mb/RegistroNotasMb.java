@@ -44,6 +44,7 @@ public class RegistroNotasMb {
     private List<Opciones> opcionXEspecialidad;
     private List<OpcionEspe> especialidadList;
     private Evaluacion evaluacion;
+    private List<Evaluacion> evaAlumno;
     private List<Evaluacion> evaluacionList;
     private AlumnosDao alumnosDao;
     private OpcionDao opcionDao;
@@ -67,6 +68,7 @@ public class RegistroNotasMb {
     public void init() {
         alumnosList = new ArrayList<Alumnos>();
         opcionList = new ArrayList<Opciones>();
+        evaAlumno = new ArrayList<Evaluacion>();
         alumnosXGradoList = new ArrayList<Matricula>();
         opcionXEspecialidad = new ArrayList<Opciones>();
         opcion = new Opciones();
@@ -93,10 +95,15 @@ public class RegistroNotasMb {
         llenarDatosPersonales();
         llenarSelectOpciones();
         llenarSelectGrado();
+        llenarNotasEstudiante();
     }
 
     public void llenarDatosPersonales() {
         alumnosList = alumnosDao.allAlumnos();
+    }
+    
+    public void llenarNotasEstudiante(){
+        evaAlumno = notasDao.por1Alumno(3);
     }
 
     public void llenarNotas() {
@@ -177,7 +184,7 @@ public class RegistroNotasMb {
     }
 
     public void imprimir() {
-        System.out.println("123456 " + idAlumno);
+        System.out.println("//" + idAlumno);
     }
 //    -------------------------------------------------------------------------------
 
@@ -304,6 +311,16 @@ public class RegistroNotasMb {
         return idGrado;
     }
 
+    public List<Evaluacion> getEvaAlumno() {
+        return evaAlumno;
+    }
+
+    public void setEvaAlumno(List<Evaluacion> evaAlumno) {
+        this.evaAlumno = evaAlumno;
+    }
+
+   
+    
     public void setIdGrado(Integer idGrado) {
         this.idGrado = idGrado;
     }

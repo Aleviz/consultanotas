@@ -73,7 +73,7 @@
                     <p:outputLabel value="#{alum.carnet}"/>
                 </p:column>
                 <p:column>
-                    <p:commandButton value="Mostrar" action="#{registroAlumnosMb.selectByIdEncargado(alum)}" oncomplete="PF('updateEncargado').show()" update="encargadoUpdate"/>
+                    <p:commandButton value="Mostrar" action="#{registroAlumnosMb.selectByIdNativeQuery(alum)}" oncomplete="PF('updateEncargado').show()" update="encargadoUpdate"/>
                 </p:column>
                 <p:column>
                     <p:outputLabel value="#{alum.fechaNacimiento}">

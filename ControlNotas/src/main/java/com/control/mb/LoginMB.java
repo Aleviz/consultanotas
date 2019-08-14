@@ -10,6 +10,7 @@ import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
 import com.control.entity.Usuarios;
+import com.control.util.UtilVarios;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginMB  {
+public class LoginMB implements Serializable{
 
     //ENTITY
     private Usuarios usuario;
@@ -85,9 +86,12 @@ public class LoginMB  {
     public String logear() {
         String usuariio = "";
         String pass = "";
+        
+        UtilVarios uv = new UtilVarios();
+        String passEnMd5 = uv.convertToMd5(usuario.getPass());
 
         usuariio = usuario.getUsuario();
-        pass = usuario.getPass();
+        pass = passEnMd5;
         System.out.println("usuario en login= " + usuariio + " pass en login= " + pass);
 
         usuario = acces.logeado(usuariio, pass);

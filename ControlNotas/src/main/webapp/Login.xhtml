@@ -52,10 +52,10 @@
                 <center>
                     <h:form>
                         <h:panelGrid>
-                            <p:outputLabel value="Usuario: " style="font-size: 16px;"/>
-                            <p:inputText value="#{loginMB.usuario.usuario}"/>
+                            <p:outputLabel value="Usuario: " style="font-size: 16px;" />
+                            <p:inputText value="#{loginMB.usuario.usuario}" style="width: 218px;"/>
                             <p:outputLabel value="Contraseña: " style="font-size: 16px;"/>
-                            <p:password value="#{loginMB.usuario.pass}"/>
+                            <p:password value="#{loginMB.usuario.pass}" style="width: 218px;"/>
                         </h:panelGrid>
                         <p:commandButton value="Login" action="#{loginMB.logear()}" style="margin-top: 10px; margin-bottom: 10px; font-size: 15.5px;"/>
                     </h:form>

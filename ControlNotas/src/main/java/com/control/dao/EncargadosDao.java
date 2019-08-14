@@ -35,7 +35,7 @@ public class EncargadosDao {
     public Encargados selectByIdAlumnoEncargado(int numId){
         String sql = "select e.id_encargado, e.primer_nombre, e.segundo_nombre, e.primer_apellido, e.segundo_apellido, e.dui, e.nit, e.telefono, e.direccion, e.edad from alumnos a inner join encargados e on a.id_encargado=e.id_encargado where a.id_alumno="+numId;
         try {
-            encargados = (Encargados)em.createNamedQuery(sql, Encargados.class).getSingleResult();
+            encargados = (Encargados)em.createNativeQuery(sql, Encargados.class).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }

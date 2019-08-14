@@ -77,7 +77,7 @@ and open the template in the editor.
 
                 </center>
             </p:column>
-            
+
             <p:column rendered="#{utilReport.vistaXNotas}">
                 <p:panelGrid >
                     <center><h2>Seleccione el Tipo de reporte para las Notas</h2></center>
@@ -134,69 +134,124 @@ and open the template in the editor.
                 </p:column>
 
             </p:dataTable>
-            
-            <p:dataTable  value="#{registroNotasMb.evaluacionList}" var="e" rendered="#{utilReport.vistaXNotas}">
+
+            <p:dataTable id="eva" value="#{registroNotasMb.evaAlumno}" var="e" rendered="#{utilReport.vistaXNotas}">
                 <p:columnGroup type="header">
-                    <p:column headerText="Evaluaciones" colspan="4"/>
-                    <p:column headerText="Promedio"/>
-                    <p:column headerText="Evaluaciones" colspan="4"/>
-                    <p:column headerText="Promedio"/>
-                    <p:column headerText="Evaluaciones" colspan="4"/>
-                    <p:column headerText="Promedio"/>
-                    <p:column headerText="Promedio Final"/>
-                    <p:column headerText="" width="30"/>
+                     <p:column width="80">
+                        <f:facet name="header">
+                            <h:outputText value="Carnet" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="300">
+                        <f:facet name="header">
+                            <h:outputText value="Nombre del Alumno" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="150">
+                        <f:facet name="header">
+                            <h:outputText value="Opcion" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="150">
+                        <f:facet name="header">
+                            <h:outputText value="Materia" />
+                        </f:facet>
+                    </p:column>
+                    <p:column colspan="4">
+                        <f:facet name="header">
+                            <h:outputText value="Evaluaciones" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="57">
+                        <f:facet name="header">
+                            <h:outputText value="Promedio" />
+                        </f:facet>
+                    </p:column>
+                    <p:column colspan="4">
+                        <f:facet name="header">
+                            <h:outputText value="Evaluaciones" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="57">
+                        <f:facet name="header">
+                            <h:outputText value="Promedio" />
+                        </f:facet>
+                    </p:column>
+                    <p:column colspan="4">
+                        <f:facet name="header">
+                            <h:outputText value="Evaluaciones" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="57">
+                        <f:facet name="header">
+                            <h:outputText value="Promedio" />
+                        </f:facet>
+                    </p:column>
+                    <p:column width="57">
+                        <f:facet name="header">
+                            <h:outputText value="Promedio Final" />
+                        </f:facet>
+                    </p:column>
                 </p:columnGroup>
+                  <p:column>
+                      <p:outputLabel value="#{e.idAlumno.carnet}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.idAlumno.primerNombre} #{e.idAlumno.segundoNombre} #{e.idAlumno.primerApellido} #{e.idAlumno.segundoApellido}"/>
+                </p:column>
+                 <p:column>
+                     <p:outputLabel value="#{e.idProfesor.idMateria.opcionEspe}"/>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="#{e.idProfesor.idMateria.materia}"/>
+                </p:column>
                 <p:column>
                     <p:outputLabel value="#{e.eva1}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva2}"/>
+                    <p:outputLabel value="#{e.eva2}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva3}"/>
+                    <p:outputLabel value="#{e.eva3}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva4}"/>
+                    <p:outputLabel value="#{e.eva4}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEva1}" />
+                    <p:outputLabel value="#{e.proEva1}" />
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva5}"/>
+                    <p:outputLabel value="#{e.eva5}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva6}"/>
+                    <p:outputLabel value="#{e.eva6}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva7}"/>
+                    <p:outputLabel value="#{e.eva7}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva8}"/>
+                    <p:outputLabel value="#{e.eva8}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEva2}"/>
+                    <p:outputLabel value="#{e.proEva2}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva9}"/>
+                    <p:outputLabel value="#{e.eva9}"/>
                 </p:column>
                 <p:column >
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva10}"/>
+                    <p:outputLabel value="#{e.eva10}"/>
                 </p:column>
                 <p:column >
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva11}"/>
+                    <p:outputLabel value="#{e.eva11}"/>
                 </p:column>
                 <p:column >
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.eva12}"/>
+                    <p:outputLabel value="#{e.eva12}"/>
                 </p:column>
                 <p:column >
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEva3}"/>
+                    <p:outputLabel value="#{e.proEva3}"/>
                 </p:column>
                 <p:column>
-                    <p:outputLabel value="#{registroNotasMb.evaluacion.proEvato}" />
-                </p:column>
-                <p:column>
-                    <p:commandButton icon="fa fa-fw fa-edit" oncomplete="PF('wivNotas').show();" 
-                                     action="#{registroNotasMb.comparacion()}" update="FormNotas"/>
+                    <p:outputLabel value="#{e.proEvato}" />
                 </p:column>
             </p:dataTable>
         </h:form>

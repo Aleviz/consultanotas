@@ -51,7 +51,7 @@ public class UtilReport {
     private Integer porOpcion;
     private String porSeccion;
 
-    private Integer porMateria;
+    private String porMateria;
 
     private boolean vistaxOpcion;
     private boolean vistaxSeccion;
@@ -211,6 +211,7 @@ public class UtilReport {
                         for (Evaluacion eva : evaluacionList) {
                             reporte = new Reporte();
                             reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
+
                             reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
                             reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
                             Matricula m = new Matricula();
@@ -221,6 +222,12 @@ public class UtilReport {
                             reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
                             reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
                             reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
+                            System.out.println("1 " + reporte.getaNombre());
+                            System.out.println("2 " + reporte.getaApellido());
+                            System.out.println("3 " + reporte.getEspecialidad());
+                            System.out.println("4 " + reporte.getOpcion());
+                            System.out.println("5 " + reporte.getMateria());
+
                             reporteLista.add(reporte);
                         }
                     } catch (Exception e) {
@@ -233,20 +240,20 @@ public class UtilReport {
 
                     vistaTodoNotas = false;
                     vistaXMateria = true;
-                    System.out.println("Todo el reporte de notas por Materia");
-                    try {
+                    System.out.println("Reporte por Materias");
+                    if (porMateria != null) {
+                        System.out.println("no viene nulo en materia");
 
-                        reporteLista = new ArrayList<Reporte>();
-                        evaluacion = new Evaluacion();
-                        evaluacionList = new ArrayList<Evaluacion>();
-                        if (porMateria == null) {
-                            System.out.println("Viene nulo en materia");
-                        } else {
+                        try {
 
+                            reporteLista = new ArrayList<Reporte>();
+                            evaluacion = new Evaluacion();
+                            evaluacionList = new ArrayList<Evaluacion>();
+
+                            System.out.println("materia id " + porMateria);
                             evaluacionList = evaluacionDao.evaluacionXMateria(porMateria);
                             System.out.println("evaluacionXMateria " + evaluacionList.size());
                             for (Evaluacion eva : evaluacionList) {
-                                System.out.println("no entra");
                                 reporte = new Reporte();
                                 reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
                                 System.out.println("--" + reporte.getaNombre());
@@ -260,12 +267,19 @@ public class UtilReport {
                                 reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
                                 reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
                                 reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
+                                System.out.println("1 " + reporte.getaNombre());
+                                System.out.println("2 " + reporte.getaApellido());
+                                System.out.println("3 " + reporte.getEspecialidad());
+                                System.out.println("4 " + reporte.getOpcion());
+                                System.out.println("5 " + reporte.getMateria());
                                 reporteLista.add(reporte);
                             }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("no entra perro");
+                    } else {
+                        System.out.println("Viene nulo en materia");
                     }
 
                 } else {
@@ -284,7 +298,16 @@ public class UtilReport {
         System.out.println("---");
         JRBeanCollectionDataSource jdbc = new JRBeanCollectionDataSource(reporteLista);
         System.out.println("---");
-        String reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Notas.jasper");
+        String reportPatch = "";
+        if (filtro == 1) {
+            System.out.println("entro en filtro 1");
+            reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Matricula.jasper");
+        } else if (filtro == 2) {
+            System.out.println("entro en filtro 2");
+            reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Notas.jasper");
+        } else {
+            System.out.println("nmms");
+        }
         System.out.println("---");
         Map<String, Object> map = new HashMap<String, Object>();
         System.out.println("---");
@@ -428,13 +451,15 @@ public class UtilReport {
         this.evaluacionDao = evaluacionDao;
     }
 
-    public Integer getPorMateria() {
+    public String getPorMateria() {
         return porMateria;
     }
 
-    public void setPorMateria(Integer porMateria) {
+    public void setPorMateria(String porMateria) {
         this.porMateria = porMateria;
     }
+
+  
 
     public Integer getFiltro() {
         return filtro;

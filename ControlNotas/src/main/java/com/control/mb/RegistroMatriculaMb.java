@@ -141,20 +141,9 @@ public class RegistroMatriculaMb {
         //     REGISTRO DE MATRICULA       
 
         matricula.setIdAlumno(alumno);
-
-//        tipoMatricula.setIdTipoMat(idTipo);
         matricula.setIdTipo(tipoMatricula);
-
-//        opcion.setIdOpcion(idOpcion);
         matricula.setIdOpcion(opcion);
         Matricula mat = new Matricula();
-
-        profesorList = empDao.profXMateria(opcionEspe);
-
-        int x = profesorList.size();
-        System.out.println("x " + x);
-
-
 
         System.out.println("DATOS DE ALUMNOS: ");
         System.out.println("ID ALUMNO : " + alumno.getIdAlumno());
@@ -183,13 +172,16 @@ public class RegistroMatriculaMb {
         System.out.println("TIPO MATRICULA " + matricula.getIdTipo().getNombre());
         System.out.println("OPCION " + matricula.getIdOpcion().getDescripcion());
 
-        encargado = (Encargados) gd.insertarEntidad(encargado);
-        usuario = (Usuarios) gd.insertarEntidad(usuario);
-        alumno = (Alumnos) gd.insertarEntidad(alumno);
+        gd.insertarEntidad(encargado);
+        gd.insertarEntidad(usuario);
+        gd.insertarEntidad(alumno);
 
-        mat = (Matricula) gd.insertarEntidad(matricula);
-        
-                for (int i = 0; i < x; i++) {
+        gd.insertarEntidad(matricula);
+        profesorList = empDao.profXMateria(opcionEspe);
+
+        int x = profesorList.size();
+        System.out.println("x " + x);
+        for (int i = 0; i < x; i++) {
             evaluacion = new Evaluacion();
             System.out.println("ENTRO AL FOR");
             Empleados profe = profesorList.get(i);
@@ -198,7 +190,6 @@ public class RegistroMatriculaMb {
             System.out.println("idpr " + idpr);
             evaluacion.setIdAlumno(alumno);
             evaluacion.setIdProfesor(profe);
-//            listEva.add(evaluacion);
             gd.insertarEntidad(evaluacion);
         }
 

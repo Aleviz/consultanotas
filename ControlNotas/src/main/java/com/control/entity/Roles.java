@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class Roles implements Serializable {
     @Size(max = 12)
     @Column(name = "rol")
     private String rol;
-    @OneToMany(mappedBy = "idRol")
+    @OneToMany(mappedBy = "idRol", cascade = CascadeType.PERSIST)
     private List<Usuarios> usuariosList;
 
     public Roles() {

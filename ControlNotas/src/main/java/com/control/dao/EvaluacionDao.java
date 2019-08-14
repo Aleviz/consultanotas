@@ -63,6 +63,17 @@ public class EvaluacionDao {
 
         return evaluacion;
     }
+    public List<Evaluacion> por1Alumno(int idAlumno) {
+        String sql = "SELECT * FROM bdcne.evaluacion where id_alumno=" + idAlumno;
+        try {
+            evaluacionList = new ArrayList<Evaluacion>();
+            evaluacionList = em.createNativeQuery(sql, Evaluacion.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return evaluacionList;
+    }
 
     public String eliminarEvaluacion(Evaluacion ev) {
         String mensaje = "";

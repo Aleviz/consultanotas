@@ -193,6 +193,25 @@ public class RegistroMatriculaMb {
             System.out.println("idpr " + idpr);
             evaluacion.setIdAlumno(alumno);
             evaluacion.setIdProfesor(profe);
+            evaluacion.setEva1(0.00);
+            evaluacion.setEva2(0.00);
+            evaluacion.setEva3(0.00);
+            evaluacion.setEva4(0.00);
+            evaluacion.setProEva1(0.00);
+            
+            evaluacion.setEva5(0.00);
+            evaluacion.setEva6(0.00);
+            evaluacion.setEva7(0.00);
+            evaluacion.setEva8(0.00);
+            evaluacion.setProEva2(0.00);
+            
+            evaluacion.setEva9(0.00);
+            evaluacion.setEva10(0.00);
+            evaluacion.setEva11(0.00);
+            evaluacion.setEva12(0.00);
+            evaluacion.setProEva3(0.00);
+            evaluacion.setProEvato(0.00);
+
             gd.insertarEntidad(evaluacion);
         }
 

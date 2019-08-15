@@ -59,7 +59,7 @@ public class RegistroNotasMb implements Serializable {
     private Integer idGrado;
     private Integer idAlumno;
     private int idAlumno2;
-    private Integer  n;
+    private Integer n;
     private boolean modificar1;
     private boolean modificar2;
     private boolean modificar3;
@@ -101,8 +101,6 @@ public class RegistroNotasMb implements Serializable {
         alumnosList = alumnosDao.allAlumnos();
     }
 
-
-
     public void llenarNotas() {
         evaluacionList = notasDao.evaluacionAll();
     }
@@ -116,15 +114,15 @@ public class RegistroNotasMb implements Serializable {
     }
 
     public void comparacion() {
-        if (evaluacion.getProEva1() > 0) {
+        if (evaluacion.getProEva1() > 0 || evaluacion.getProEva1() == null) {
             modificar1 = true;
             System.out.println(modificar1 + " m1");
         }
-        if (evaluacion.getProEva2() > 0) {
+        if (evaluacion.getProEva2() > 0 || evaluacion.getProEva1() == null) {
             modificar2 = true;
             System.out.println(modificar2 + "m2");
         }
-        if (evaluacion.getProEva3() > 0) {
+        if (evaluacion.getProEva3() > 0 || evaluacion.getProEva1() == null) {
             modificar3 = true;
             System.out.println(modificar2 + "m2");
         }
@@ -188,6 +186,7 @@ public class RegistroNotasMb implements Serializable {
     public void llenarCamposAlumnos(int empleados) {
         evaluacion = new Evaluacion();
         alumno = new Alumnos();
+        System.out.println("alumno: " + idAlumno + " empleado: " + empleados);
         alumno = alumnosDao.porAlumnos(idAlumno);
         evaluacion = notasDao.porAlumnos(idAlumno, empleados);
     }
@@ -355,7 +354,6 @@ public class RegistroNotasMb implements Serializable {
     public List<OpcionEspe> getEspecialidadList() {
         return especialidadList;
     }
-    
 
     public void setEspecialidadList(List<OpcionEspe> especialidadList) {
         this.especialidadList = especialidadList;
@@ -408,7 +406,5 @@ public class RegistroNotasMb implements Serializable {
     public void setN(Integer n) {
         this.n = n;
     }
-    
 
- 
 }

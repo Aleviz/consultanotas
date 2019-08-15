@@ -103,7 +103,8 @@ public class RegistroEmpleadosMb implements Serializable {
         Roles idRoles = new Roles();
         idRoles.setIdRol(idRolVista);
         usuarios.setIdRol(idRoles);
-
+        usuarios.setUsuario(empleados.getDui());
+        
         Estados idEstados = new Estados();
         idEstados.setIdEstado(idEstadoVista);
         usuarios.setIdEstado(idEstados);

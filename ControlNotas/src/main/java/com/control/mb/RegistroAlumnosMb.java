@@ -79,6 +79,12 @@ public class RegistroAlumnosMb {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         mostrarEncargados();
     }
+    
+    public void selectByIdNativeQuery(Alumnos id){
+        int numId = id.getIdAlumno();
+        System.out.println("Essssssssssss:::::::::"+numId);
+        encargados = encargadosDao.selectByIdAlumnoEncargado(numId);
+    }
 
     public Alumnos getAlumnos() {
         return alumnos;

@@ -45,13 +45,23 @@ public class UtilReport {
     private String nombre;
 
     private Integer matriculax;
+    private Integer filtro;
+    private Integer notax;
+
     private Integer porOpcion;
     private String porSeccion;
 
-    private Integer porMateria=1;
+    private String porMateria;
 
     private boolean vistaxOpcion;
     private boolean vistaxSeccion;
+
+    private boolean vistaXMatricula;
+    private boolean vistaXNotas;
+    private boolean vistaTodoMatricula;
+
+    private boolean vistaXMateria;
+    private boolean vistaTodoNotas;
 
     private List<Matricula> matriculaList;
     private Matricula matricula;
@@ -68,163 +78,236 @@ public class UtilReport {
         evaluacionDao = new EvaluacionDao();
     }
 
-//    public void filtroMatricula() {
-//        if (matriculax == 1) {
-//            vistaxOpcion = false;
-//            vistaxSeccion = false;
-//            System.out.println("Todo");
-//            try {
-//                reporte = new Reporte();
-//                reporteLista = new ArrayList<Reporte>();
-//
-//                matriculaList = new ArrayList<Matricula>();
-//
-//                matriculaList = matriculaDao.matriculaAll();
-//                for (Matricula mat : matriculaList) {
-//                    reporte = new Reporte();
-//                    reporte.setMatricula(mat.getIdMatricula());
-//                    reporte.setaNombre(mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre());
-//                    reporte.setaApellido(mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido());
-//                    reporte.setOpcion(mat.getIdOpcion().getDescripcion());
-//                    reporte.setSeccion(mat.getIdOpcion().getSeccion());
-//                    reporteLista.add(reporte);
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//        } else if (matriculax == 2) {
-//            vistaxOpcion = true;
-//            vistaxSeccion = false;
-//            System.out.println("Opcion");
-//
-//            try {
-//
-//                reporteLista = new ArrayList<Reporte>();
-//                matriculaList = new ArrayList<Matricula>();
-//
-//                if (porOpcion == null) {
-//                    System.out.println("nulo");
-//                } else {
-//                    System.out.println("");
-//                    matriculaList = matriculaDao.porOpcion(porOpcion);
-//
-//                    for (Matricula mat : matriculaList) {
-//                        reporte = new Reporte();
-//
-//                        reporte.setMatricula(mat.getIdMatricula());
-//                        reporte.setaNombre(mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre());
-//                        reporte.setaApellido(mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido());
-//                        reporte.setOpcion(mat.getIdOpcion().getDescripcion());
-//                        reporte.setSeccion(mat.getIdOpcion().getSeccion());
-//                        reporteLista.add(reporte);
-//                    }
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//        } else if (matriculax == 3) {
-//            vistaxOpcion = false;
-//            vistaxSeccion = true;
-//            try {
-//                reporteLista = new ArrayList<Reporte>();
-//                matriculaList = new ArrayList<Matricula>();
-//                if (porSeccion == null) {
-//                    System.out.println("Nulo en Seccion");
-//                } else {
-//                    System.out.println("Entro en seccion " + porSeccion);
-//                    matriculaList = matriculaDao.porSeccion(porSeccion);
-//                    for (Matricula mat : matriculaList) {
-//                        reporte = new Reporte();
-//                        reporte.setMatricula(mat.getIdMatricula());
-//                        reporte.setaNombre(mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre());
-//                        reporte.setaApellido(mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido());
-//                        reporte.setOpcion(mat.getIdOpcion().getDescripcion());
-//                        reporte.setSeccion(mat.getIdOpcion().getSeccion());
-//                        reporteLista.add(reporte);
-//                    }
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//        } else {
-//            System.out.println("No se ha seleccionado nada");
-//        }
-//
-//    }
+    public void filtros() {
+        if (filtro == 0) {
+            System.out.println("NULO");
+
+        } else if (filtro == 1) {
+            vistaXMatricula = true;
+            vistaXNotas = false;
+            if (matriculax == null) {
+                System.out.println("NULO en matriculax");
+            } else if (matriculax == 1) {
+                vistaTodoMatricula = true;
+                vistaxOpcion = false;
+                vistaxSeccion = false;
+
+                vistaTodoNotas = false;
+                vistaXMateria = false;
+
+                System.out.println("Todo el reporte de matricula");
+                try {
+                    reporte = new Reporte();
+                    reporteLista = new ArrayList<Reporte>();
+
+                    matriculaList = new ArrayList<Matricula>();
+
+                    matriculaList = matriculaDao.matriculaAll();
+                    for (Matricula mat : matriculaList) {
+                        reporte = new Reporte();
+                        reporte.setMatricula(mat.getIdMatricula());
+                        reporte.setaNombre(mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre());
+                        reporte.setaApellido(mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido());
+                        reporte.setOpcion(mat.getIdOpcion().getDescripcion());
+                        reporte.setSeccion(mat.getIdOpcion().getSeccion());
+                        reporteLista.add(reporte);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (matriculax == 2) {
+                vistaTodoMatricula = false;
+                vistaxOpcion = true;
+                vistaxSeccion = false;
+
+                vistaTodoNotas = false;
+                vistaXMateria = false;
+                System.out.println("Todo el reporte por Opcion");
+
+                try {
+
+                    reporteLista = new ArrayList<Reporte>();
+                    matriculaList = new ArrayList<Matricula>();
+
+                    if (porOpcion == null) {
+                        System.out.println("nulo");
+                    } else {
+                        System.out.println("");
+                        matriculaList = matriculaDao.porOpcion(porOpcion);
+
+                        for (Matricula mat : matriculaList) {
+                            reporte = new Reporte();
+
+                            reporte.setMatricula(mat.getIdMatricula());
+                            reporte.setaNombre(mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre());
+                            reporte.setaApellido(mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido());
+                            reporte.setOpcion(mat.getIdOpcion().getDescripcion());
+                            reporte.setSeccion(mat.getIdOpcion().getSeccion());
+                            reporteLista.add(reporte);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (matriculax == 3) {
+                vistaTodoMatricula = false;
+                vistaxOpcion = false;
+                vistaxSeccion = true;
+
+                vistaTodoNotas = false;
+                vistaXMateria = false;
+                try {
+                    reporteLista = new ArrayList<Reporte>();
+                    matriculaList = new ArrayList<Matricula>();
+                    if (porSeccion == null) {
+                        System.out.println("Nulo en Seccion");
+                    } else {
+                        System.out.println("Entro en seccion " + porSeccion);
+                        matriculaList = matriculaDao.porSeccion(porSeccion);
+                        for (Matricula mat : matriculaList) {
+                            reporte = new Reporte();
+                            reporte.setMatricula(mat.getIdMatricula());
+                            reporte.setaNombre(mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre());
+                            reporte.setaApellido(mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido());
+                            reporte.setOpcion(mat.getIdOpcion().getDescripcion());
+                            reporte.setSeccion(mat.getIdOpcion().getSeccion());
+                            reporteLista.add(reporte);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                System.out.println("No se ha seleccionado nada");
+            }
+
+            //FILTRO POR NOTAS
+        } else if (filtro == 2) {
+            vistaXNotas = true;
+            vistaXMatricula = false;
+            if (notax == null) {
+                System.out.println("Viene nulo");
+            } else {
+                if (notax == 1) {
+
+                    vistaTodoMatricula = false;
+                    vistaxOpcion = false;
+                    vistaxSeccion = false;
+
+                    vistaTodoNotas = true;
+                    vistaXMateria = false;
+                    System.out.println("Todo el reporte de Notas");
+                    try {
+                        System.out.println("2");
+                        reporteLista = new ArrayList<Reporte>();
+                        evaluacion = new Evaluacion();
+                        evaluacionList = new ArrayList<Evaluacion>();
+                        evaluacionList = evaluacionDao.evaluacionAll();
+
+                        for (Evaluacion eva : evaluacionList) {
+                            reporte = new Reporte();
+                            reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
+
+                            reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
+                            reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
+                            Matricula m = new Matricula();
+                            m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());
+                            reporte.setOpcion(m.getIdOpcion().getDescripcion() + " " + m.getIdOpcion().getSeccion());
+                            reporte.setMateria(eva.getIdProfesor().getIdMateria().getMateria());
+                            reporte.setPro1(BigDecimal.valueOf(eva.getProEva1()));
+                            reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
+                            reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
+                            reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
+                            System.out.println("1 " + reporte.getaNombre());
+                            System.out.println("2 " + reporte.getaApellido());
+                            System.out.println("3 " + reporte.getEspecialidad());
+                            System.out.println("4 " + reporte.getOpcion());
+                            System.out.println("5 " + reporte.getMateria());
+
+                            reporteLista.add(reporte);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (notax == 2) {
+                    vistaTodoMatricula = false;
+                    vistaxOpcion = false;
+                    vistaxSeccion = false;
+
+                    vistaTodoNotas = false;
+                    vistaXMateria = true;
+                    System.out.println("Reporte por Materias");
+                    if (porMateria != null) {
+                        System.out.println("no viene nulo en materia");
+
+                        try {
+
+                            reporteLista = new ArrayList<Reporte>();
+                            evaluacion = new Evaluacion();
+                            evaluacionList = new ArrayList<Evaluacion>();
+
+                            System.out.println("materia id " + porMateria);
+                            evaluacionList = evaluacionDao.evaluacionXMateria(porMateria);
+                            System.out.println("evaluacionXMateria " + evaluacionList.size());
+                            for (Evaluacion eva : evaluacionList) {
+                                reporte = new Reporte();
+                                reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
+                                System.out.println("--" + reporte.getaNombre());
+                                reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
+                                reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
+                                Matricula m = new Matricula();
+                                m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());
+                                reporte.setOpcion(m.getIdOpcion().getDescripcion() + " " + m.getIdOpcion().getSeccion());
+                                reporte.setMateria(eva.getIdProfesor().getIdMateria().getMateria());
+                                reporte.setPro1(BigDecimal.valueOf(eva.getProEva1()));
+                                reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
+                                reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
+                                reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
+                                System.out.println("1 " + reporte.getaNombre());
+                                System.out.println("2 " + reporte.getaApellido());
+                                System.out.println("3 " + reporte.getEspecialidad());
+                                System.out.println("4 " + reporte.getOpcion());
+                                System.out.println("5 " + reporte.getMateria());
+                                reporteLista.add(reporte);
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("Viene nulo en materia");
+                    }
+
+                } else {
+                    System.out.println("Viene nulo");
+                }
+            }
+        } else {
+            System.out.println("Viene nulo en filtro");
+        }
+    }
+
 //    ------------------------------Todas las notas------------------------------------------------
-    public void reporteNotas() {
-        System.out.println("1");
-        try {
-            System.out.println("2");
-            reporteLista = new ArrayList<Reporte>();
-            evaluacion = new Evaluacion();
-            evaluacionList = new ArrayList<Evaluacion>();
-            evaluacionList = evaluacionDao.evaluacionAll();
-
-            for (Evaluacion eva : evaluacionList) {
-                reporte = new Reporte();
-                reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
-                reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
-                reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
-                Matricula m = new Matricula();
-                m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());
-                reporte.setOpcion(m.getIdOpcion().getDescripcion() + " " + m.getIdOpcion().getSeccion());
-                reporte.setMateria(eva.getIdProfesor().getIdMateria().getMateria());
-                reporte.setPro1(BigDecimal.valueOf(eva.getProEva1()));
-                reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
-                reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
-                reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
-                reporteLista.add(reporte);
-            }
-        } catch (Exception e) {
-        }
-    }
 //    ---------------------------------Notas por Materia---------------------------------------------
-
-    public void reporteNotasXMateria() {
-        System.out.println("1"); 
-       try {
-
-            reporteLista = new ArrayList<Reporte>();
-            evaluacion = new Evaluacion();
-            evaluacionList = new ArrayList<Evaluacion>();
-            evaluacionList = evaluacionDao.evaluacionXMateria(porMateria);
-            System.out.println("evaluacionXMateria "+evaluacionList.size());
-            for (Evaluacion eva : evaluacionList) {
-                System.out.println("no entra");
-                reporte = new Reporte();
-                reporte.setaNombre(eva.getIdAlumno().getPrimerNombre() + " " + eva.getIdAlumno().getSegundoNombre());
-                System.out.println("--"+reporte.getaNombre());
-                reporte.setaApellido(eva.getIdAlumno().getPrimerApellido() + " " + eva.getIdAlumno().getSegundoApellido());
-                reporte.setEspecialidad(eva.getIdProfesor().getIdMateria().getOpcionEspe().getDescripcion());
-                Matricula m = new Matricula();
-                m = matriculaDao.porAlumno(eva.getIdAlumno().getIdAlumno());
-                reporte.setOpcion(m.getIdOpcion().getDescripcion() + " " + m.getIdOpcion().getSeccion());
-                reporte.setMateria(eva.getIdProfesor().getIdMateria().getMateria());
-                reporte.setPro1(BigDecimal.valueOf(eva.getProEva1()));
-                reporte.setPro2(BigDecimal.valueOf(eva.getProEva2()));
-                reporte.setPro3(BigDecimal.valueOf(eva.getProEva3()));
-                reporte.setProf(BigDecimal.valueOf(eva.getProEvato()));
-                reporteLista.add(reporte);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("no entra perro");
-        }
-    }
-
     public void reporteToPdf() throws IOException, JRException {
-//        filtroMatricula();
-        reporteNotas();
-//        reporteNotasXMateria();
+        filtros();
         System.out.println("---");
         JRBeanCollectionDataSource jdbc = new JRBeanCollectionDataSource(reporteLista);
         System.out.println("---");
-        String reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Notas.jasper");
+        String reportPatch = "";
+        if (filtro == 1) {
+            System.out.println("entro en filtro 1");
+            reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Matricula.jasper");
+        } else if (filtro == 2) {
+            System.out.println("entro en filtro 2");
+            reportPatch = FacesContext.getCurrentInstance().getExternalContext().getRealPath("Notas.jasper");
+        } else {
+            System.out.println("nmms");
+        }
         System.out.println("---");
         Map<String, Object> map = new HashMap<String, Object>();
         System.out.println("---");
@@ -366,6 +449,72 @@ public class UtilReport {
 
     public void setEvaluacionDao(EvaluacionDao evaluacionDao) {
         this.evaluacionDao = evaluacionDao;
+    }
+
+    public String getPorMateria() {
+        return porMateria;
+    }
+
+    public void setPorMateria(String porMateria) {
+        this.porMateria = porMateria;
+    }
+
+  
+
+    public Integer getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(Integer filtro) {
+        this.filtro = filtro;
+    }
+
+    public Integer getNotax() {
+        return notax;
+    }
+
+    public void setNotax(Integer notax) {
+        this.notax = notax;
+    }
+
+    public boolean isVistaXMatricula() {
+        return vistaXMatricula;
+    }
+
+    public void setVistaXMatricula(boolean vistaXMatricula) {
+        this.vistaXMatricula = vistaXMatricula;
+    }
+
+    public boolean isVistaXNotas() {
+        return vistaXNotas;
+    }
+
+    public void setVistaXNotas(boolean vistaXNotas) {
+        this.vistaXNotas = vistaXNotas;
+    }
+
+    public boolean isVistaTodoMatricula() {
+        return vistaTodoMatricula;
+    }
+
+    public void setVistaTodoMatricula(boolean vistaTodoMatricula) {
+        this.vistaTodoMatricula = vistaTodoMatricula;
+    }
+
+    public boolean isVistaXMateria() {
+        return vistaXMateria;
+    }
+
+    public void setVistaXMateria(boolean vistaXMateria) {
+        this.vistaXMateria = vistaXMateria;
+    }
+
+    public boolean isVistaTodoNotas() {
+        return vistaTodoNotas;
+    }
+
+    public void setVistaTodoNotas(boolean vistaTodoNotas) {
+        this.vistaTodoNotas = vistaTodoNotas;
     }
 
 }

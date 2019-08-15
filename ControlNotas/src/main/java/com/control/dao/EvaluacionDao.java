@@ -29,13 +29,11 @@ public class EvaluacionDao {
         return evaluacionList;
     }
 
-    public List<Evaluacion> evaluacionXMateria(int idMateria) {
+    public List<Evaluacion> evaluacionXMateria(String Materia) {
+        String sql = "select * from evaluacion e inner join empleados em on e.id_profesor = em.id_empleado inner join materias m on em.id_materia = m.id_materia where materia ='"+Materia+"'";
         try {
             evaluacionList = new ArrayList<Evaluacion>();
-            evaluacionList = em.createNativeQuery("select id_evaluacion, id_alumno, id_profesor, eva1, eva2, eva3, eva4, proEva1, "
-                    + "eva5, eva6, eva7, eva8, proEva2, "
-                    + "eva9, eva10, eva11, eva12, proEva3, proEvato from evaluacion e "
-                    + "inner join empleados em on e.id_profesor = em.id_empleado where em.id_materia = " + idMateria + ";").getResultList();
+            evaluacionList = em.createNativeQuery(sql ,Evaluacion.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }

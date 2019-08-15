@@ -6,9 +6,11 @@
 package com.control.mb;
 
 import com.control.dao.AccesoDao;
+import com.control.dao.EvaluacionDao;
 import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
+import com.control.entity.Evaluacion;
 import com.control.entity.Usuarios;
 import com.control.util.UtilVarios;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -29,12 +32,18 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class LoginMB implements Serializable {
 
+    @ManagedProperty(value = "#{RegistroNotasMb}")
+    private RegistroNotasMb registro;
+
     //ENTITY
     private Usuarios usuario;
     private Integer rol;
     private int nEmpleado;
-    private Alumnos alumno;
+    private int nA;
+    private Alumnos alumnos;
     private Empleados empleado;
+    private List<Evaluacion> evaAlumno;
+    private EvaluacionDao notasDao;
 
     //LIST
     private List<Usuarios> usuarioList;
@@ -58,9 +67,13 @@ public class LoginMB implements Serializable {
     @PostConstruct
     public void init() {
 
+        registro = new RegistroNotasMb();
+        evaAlumno = new ArrayList<Evaluacion>();
+        notasDao = new EvaluacionDao();
+
         //ENTITY
         usuario = new Usuarios();
-        alumno = new Alumnos();
+        alumnos = new Alumnos();
         empleado = new Empleados();
 
         //LIST
@@ -81,6 +94,7 @@ public class LoginMB implements Serializable {
         esADSS = false;
         esAdmin = false;
         noEstaLogeado = true;
+        llenarNotasEstudiante();
     }
 
     public String logear() {
@@ -182,7 +196,11 @@ public class LoginMB implements Serializable {
                 noEstaLogeado = false;
 
                 System.out.println("ES SECRETARIA");
-
+                usuario.getEmpleadosList();
+                empleado = usuario.getEmpleadosList().get(0);
+                nEmpleado = empleado.getIdEmpleado();
+                System.out.println("empleado docente " + empleado.getPrimerNombre());
+                System.out.println("empleado " + nEmpleado);
                 return "index.xhtml";
             } else if (rol == 6) {
                 esAdmin = false;
@@ -195,10 +213,10 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 noEstaLogeado = false;
                 System.out.println("ES ALUMNO");
-                usuario.getAlumnosList();
-
+                alumnos = usuario.getAlumnosList().get(0);
+                setnA(alumnos.getIdAlumno());
+                llenarNotasEstudiante();
                 return "NotasAlumno.xhtml";
-
             }
 
         }
@@ -206,6 +224,12 @@ public class LoginMB implements Serializable {
         usuario = new Usuarios();
         return "Login.xhtml";
 
+    }
+
+    public void llenarNotasEstudiante() {
+        System.out.println("alumno en llenarNotas : " + nA);
+
+        evaAlumno = notasDao.por1Alumno(nA);
     }
 
     public void logout() throws IOException {
@@ -232,12 +256,12 @@ public class LoginMB implements Serializable {
         this.usuario = usuario;
     }
 
-    public Alumnos getAlumno() {
-        return alumno;
+    public Alumnos getAlumnos() {
+        return alumnos;
     }
 
-    public void setAlumno(Alumnos alumno) {
-        this.alumno = alumno;
+    public void setAlumnos(Alumnos alumnos) {
+        this.alumnos = alumnos;
     }
 
     public Empleados getEmpleado() {
@@ -334,6 +358,38 @@ public class LoginMB implements Serializable {
 
     public void setnEmpleado(int nEmpleado) {
         this.nEmpleado = nEmpleado;
+    }
+
+    public int getnA() {
+        return nA;
+    }
+
+    public void setnA(int nA) {
+        this.nA = nA;
+    }
+
+    public RegistroNotasMb getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(RegistroNotasMb registro) {
+        this.registro = registro;
+    }
+
+    public List<Evaluacion> getEvaAlumno() {
+        return evaAlumno;
+    }
+
+    public void setEvaAlumno(List<Evaluacion> evaAlumno) {
+        this.evaAlumno = evaAlumno;
+    }
+
+    public EvaluacionDao getNotasDao() {
+        return notasDao;
+    }
+
+    public void setNotasDao(EvaluacionDao notasDao) {
+        this.notasDao = notasDao;
     }
 
     public boolean isEsAdmin() {

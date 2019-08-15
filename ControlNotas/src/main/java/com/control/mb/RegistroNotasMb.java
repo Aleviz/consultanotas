@@ -16,6 +16,7 @@ import com.control.entity.Matricula;
 import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
 import com.control.entity.Usuarios;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class RegistroNotasMb {
+public class RegistroNotasMb implements Serializable {
 
     private List<Alumnos> alumnosList;
     private List<Matricula> alumnosXGradoList;
@@ -58,11 +59,10 @@ public class RegistroNotasMb {
     private Integer idGrado;
     private Integer idAlumno;
     private int idAlumno2;
+    private Integer  n;
     private boolean modificar1;
     private boolean modificar2;
     private boolean modificar3;
-    @ManagedProperty(value = "#{LoginMB}")
-    private LoginMB login;
 
     @PostConstruct
     public void init() {
@@ -95,16 +95,13 @@ public class RegistroNotasMb {
         llenarDatosPersonales();
         llenarSelectOpciones();
         llenarSelectGrado();
-        llenarNotasEstudiante();
     }
 
     public void llenarDatosPersonales() {
         alumnosList = alumnosDao.allAlumnos();
     }
-    
-    public void llenarNotasEstudiante(){
-        evaAlumno = notasDao.por1Alumno(3);
-    }
+
+
 
     public void llenarNotas() {
         evaluacionList = notasDao.evaluacionAll();
@@ -319,8 +316,6 @@ public class RegistroNotasMb {
         this.evaAlumno = evaAlumno;
     }
 
-   
-    
     public void setIdGrado(Integer idGrado) {
         this.idGrado = idGrado;
     }
@@ -360,6 +355,7 @@ public class RegistroNotasMb {
     public List<OpcionEspe> getEspecialidadList() {
         return especialidadList;
     }
+    
 
     public void setEspecialidadList(List<OpcionEspe> especialidadList) {
         this.especialidadList = especialidadList;
@@ -397,14 +393,6 @@ public class RegistroNotasMb {
         this.modificar3 = modificar3;
     }
 
-    public LoginMB getLogin() {
-        return login;
-    }
-
-    public void setLogin(LoginMB login) {
-        this.login = login;
-    }
-
     public int getIdAlumno2() {
         return idAlumno2;
     }
@@ -413,4 +401,14 @@ public class RegistroNotasMb {
         this.idAlumno2 = idAlumno2;
     }
 
+    public Integer getN() {
+        return n;
+    }
+
+    public void setN(Integer n) {
+        this.n = n;
+    }
+    
+
+ 
 }

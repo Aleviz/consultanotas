@@ -6,9 +6,11 @@
 package com.control.mb;
 
 import com.control.dao.AccesoDao;
+import com.control.dao.EvaluacionDao;
 import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
+import com.control.entity.Evaluacion;
 import com.control.entity.Usuarios;
 import com.control.util.UtilVarios;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,15 +30,20 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginMB implements Serializable{
+public class LoginMB implements Serializable {
+
+    @ManagedProperty(value = "#{RegistroNotasMb}")
+    private RegistroNotasMb registro;
 
     //ENTITY
     private Usuarios usuario;
     private Integer rol;
     private int nEmpleado;
-    private Alumnos alumno;
+    private int nA;
+    private Alumnos alumnos;
     private Empleados empleado;
-
+    private List<Evaluacion> evaAlumno;
+    private EvaluacionDao notasDao;
 
     //LIST
     private List<Usuarios> usuarioList;
@@ -57,11 +65,14 @@ public class LoginMB implements Serializable{
     @PostConstruct
     public void init() {
 
+        registro = new RegistroNotasMb();
+        evaAlumno = new ArrayList<Evaluacion>();
+        notasDao = new EvaluacionDao();
+
         //ENTITY
         usuario = new Usuarios();
-        alumno = new Alumnos();
+        alumnos = new Alumnos();
         empleado = new Empleados();
-       
 
         //LIST
         usuarioList = new ArrayList<Usuarios>();
@@ -79,14 +90,13 @@ public class LoginMB implements Serializable{
         esSubDirector = false;
         direcXSub = false;
         noEstaLogeado = false;
-
-
+        llenarNotasEstudiante();
     }
 
     public String logear() {
         String usuariio = "";
         String pass = "";
-        
+
         UtilVarios uv = new UtilVarios();
         String passEnMd5 = uv.convertToMd5(usuario.getPass());
 
@@ -145,6 +155,7 @@ public class LoginMB implements Serializable{
 //                if (usuario.getEmpleadosList().get(0) != null) {
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
+                return "index.xhtml";
             } else if (rol == 3) {
                 esAlumno = false;
                 esProfesor = true;
@@ -162,7 +173,7 @@ public class LoginMB implements Serializable{
 //                if (usuario.getEmpleadosList().get(0) != null) {
 //                    empleado = usuario.getEmpleadosList().get(0);
 //                }
-
+                return "index.xhtml";
             } else if (rol == 5) {
                 esAlumno = true;
                 esProfesor = false;
@@ -172,15 +183,16 @@ public class LoginMB implements Serializable{
                 esSubDirector = false;
                 direcXSub = false;
 
-                usuario.getAlumnosList();
-
+                alumnos = usuario.getAlumnosList().get(0);
+                setnA(alumnos.getIdAlumno());
+                llenarNotasEstudiante();
 //                if (usuario.getAlumnosList().get(0) != null) {
 //                    alumno = usuario.getAlumnosList().get(0);
 //                }
             }
             System.out.println("IR::::::::::");
-            System.out.println("empleado " + empleado.getPrimerApellido());
-            return "index.xhtml";
+            System.out.println("Alumno " + registro.getN());
+            return "NotasAlumno.xhtml";
         } else {
 
             usuario = new Usuarios();
@@ -188,13 +200,15 @@ public class LoginMB implements Serializable{
         }
     }
 
-   
+    public void llenarNotasEstudiante() {
+        System.out.println("alumno en llenarNotas : " + nA);
 
-    
-    
-    public void logout() throws IOException{
+        evaAlumno = notasDao.por1Alumno(nA);
+    }
+
+    public void logout() throws IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        context.redirect(context.getRequestContextPath()+"/Login.xhtml");
+        context.redirect(context.getRequestContextPath() + "/Login.xhtml");
 //        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 //        System.out.println("Number: "+usuario.getUsuario());
 //        return "/Login.xhtml?faces-redirect=true";
@@ -216,12 +230,12 @@ public class LoginMB implements Serializable{
         this.usuario = usuario;
     }
 
-    public Alumnos getAlumno() {
-        return alumno;
+    public Alumnos getAlumnos() {
+        return alumnos;
     }
 
-    public void setAlumno(Alumnos alumno) {
-        this.alumno = alumno;
+    public void setAlumnos(Alumnos alumnos) {
+        this.alumnos = alumnos;
     }
 
     public Empleados getEmpleado() {
@@ -251,7 +265,6 @@ public class LoginMB implements Serializable{
     public Integer getRol() {
         return rol;
     }
-
 
     public void setRol(Integer rol) {
         this.rol = rol;
@@ -319,6 +332,38 @@ public class LoginMB implements Serializable{
 
     public void setnEmpleado(int nEmpleado) {
         this.nEmpleado = nEmpleado;
+    }
+
+    public int getnA() {
+        return nA;
+    }
+
+    public void setnA(int nA) {
+        this.nA = nA;
+    }
+
+    public RegistroNotasMb getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(RegistroNotasMb registro) {
+        this.registro = registro;
+    }
+
+    public List<Evaluacion> getEvaAlumno() {
+        return evaAlumno;
+    }
+
+    public void setEvaAlumno(List<Evaluacion> evaAlumno) {
+        this.evaAlumno = evaAlumno;
+    }
+
+    public EvaluacionDao getNotasDao() {
+        return notasDao;
+    }
+
+    public void setNotasDao(EvaluacionDao notasDao) {
+        this.notasDao = notasDao;
     }
 
 }

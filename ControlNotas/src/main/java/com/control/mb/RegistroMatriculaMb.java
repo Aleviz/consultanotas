@@ -77,6 +77,7 @@ public class RegistroMatriculaMb {
     private Integer idEncargado;
 
     private String valorRol;
+    private String nombreOpcion;
 
     Object[] id;
 
@@ -145,6 +146,8 @@ public class RegistroMatriculaMb {
         matricula.setIdOpcion(opcion);
         Matricula mat = new Matricula();
 
+        nombreOpcion = opcion.getDescripcion() + " " + opcion.getSeccion();
+        System.out.println("nombre de opcion " + opcion.getDescripcion());
         System.out.println("DATOS DE ALUMNOS: ");
         System.out.println("ID ALUMNO : " + alumno.getIdAlumno());
         System.out.println("primer nombre: " + alumno.getPrimerNombre());
@@ -195,6 +198,11 @@ public class RegistroMatriculaMb {
 
 // ----------------------------------------------------------------------
 //      
+    }
+
+    public void obtenerOpciones(Integer idOpcion) {
+        opcion.setIdOpcion(idOpcion);
+
     }
 
     public void allMatricula() {
@@ -511,6 +519,22 @@ public class RegistroMatriculaMb {
 
     public void setEsSelect(Map<String, String> esSelect) {
         this.esSelect = esSelect;
+    }
+
+    public List<OpcionEspe> getOpEsList() {
+        return opEsList;
+    }
+
+    public void setOpEsList(List<OpcionEspe> opEsList) {
+        this.opEsList = opEsList;
+    }
+
+    public String getNombreOpcion() {
+        return nombreOpcion;
+    }
+
+    public void setNombreOpcion(String nombreOpcion) {
+        this.nombreOpcion = nombreOpcion;
     }
 
 }

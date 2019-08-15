@@ -21,7 +21,7 @@ and open the template in the editor.
     <h:body onload="nobackbutton();" rendered="#{loginMB.esSecretaria}">
         <h:form>
             <div style="margin-bottom: 10px;">
-                 <p:menubar>
+                <p:menubar>
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
                     <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;" rendered="#{loginMB.esDirector}"/>
                     <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;" rendered="#{loginMB.esDirector}">
@@ -181,25 +181,25 @@ and open the template in the editor.
                                 </p:selectOneMenu>
                                 <center></center>
 
-                                <p:outputLabel value="Opcion"/>
+                                <p:outputLabel value="Opcion por Especialidad"/>
                                 <p:selectOneMenu value="#{registroMatriculaMb.opcionEspe}" style="width: 218px;">
-                                    <p:ajax event="valueChange" listener="#{registroMatriculaMb.obtenerOpcionEspe()}" update="formAddMatr:opes"/>
+                                    <p:ajax event="valueChange" listener="#{registroMatriculaMb.obtenerOpcionEspe()}" update="matr:opes" oncomplete="PF('dlg').show();"/>
                                     <f:selectItem itemLabel="Seleccione una opcion" itemValue="0"/>
                                     <f:selectItems value="#{registroMatriculaMb.esSelect}"/>
                                 </p:selectOneMenu>
                                 <center></center>
-                                
+
                                 <p:outputLabel value="Seccion"/>
-                                <p:selectOneMenu id="opes" value="#{registroMatriculaMb.opcion.idOpcion}" style="width: 218px;">
-                                    <f:selectItem itemLabel="Seleccione la seccion" itemValue="0"/>
-                                    <f:selectItems value="#{registroMatriculaMb.opcionSelect}"/>
-                                </p:selectOneMenu>
-                                <center></center>
+                                <p:inputText id="xo" value= "#{registroMatriculaMb.opcion.idOpcion}"    readonly="true"/> 
+                               <p:message for="xo" display="icon"/>
+                             
                                 
                                 <p:outputLabel value="Fecha de Matricula" />
                                 <p:calendar value="#{registroMatriculaMb.matricula.fechaMatricula}" id="error20" required="true" size="27"/>
                                 <p:message for="error20" display="icon"/>
                             </h:panelGrid>
+
+
 
                         </center>
                     </p:panel>
@@ -209,6 +209,21 @@ and open the template in the editor.
         </h:form>
 
 
+        <p:dialog id="mt" widgetVar="dlg" modal="true" height="5000px" width="800px"  header="SELECIONE LA OPCION">
+            <h:form id="matr">
 
+                <p:dataTable id="opes" var="m" value="#{registroMatriculaMb.opcionesList}">
+                    <p:column headerText="Opcion">
+                        <p:outputLabel value="#{m.descripcion} "/>
+                    </p:column>
+                    <p:column headerText="Seccion">
+                        <p:outputLabel value="#{m.seccion} "/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Seleccionar" action="#{registroMatriculaMb.obtenerOpciones(m.idOpcion)}" oncomplete="PF('dlg').hide();" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>

@@ -105,7 +105,7 @@
                             <h:panelGrid columns="3">
 
                                 <p:outputLabel value="Usuario: " />
-                                <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}" id="errorUsr1" required="true" style="width: 218px;"/>
+                                <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}" id="errorUsr1" readonly="true" style="width: 218px;" placeholder="#{registroEmpleadosMb.empleados.dui}"/>
                                 <p:message for="errorUsr1" display="icon"/>
 
                                 <p:outputLabel value="Contraseña: "/>

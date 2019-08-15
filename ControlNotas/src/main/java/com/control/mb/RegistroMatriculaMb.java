@@ -131,8 +131,8 @@ public class RegistroMatriculaMb {
         //REGISTRO DE USUARIO
         matriculaDao = new MatriculaDao();
         gd = new GenericDao();
-
         usuario.setIdRol(rol);
+        usuario.setUsuario(alumno.getCarnet());
         usuario.setIdEstado(estado);
 
         //REGISTRO DE ALUMNO

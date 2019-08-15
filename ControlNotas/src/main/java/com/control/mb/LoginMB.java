@@ -142,7 +142,7 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 esADSS = true;
                 noEstaLogeado = false;
-                
+
                 System.out.println("ES DIRECTOR");
                 usuario.getEmpleadosList();
 
@@ -178,8 +178,8 @@ public class LoginMB implements Serializable {
                 esADSS = false;
 
                 System.out.println("ES DOCENTE");
-                usuario.getEmpleadosList();
-
+                empleado = usuario.getEmpleadosList().get(0);
+                nEmpleado = empleado.getIdEmpleado();
 
                 return "controlNotas.xhtml";
 
@@ -415,7 +415,5 @@ public class LoginMB implements Serializable {
     public void setNoEstaLogeado(boolean noEstaLogeado) {
         this.noEstaLogeado = noEstaLogeado;
     }
-    
-    
 
 }

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formInstitucion" enctype="multipart/form-data">
+            <p:growl id="messageInstitucion"/>
+            <h:panelGrid>
+                <p:outputLabel value="Institucion"/>
+                <p:inputText value="#{institucionMb.colegio.nombre}"/>
+                <p:outputLabel value="Direccion"/>
+                <p:inputText value="#{institucionMb.colegio.direccion}"/>
+                <p:outputLabel value="Telefono"/>
+                <p:inputText value="#{institucionMb.colegio.telefono}"/>
+                <p:outputLabel value="Logo"/>
+                <p:fileUpload value="#{institucionMb.file}" mode="simple"/>
+                <p:outputLabel value="Correo"/>
+                <p:inputText value="#{institucionMb.colegio.correo}"/>
+            </h:panelGrid>
+            <p:commandButton value="Guardar" action="#{institucionMb.guardarInstitucion}" update="formInstitucion:messageInstitucion, InstitutionTable:tableInstitucion" ajax="false"/>
+        </h:form>
+        <h:form id="InstitutionTable">
+            <p:dataTable id="tableInstitucion" var="ver" value="#{institucionMb.listaIntitucion}">
+                <p:column headerText="ID">
+                    <p:outputLabel value="#{ver.id_colegio}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <p:outputLabel value="#{ver.nombre}"/>
+                </p:column>
+                <p:column headerText="Direccion">
+                    <p:outputLabel value="#{ver.direccion}"/>
+                </p:column>
+                <p:column headerText="Telefono">
+                    <p:outputLabel value="#{ver.telefono}"/>
+                </p:column>
+                <p:column headerText="Imagen">
+                    <img src="data:image/jpg;base64,#{ver.logo}"/>
+                </p:column>
+                <p:column headerText="Correo">
+                    <p:outputLabel value="#{ver.correo}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="fa fa-fw fa-edit" action="#{institucionMb.selectByIdColegio(ver)}" oncomplete="PF('institutionUpdate').show()" update="updateInsitucion"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog id="updateInsitucion" widgetVar="institutionUpdate" modal="true" header="Datos de la Institucion">
+            <h:form enctype="multipart/form-data">
+                <h:panelGrid>
+                    <p:outputLabel value="Institucion"/>
+                    <p:inputText value="#{institucionMb.colegio.nombre}"/>
+                    <p:outputLabel value="Direccion"/>
+                    <p:inputText value="#{institucionMb.colegio.direccion}"/>
+                    <p:outputLabel value="Telefono"/>
+                    <p:inputText value="#{institucionMb.colegio.telefono}"/>
+                    <img src="data:image/jpg;base64,#{institucionMb.imagen}" width="50" height="50"/>
+                    <p:fileUpload value="#{institucionMb.file}" mode="simple"/>
+                    <p:outputLabel value="Correo"/>
+                    <p:inputText value="#{institucionMb.colegio.correo}"/>
+                </h:panelGrid>
+                <center>
+                    <p:commandButton value="Actualizar" action="#{institucionMb.actualizarColegio()}" oncomplete="PF('institutionUpdate').hide()" update="formInstitucion:messageInstitucion, InstitutionTable:tableInstitucion" ajax="false"/>
+                </center>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

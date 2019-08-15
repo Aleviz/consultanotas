@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package com.control.entity;
 
@@ -12,13 +12,13 @@ import java.math.BigDecimal;
  * @author manuel.rodriguezusam
  */
 public class Reporte {
-   
+
     private Integer matricula;
     private String aNombre;
     private String aApellido;
     private String opcion;
     private String seccion;
-    //
+//
     private String especialidad;
     private String materia;
     private BigDecimal pro1;
@@ -113,8 +113,5 @@ public class Reporte {
     public void setProf(BigDecimal prof) {
         this.prof = prof;
     }
-
-    
-    
 
 }

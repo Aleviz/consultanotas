@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package com.control.entity;
 
@@ -54,7 +54,7 @@ public class Evaluacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_evaluacion")
     private Integer idEvaluacion;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+// @Max(value=?) @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "eva1")
     private Double eva1;
     @Column(name = "eva2")
@@ -237,8 +237,6 @@ public class Evaluacion implements Serializable {
         this.proEvato = proEvato;
     }
 
-   
-
     public Alumnos getIdAlumno() {
         return idAlumno;
     }
@@ -264,7 +262,7 @@ public class Evaluacion implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+// TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Evaluacion)) {
             return false;
         }
@@ -279,5 +277,5 @@ public class Evaluacion implements Serializable {
     public String toString() {
         return "com.control.entity.Evaluacion[ idEvaluacion=" + idEvaluacion + " ]";
     }
-    
+
 }

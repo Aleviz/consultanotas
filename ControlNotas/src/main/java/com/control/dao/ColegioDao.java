@@ -2,6 +2,7 @@
 package com.control.dao;
 
 import com.control.entity.Colegio;
+import com.control.entity.InstitucionImagen;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -29,10 +30,10 @@ public class ColegioDao {
         return colegioList;
     }
     
-    public Colegio colegioById(Colegio c){
+    public Colegio colegioById(InstitucionImagen id){
         try {
             colegio = new Colegio();
-            colegio = (Colegio)em.createNamedQuery("Colegio.findByIdColegio").setParameter("idColegio", c.getIdColegio()).getSingleResult();
+            colegio = (Colegio)em.createNamedQuery("Colegio.findByIdColegio").setParameter("idColegio", id.getId_colegio()).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }

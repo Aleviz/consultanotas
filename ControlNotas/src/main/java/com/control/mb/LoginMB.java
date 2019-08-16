@@ -63,6 +63,7 @@ public class LoginMB implements Serializable {
     private boolean esADSS;
     private boolean esAdmin;
     private boolean noEstaLogeado;
+    private boolean soloProfe;
 
     @PostConstruct
     public void init() {
@@ -93,6 +94,7 @@ public class LoginMB implements Serializable {
         direcXSub = false;
         esADSS = false;
         esAdmin = false;
+        soloProfe = false;
         noEstaLogeado = true;
         llenarNotasEstudiante();
     }
@@ -125,6 +127,7 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 esADSS = true;
                 noEstaLogeado = false;
+                soloProfe = false;
 
                 System.out.println("ES ADMIN");
                 usuario.getEmpleadosList();
@@ -142,7 +145,7 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 esADSS = true;
                 noEstaLogeado = false;
-
+soloProfe = false;
                 System.out.println("ES DIRECTOR");
                 usuario.getEmpleadosList();
 
@@ -159,7 +162,7 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 esADSS = true;
                 noEstaLogeado = false;
-
+soloProfe = false;
                 System.out.println("ES SUBDIRECTOR");
                 usuario.getEmpleadosList();
 
@@ -176,7 +179,7 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 noEstaLogeado = false;
                 esADSS = false;
-
+soloProfe = true;
                 System.out.println("ES DOCENTE");
                 empleado = usuario.getEmpleadosList().get(0);
                 nEmpleado = empleado.getIdEmpleado();
@@ -194,7 +197,7 @@ public class LoginMB implements Serializable {
                 sonEmpleados = true;
                 esADSS = true;
                 noEstaLogeado = false;
-
+soloProfe = false;
                 System.out.println("ES SECRETARIA");
                 usuario.getEmpleadosList();
                 empleado = usuario.getEmpleadosList().get(0);
@@ -211,6 +214,7 @@ public class LoginMB implements Serializable {
                 esAlumno = true;
                 direcXSub = false;
                 sonEmpleados = true;
+                soloProfe = false;
                 noEstaLogeado = false;
                 System.out.println("ES ALUMNO");
                 alumnos = usuario.getAlumnosList().get(0);
@@ -415,5 +419,15 @@ public class LoginMB implements Serializable {
     public void setNoEstaLogeado(boolean noEstaLogeado) {
         this.noEstaLogeado = noEstaLogeado;
     }
+
+    public boolean isSoloProfe() {
+        return soloProfe;
+    }
+
+    public void setSoloProfe(boolean soloProfe) {
+        this.soloProfe = soloProfe;
+    }
+    
+    
 
 }

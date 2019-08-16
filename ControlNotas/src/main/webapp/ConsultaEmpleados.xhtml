@@ -28,7 +28,7 @@
                         <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;" rendered="#{loginMB.direcXSub}"/>
                     </p:submenu>
                     <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" url="reportes.xhtml" style="font-size: 18px;" rendered="#{loginMB.esADSS}" />
-                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;" rendered="#{loginMB.esProfesor}"/>
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;" rendered="#{loginMB.soloProfe}"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
                         <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
                     </p:submenu>

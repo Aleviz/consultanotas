@@ -220,7 +220,7 @@ soloProfe = false;
                 alumnos = usuario.getAlumnosList().get(0);
                 setnA(alumnos.getIdAlumno());
                 llenarNotasEstudiante();
-                return "NotasAlumno.xhtml";
+                return "index.xhtml";
             }
 
         }

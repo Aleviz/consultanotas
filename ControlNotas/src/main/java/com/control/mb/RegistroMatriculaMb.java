@@ -22,6 +22,7 @@ import com.control.entity.Opciones;
 import com.control.entity.Roles;
 import com.control.entity.TipoMatricula;
 import com.control.entity.Usuarios;
+import com.control.util.UtilVarios;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -132,6 +133,8 @@ public class RegistroMatriculaMb {
         matriculaDao = new MatriculaDao();
         gd = new GenericDao();
         usuario.setIdRol(rol);
+        UtilVarios uv = new UtilVarios();
+        usuario.setPass(uv.convertToMd5(usuario.getPass()));
         usuario.setUsuario(alumno.getCarnet());
         usuario.setIdEstado(estado);
 

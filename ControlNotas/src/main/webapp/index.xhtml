@@ -36,6 +36,7 @@
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
                         <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
                     </p:submenu>
+                    <p:menuitem value="Ver Notas" icon="fa fa-search" url="NotasAlumno.xhtml" style="font-size: 18px;" rendered="#{loginMB.esAlumno}"/>
                 </p:menubar>
             </div>
         </h:form>

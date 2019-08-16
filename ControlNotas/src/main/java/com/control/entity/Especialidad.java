@@ -24,17 +24,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
-@Table(name = "especialidades")
+@Table(name = "especialidad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Especialidades.findAll", query = "SELECT e FROM Especialidades e")
-    , @NamedQuery(name = "Especialidades.findByIdEspecialidad", query = "SELECT e FROM Especialidades e WHERE e.idEspecialidad = :idEspecialidad")
-    , @NamedQuery(name = "Especialidades.findByEspecialidad", query = "SELECT e FROM Especialidades e WHERE e.especialidad = :especialidad")
-    , @NamedQuery(name = "Especialidades.findByDescripccion", query = "SELECT e FROM Especialidades e WHERE e.descripccion = :descripccion")})
-public class Especialidades implements Serializable {
+    @NamedQuery(name = "Especialidad.findAll", query = "SELECT e FROM Especialidad e")
+    , @NamedQuery(name = "Especialidad.findByIdEspecialidad", query = "SELECT e FROM Especialidad e WHERE e.idEspecialidad = :idEspecialidad")
+    , @NamedQuery(name = "Especialidad.findByEspecialidad", query = "SELECT e FROM Especialidad e WHERE e.especialidad = :especialidad")})
+public class Especialidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,18 +44,13 @@ public class Especialidades implements Serializable {
     @Size(max = 50)
     @Column(name = "especialidad")
     private String especialidad;
-    @Size(max = 250)
-    @Column(name = "descripccion")
-    private String descripccion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
-    private List<Bachillerato> bachilleratoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecialidad")
-    private List<MateriaEspecialidad> materiaEspecialidadList;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idEspecialidad")
+    private List<OpcionEspe> opcionEspeList;
 
-    public Especialidades() {
+    public Especialidad() {
     }
 
-    public Especialidades(Integer idEspecialidad) {
+    public Especialidad(Integer idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
     }
 
@@ -76,30 +70,13 @@ public class Especialidades implements Serializable {
         this.especialidad = especialidad;
     }
 
-    public String getDescripccion() {
-        return descripccion;
-    }
-
-    public void setDescripccion(String descripccion) {
-        this.descripccion = descripccion;
-    }
-
     @XmlTransient
-    public List<Bachillerato> getBachilleratoList() {
-        return bachilleratoList;
+    public List<OpcionEspe> getOpcionEspeList() {
+        return opcionEspeList;
     }
 
-    public void setBachilleratoList(List<Bachillerato> bachilleratoList) {
-        this.bachilleratoList = bachilleratoList;
-    }
-
-    @XmlTransient
-    public List<MateriaEspecialidad> getMateriaEspecialidadList() {
-        return materiaEspecialidadList;
-    }
-
-    public void setMateriaEspecialidadList(List<MateriaEspecialidad> materiaEspecialidadList) {
-        this.materiaEspecialidadList = materiaEspecialidadList;
+    public void setOpcionEspeList(List<OpcionEspe> opcionEspeList) {
+        this.opcionEspeList = opcionEspeList;
     }
 
     @Override
@@ -112,10 +89,10 @@ public class Especialidades implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Especialidades)) {
+        if (!(object instanceof Especialidad)) {
             return false;
         }
-        Especialidades other = (Especialidades) object;
+        Especialidad other = (Especialidad) object;
         if ((this.idEspecialidad == null && other.idEspecialidad != null) || (this.idEspecialidad != null && !this.idEspecialidad.equals(other.idEspecialidad))) {
             return false;
         }
@@ -124,7 +101,7 @@ public class Especialidades implements Serializable {
 
     @Override
     public String toString() {
-        return "com.control.entity.Especialidades[ idEspecialidad=" + idEspecialidad + " ]";
+        return "com.control.entity.Especialidad[ idEspecialidad=" + idEspecialidad + " ]";
     }
     
 }

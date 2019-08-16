@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "empleados")
@@ -41,8 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Empleados.findByDireccion", query = "SELECT e FROM Empleados e WHERE e.direccion = :direccion")
     , @NamedQuery(name = "Empleados.findByCorreo", query = "SELECT e FROM Empleados e WHERE e.correo = :correo")
     , @NamedQuery(name = "Empleados.findByDui", query = "SELECT e FROM Empleados e WHERE e.dui = :dui")
-    , @NamedQuery(name = "Empleados.findByNit", query = "SELECT e FROM Empleados e WHERE e.nit = :nit")
-    , @NamedQuery(name = "Empleados.findByEstado", query = "SELECT e FROM Empleados e WHERE e.estado = :estado")})
+    , @NamedQuery(name = "Empleados.findByNit", query = "SELECT e FROM Empleados e WHERE e.nit = :nit")})
 public class Empleados implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,14 +78,14 @@ public class Empleados implements Serializable {
     @Size(max = 17)
     @Column(name = "nit")
     private String nit;
-    @Size(max = 11)
-    @Column(name = "estado")
-    private String estado;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idProfesor")
+    private List<Evaluacion> evaluacionList;
+    @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
+    @ManyToOne
+    private Materias idMateria;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
     private Usuarios idUsuario;
-    @OneToMany(mappedBy = "idProfesor")
-    private List<Materias> materiasList;
 
     public Empleados() {
     }
@@ -174,12 +174,21 @@ public class Empleados implements Serializable {
         this.nit = nit;
     }
 
-    public String getEstado() {
-        return estado;
+    @XmlTransient
+    public List<Evaluacion> getEvaluacionList() {
+        return evaluacionList;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEvaluacionList(List<Evaluacion> evaluacionList) {
+        this.evaluacionList = evaluacionList;
+    }
+
+    public Materias getIdMateria() {
+        return idMateria;
+    }
+
+    public void setIdMateria(Materias idMateria) {
+        this.idMateria = idMateria;
     }
 
     public Usuarios getIdUsuario() {
@@ -188,15 +197,6 @@ public class Empleados implements Serializable {
 
     public void setIdUsuario(Usuarios idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    @XmlTransient
-    public List<Materias> getMateriasList() {
-        return materiasList;
-    }
-
-    public void setMateriasList(List<Materias> materiasList) {
-        this.materiasList = materiasList;
     }
 
     @Override

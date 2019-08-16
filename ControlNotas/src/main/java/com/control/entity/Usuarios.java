@@ -8,6 +8,7 @@ package com.control.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author david.rodriguezusam
+ * @author alexander.emesticaus
  */
 @Entity
 @Table(name = "usuarios")
@@ -49,10 +50,13 @@ public class Usuarios implements Serializable {
     @Size(max = 250)
     @Column(name = "pass")
     private String pass;
-    @OneToMany(mappedBy = "idUsuario")
+    @OneToMany(mappedBy = "idUsuario", cascade = CascadeType.PERSIST)
     private List<Alumnos> alumnosList;
-    @OneToMany(mappedBy = "idUsuario")
+    @OneToMany(mappedBy = "idUsuario" , cascade = CascadeType.PERSIST)
     private List<Empleados> empleadosList;
+    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
+    @ManyToOne
+    private Estados idEstado;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne
     private Roles idRol;
@@ -104,6 +108,14 @@ public class Usuarios implements Serializable {
 
     public void setEmpleadosList(List<Empleados> empleadosList) {
         this.empleadosList = empleadosList;
+    }
+
+    public Estados getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estados idEstado) {
+        this.idEstado = idEstado;
     }
 
     public Roles getIdRol() {

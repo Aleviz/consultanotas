@@ -16,6 +16,7 @@ import com.control.entity.Matricula;
 import com.control.entity.OpcionEspe;
 import com.control.entity.Opciones;
 import com.control.entity.Usuarios;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class RegistroNotasMb {
+public class RegistroNotasMb implements Serializable {
 
     private List<Alumnos> alumnosList;
     private List<Matricula> alumnosXGradoList;
@@ -44,6 +45,7 @@ public class RegistroNotasMb {
     private List<Opciones> opcionXEspecialidad;
     private List<OpcionEspe> especialidadList;
     private Evaluacion evaluacion;
+    private List<Evaluacion> evaAlumno;
     private List<Evaluacion> evaluacionList;
     private AlumnosDao alumnosDao;
     private OpcionDao opcionDao;
@@ -56,16 +58,17 @@ public class RegistroNotasMb {
     private Integer idEspecialidad;
     private Integer idGrado;
     private Integer idAlumno;
+    private int idAlumno2;
+    private Integer n;
     private boolean modificar1;
     private boolean modificar2;
     private boolean modificar3;
-    @ManagedProperty(value = "#{LoginMB}")
-    private LoginMB login;
 
     @PostConstruct
     public void init() {
         alumnosList = new ArrayList<Alumnos>();
         opcionList = new ArrayList<Opciones>();
+        evaAlumno = new ArrayList<Evaluacion>();
         alumnosXGradoList = new ArrayList<Matricula>();
         opcionXEspecialidad = new ArrayList<Opciones>();
         opcion = new Opciones();
@@ -111,15 +114,15 @@ public class RegistroNotasMb {
     }
 
     public void comparacion() {
-        if (evaluacion.getProEva1() > 0) {
+        if (evaluacion.getProEva1() > 0 || evaluacion.getProEva1() == null) {
             modificar1 = true;
             System.out.println(modificar1 + " m1");
         }
-        if (evaluacion.getProEva2() > 0) {
+        if (evaluacion.getProEva2() > 0 || evaluacion.getProEva1() == null) {
             modificar2 = true;
             System.out.println(modificar2 + "m2");
         }
-        if (evaluacion.getProEva3() > 0) {
+        if (evaluacion.getProEva3() > 0 || evaluacion.getProEva1() == null) {
             modificar3 = true;
             System.out.println(modificar2 + "m2");
         }
@@ -136,7 +139,7 @@ public class RegistroNotasMb {
         evaluacion.setProEva1(Double.parseDouble(formato.format(p1)));
         evaluacion.setProEva2(Double.parseDouble(formato.format(p2)));
         evaluacion.setProEva3(Double.parseDouble(formato.format(p3)));
-        
+
         evaluacion.setProEvato(Double.parseDouble(formato.format(pf)));
         genericDao.modificarEntidad(evaluacion);
     }
@@ -158,7 +161,6 @@ public class RegistroNotasMb {
 
     public void llenarSelectOpcionxGrado() {
         opcionXEspecialidad = opcionDao.obtenerOpcionXEspecialidad(idEspecialidad);
-        System.out.println("" + opcionXEspecialidad.size());
         selectGrado = new HashMap<String, String>();
         for (Opciones o : opcionXEspecialidad) {
             selectGrado.put(o.getDescripcion() + " - " + o.getSeccion(), String.valueOf(o.getIdOpcion()));
@@ -168,26 +170,25 @@ public class RegistroNotasMb {
     public void llenarSelectAlumnoXGrado() {
         alumnosXGradoList = matriculaDao.AlumnosXGrado(idGrado);
         selectAlumno = new HashMap<String, String>();
-        for (int i = 0; i < alumnosXGradoList.size(); i++) {
+        for (Matricula m : alumnosXGradoList) {
             alumno = new Alumnos();
-            Matricula mat = alumnosXGradoList.get(i);
-            System.out.println("primer apellido " + mat.getIdAlumno().getPrimerApellido());
-            idAlumno = mat.getIdAlumno().getIdAlumno();
-            String apellido = mat.getIdAlumno().getPrimerNombre() + " " + mat.getIdAlumno().getSegundoNombre() + " " + mat.getIdAlumno().getPrimerApellido() + " " + mat.getIdAlumno().getSegundoApellido()
-                    + " - " + mat.getIdAlumno().getCarnet();
-            selectAlumno.put(apellido, String.valueOf(alumno.getIdAlumno()));
+            alumno = alumnosDao.porAlumnos(m.getIdAlumno().getIdAlumno());
+            String nombre = alumno.getPrimerNombre() + " " + alumno.getSegundoNombre() + " " + alumno.getPrimerApellido() + " " + alumno.getSegundoApellido() + " " + alumno.getCarnet();
+            selectAlumno.put(nombre, String.valueOf(alumno.getIdAlumno()));
         }
+    }
+
+    public void imprimir() {
+        System.out.println("//" + idAlumno);
     }
 //    -------------------------------------------------------------------------------
 
     public void llenarCamposAlumnos(int empleados) {
-        System.out.println("---------------------" + idAlumno);
+        evaluacion = new Evaluacion();
+        alumno = new Alumnos();
+        System.out.println("alumno: " + idAlumno + " empleado: " + empleados);
         alumno = alumnosDao.porAlumnos(idAlumno);
-        System.out.println(alumno.getPrimerNombre());
-        System.out.println("-----------empleado---------" + empleados);
         evaluacion = notasDao.porAlumnos(idAlumno, empleados);
-        System.out.println(evaluacion.getIdAlumno().getPrimerNombre());
-        System.out.println(evaluacion.getEva1());
     }
 
     public List<Alumnos> getAlumnosList() {
@@ -306,6 +307,14 @@ public class RegistroNotasMb {
         return idGrado;
     }
 
+    public List<Evaluacion> getEvaAlumno() {
+        return evaAlumno;
+    }
+
+    public void setEvaAlumno(List<Evaluacion> evaAlumno) {
+        this.evaAlumno = evaAlumno;
+    }
+
     public void setIdGrado(Integer idGrado) {
         this.idGrado = idGrado;
     }
@@ -382,12 +391,20 @@ public class RegistroNotasMb {
         this.modificar3 = modificar3;
     }
 
-    public LoginMB getLogin() {
-        return login;
+    public int getIdAlumno2() {
+        return idAlumno2;
     }
 
-    public void setLogin(LoginMB login) {
-        this.login = login;
+    public void setIdAlumno2(int idAlumno2) {
+        this.idAlumno2 = idAlumno2;
+    }
+
+    public Integer getN() {
+        return n;
+    }
+
+    public void setN(Integer n) {
+        this.n = n;
     }
 
 }

@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Actualizacion de Usuarios</title>
         <script src="assets/js/custom.js" type="text/javascript"></script>
         <style>
             body{
@@ -13,18 +13,24 @@
             }
         </style>
     </h:head>
-    <h:body onload="nobackbutton();">
+    <h:body onload="nobackbutton();" rendered="#{loginMB.esAdmin}">
         <h:form>
             <div style="margin-bottom: 10px;">
-                <p:menubar>
+                   <p:menubar>
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
-                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;" rendered="#{loginMB.esDirector}"/>
+                    <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;" rendered="#{loginMB.esDirector}">
+                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    <p:submenu label="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;" rendered="#{loginMB.esADSS}">
+                        <p:menuitem value="Añadir Matricula" icon="fa fa-plus" url="registroMatricula.xhtml" style="font-size: 15px;" rendered="#{loginMB.esSecretaria}"/>
+                        <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;" rendered="#{loginMB.direcXSub}"/>
+                    </p:submenu>
+                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" url="reportes.xhtml" style="font-size: 18px;" rendered="#{loginMB.esADSS}" />
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;" rendered="#{loginMB.esProfesor}"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
-                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
                     </p:submenu>
                 </p:menubar>
             </div>
@@ -53,18 +59,18 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Usuario: "/>
-                    <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}"/>
+                    <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}" style="width: 218px;"/>
 
                     <p:outputLabel value="Contraseña: "/>
-                    <p:inputText value="#{registroEmpleadosMb.usuarios.pass}"/>
+                    <p:password value="#{registroEmpleadosMb.usuarios.pass}" style="width: 218px;"/>
 
                     <p:outputLabel value="Rol"/>
-                    <p:selectOneMenu id="rolesSelect" value="#{registroEmpleadosMb.idRolVista}" style="width: 192px;">
+                    <p:selectOneMenu id="rolesSelect" value="#{registroEmpleadosMb.idRolVista}" style="width: 218px;">
                         <f:selectItems value="#{registroEmpleadosMb.seleccionarRol}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Estado: "/>
-                    <p:selectOneMenu id="estadosSelect" value="#{registroEmpleadosMb.idEstadoVista}" style="width: 192px;">
+                    <p:selectOneMenu id="estadosSelect" value="#{registroEmpleadosMb.idEstadoVista}" style="width: 218px;">
                         <f:selectItems value="#{registroEmpleadosMb.seleccionarEstados}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>

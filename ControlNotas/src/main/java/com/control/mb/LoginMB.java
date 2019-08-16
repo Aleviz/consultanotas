@@ -6,16 +6,20 @@
 package com.control.mb;
 
 import com.control.dao.AccesoDao;
+import com.control.dao.EvaluacionDao;
 import com.control.dao.UsuariosDao;
 import com.control.entity.Alumnos;
 import com.control.entity.Empleados;
+import com.control.entity.Evaluacion;
 import com.control.entity.Usuarios;
+import com.control.util.UtilVarios;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -26,15 +30,20 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginMB  {
+public class LoginMB implements Serializable {
+
+    @ManagedProperty(value = "#{RegistroNotasMb}")
+    private RegistroNotasMb registro;
 
     //ENTITY
     private Usuarios usuario;
     private Integer rol;
     private int nEmpleado;
-    private Alumnos alumno;
+    private int nA;
+    private Alumnos alumnos;
     private Empleados empleado;
-
+    private List<Evaluacion> evaAlumno;
+    private EvaluacionDao notasDao;
 
     //LIST
     private List<Usuarios> usuarioList;
@@ -51,16 +60,21 @@ public class LoginMB  {
     private boolean sonEmpleados;
     private boolean esSubDirector;
     private boolean direcXSub;
+    private boolean esADSS;
+    private boolean esAdmin;
     private boolean noEstaLogeado;
 
     @PostConstruct
     public void init() {
 
+        registro = new RegistroNotasMb();
+        evaAlumno = new ArrayList<Evaluacion>();
+        notasDao = new EvaluacionDao();
+
         //ENTITY
         usuario = new Usuarios();
-        alumno = new Alumnos();
+        alumnos = new Alumnos();
         empleado = new Empleados();
-       
 
         //LIST
         usuarioList = new ArrayList<Usuarios>();
@@ -77,17 +91,21 @@ public class LoginMB  {
         sonEmpleados = false;
         esSubDirector = false;
         direcXSub = false;
-        noEstaLogeado = false;
-
-
+        esADSS = false;
+        esAdmin = false;
+        noEstaLogeado = true;
+        llenarNotasEstudiante();
     }
 
     public String logear() {
         String usuariio = "";
         String pass = "";
 
+        UtilVarios uv = new UtilVarios();
+        String passEnMd5 = uv.convertToMd5(usuario.getPass());
+
         usuariio = usuario.getUsuario();
-        pass = usuario.getPass();
+        pass = passEnMd5;
         System.out.println("usuario en login= " + usuariio + " pass en login= " + pass);
 
         usuario = acces.logeado(usuariio, pass);
@@ -97,100 +115,126 @@ public class LoginMB  {
             System.out.println("USUARIO LOGEADO");
 
             if (rol == 1) {
-                esAlumno = false;
-                esProfesor = false;
+                esAdmin = true;
                 esDirector = true;
-                esSecretaria = false;
-                sonEmpleados = true;
-                esSubDirector = false;
+                esSubDirector = true;
+                esProfesor = true;
+                esSecretaria = true;
+                esAlumno = false;
                 direcXSub = true;
-                System.out.println("ES::::::::::::::::");
+                sonEmpleados = true;
+                esADSS = true;
+                noEstaLogeado = false;
 
+                System.out.println("ES ADMIN");
                 usuario.getEmpleadosList();
-//                if (usuario.getEmpleadosList().get(0) != null) {
-//                    empleado = usuario.getEmpleadosList().get(0);
-//                    System.out.println("ACA:::::::::::");
-//                }
-                System.out.println("END::::::::::::::::");
+
+                return "index.xhtml";
 
             } else if (rol == 2) {
-                esAlumno = false;
+                esAdmin = true;
+                esDirector = true;
+                esSubDirector = false;
                 esProfesor = false;
-                esDirector = false;
                 esSecretaria = false;
-                sonEmpleados = true;
-                esSubDirector = true;
+                esAlumno = false;
                 direcXSub = true;
-                System.out.println("sub::::::::::::::");
+                sonEmpleados = true;
+                esADSS = true;
+                noEstaLogeado = false;
+
+                System.out.println("ES DIRECTOR");
                 usuario.getEmpleadosList();
-//                if (usuario.getEmpleadosList().get(0) != null) {
-//                    empleado = usuario.getEmpleadosList().get(0);
-//                }
+
+                return "index.xhtml";
+
+            } else if (rol == 3) {
+                esAdmin = true;
+                esDirector = false;
+                esSubDirector = true;
+                esProfesor = false;
+                esSecretaria = false;
+                esAlumno = false;
+                direcXSub = true;
+                sonEmpleados = true;
+                esADSS = true;
+                noEstaLogeado = false;
+
+                System.out.println("ES SUBDIRECTOR");
+                usuario.getEmpleadosList();
+
+                return "index.xhtml";
 
             } else if (rol == 4) {
-                esAlumno = false;
-                esProfesor = false;
+                esAdmin = true;
                 esDirector = false;
-                esSecretaria = true;
-                sonEmpleados = true;
                 esSubDirector = false;
-                direcXSub = false;
-
-                usuario.getEmpleadosList();
-
-//                if (usuario.getEmpleadosList().get(0) != null) {
-//                    empleado = usuario.getEmpleadosList().get(0);
-//                }
-            } else if (rol == 3) {
-                esAlumno = false;
                 esProfesor = true;
-                esDirector = false;
                 esSecretaria = false;
-                sonEmpleados = true;
-                esSubDirector = false;
+                esAlumno = false;
                 direcXSub = false;
+                sonEmpleados = true;
+                noEstaLogeado = false;
+                esADSS = false;
 
+                System.out.println("ES DOCENTE");
+                empleado = usuario.getEmpleadosList().get(0);
+                nEmpleado = empleado.getIdEmpleado();
+
+                return "controlNotas.xhtml";
+
+            } else if (rol == 5) {
+                esAdmin = true;
+                esDirector = false;
+                esSubDirector = false;
+                esProfesor = false;
+                esSecretaria = true;
+                esAlumno = false;
+                direcXSub = false;
+                sonEmpleados = true;
+                esADSS = true;
+                noEstaLogeado = false;
+
+                System.out.println("ES SECRETARIA");
                 usuario.getEmpleadosList();
                 empleado = usuario.getEmpleadosList().get(0);
                 nEmpleado = empleado.getIdEmpleado();
                 System.out.println("empleado docente " + empleado.getPrimerNombre());
                 System.out.println("empleado " + nEmpleado);
-//                if (usuario.getEmpleadosList().get(0) != null) {
-//                    empleado = usuario.getEmpleadosList().get(0);
-//                }
-
-            } else if (rol == 5) {
-                esAlumno = true;
-                esProfesor = false;
+                return "index.xhtml";
+            } else if (rol == 6) {
+                esAdmin = false;
                 esDirector = false;
-                esSecretaria = false;
-                sonEmpleados = false;
                 esSubDirector = false;
+                esProfesor = false;
+                esSecretaria = false;
+                esAlumno = true;
                 direcXSub = false;
-
-                usuario.getAlumnosList();
-
-//                if (usuario.getAlumnosList().get(0) != null) {
-//                    alumno = usuario.getAlumnosList().get(0);
-//                }
+                sonEmpleados = true;
+                noEstaLogeado = false;
+                System.out.println("ES ALUMNO");
+                alumnos = usuario.getAlumnosList().get(0);
+                setnA(alumnos.getIdAlumno());
+                llenarNotasEstudiante();
+                return "NotasAlumno.xhtml";
             }
-            System.out.println("IR::::::::::");
-            System.out.println("empleado " + empleado.getPrimerApellido());
-            return "index.xhtml";
-        } else {
 
-            usuario = new Usuarios();
-            return "Login.xhtml";
         }
+
+        usuario = new Usuarios();
+        return "Login.xhtml";
+
     }
 
-   
+    public void llenarNotasEstudiante() {
+        System.out.println("alumno en llenarNotas : " + nA);
 
-    
-    
-    public void logout() throws IOException{
+        evaAlumno = notasDao.por1Alumno(nA);
+    }
+
+    public void logout() throws IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        context.redirect(context.getRequestContextPath()+"/Login.xhtml");
+        context.redirect(context.getRequestContextPath() + "/Login.xhtml");
 //        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 //        System.out.println("Number: "+usuario.getUsuario());
 //        return "/Login.xhtml?faces-redirect=true";
@@ -212,12 +256,12 @@ public class LoginMB  {
         this.usuario = usuario;
     }
 
-    public Alumnos getAlumno() {
-        return alumno;
+    public Alumnos getAlumnos() {
+        return alumnos;
     }
 
-    public void setAlumno(Alumnos alumno) {
-        this.alumno = alumno;
+    public void setAlumnos(Alumnos alumnos) {
+        this.alumnos = alumnos;
     }
 
     public Empleados getEmpleado() {
@@ -247,7 +291,6 @@ public class LoginMB  {
     public Integer getRol() {
         return rol;
     }
-
 
     public void setRol(Integer rol) {
         this.rol = rol;
@@ -315,6 +358,62 @@ public class LoginMB  {
 
     public void setnEmpleado(int nEmpleado) {
         this.nEmpleado = nEmpleado;
+    }
+
+    public int getnA() {
+        return nA;
+    }
+
+    public void setnA(int nA) {
+        this.nA = nA;
+    }
+
+    public RegistroNotasMb getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(RegistroNotasMb registro) {
+        this.registro = registro;
+    }
+
+    public List<Evaluacion> getEvaAlumno() {
+        return evaAlumno;
+    }
+
+    public void setEvaAlumno(List<Evaluacion> evaAlumno) {
+        this.evaAlumno = evaAlumno;
+    }
+
+    public EvaluacionDao getNotasDao() {
+        return notasDao;
+    }
+
+    public void setNotasDao(EvaluacionDao notasDao) {
+        this.notasDao = notasDao;
+    }
+
+    public boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
+    public boolean isEsADSS() {
+        return esADSS;
+    }
+
+    public void setEsADSS(boolean esADSS) {
+        this.esADSS = esADSS;
+    }
+
+    public boolean isNoEstaLogeado() {
+        return noEstaLogeado;
+    }
+
+    public void setNoEstaLogeado(boolean noEstaLogeado) {
+        this.noEstaLogeado = noEstaLogeado;
     }
 
 }

@@ -24,15 +24,16 @@ public class AccesoDao {
     private List<Usuarios> usuarioList;
 
     public Usuarios logeado(String user, String pass) {
+        Usuarios userLogged = null;
         String sql = "SELECT u.id_usuario, u.usuario, u.pass, u.id_rol  FROM Usuarios u WHERE u.usuario ='"+user+"' AND u.pass ='"+ pass +"'";
         String mensaje = "";
         
         System.out.println("usuario en acces= " + user + " pass en acces= " + pass);
         
         try {
-            usuario = (Usuarios) em.createNativeQuery(sql,Usuarios.class).getSingleResult();
+            userLogged = (Usuarios) em.createNativeQuery(sql,Usuarios.class).getSingleResult();
         
-            if (usuario != null) {
+            if (userLogged != null) {
                 mensaje = "Bienvenido";
             } else {
                 mensaje = "Incorrecto";
@@ -41,6 +42,6 @@ public class AccesoDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return usuario;
+        return userLogged;
     }
 }

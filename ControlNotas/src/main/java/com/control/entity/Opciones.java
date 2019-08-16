@@ -57,7 +57,7 @@ public class Opciones implements Serializable {
     @JoinColumn(name = "id_opcion_espe", referencedColumnName = "id_opcion_espe")
     @ManyToOne(optional = false)
     private OpcionEspe idOpcionEspe;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOpcion")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idOpcion")
     private List<Matricula> matriculaList;
 
     public Opciones() {

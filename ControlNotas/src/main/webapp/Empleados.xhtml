@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Ingreso de Empleados</title>
         <script src="assets/js/custom.js" type="text/javascript"></script>
         <style>
             body{
@@ -13,18 +13,24 @@
             }
         </style>
     </h:head>
-    <h:body onload="nobackbutton();">
-        <h:form>
+    <h:body onload="nobackbutton();" rendered="#{loginMB.esDirector}">
+            <h:form>
             <div style="margin-bottom: 10px;">
-                <p:menubar>
+                  <p:menubar>
                     <p:menuitem value="Inicio" icon="fa fa-home" url="index.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Empleados" icon="fa fa-user" url="Empleados.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Matricula" icon="fa fa-pencil-square-o" url="registroMatricula.xhtml" style="font-size: 18px;"/>
-                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" style="font-size: 18px;"/>
-                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;"/>
+                    <p:menuitem value="Usuarios" icon="fa fa-users" url="Usuarios.xhtml" style="font-size: 18px;" rendered="#{loginMB.esDirector}"/>
+                    <p:submenu label="Empleados" icon="fa fa-user" style="font-size: 18px;" rendered="#{loginMB.esDirector}">
+                        <p:menuitem value="Añadir" icon="fa fa-plus" url="Empleados.xhtml" style="font-size: 15px;"/>
+                        <p:menuitem value="Consultar" icon="fa fa-search" url="ConsultaEmpleados.xhtml" style="font-size: 15px;"/>
+                    </p:submenu>
+                    <p:submenu label="Matricula" icon="fa fa-pencil-square-o" style="font-size: 18px;" rendered="#{loginMB.esADSS}">
+                        <p:menuitem value="Añadir Matricula" icon="fa fa-plus" url="registroMatricula.xhtml" style="font-size: 15px;" rendered="#{loginMB.esSecretaria}"/>
+                        <p:menuitem value="Consultar Alumnos" icon="fa fa-search" url="Alumnos.xhtml" style="font-size: 15px;" rendered="#{loginMB.direcXSub}"/>
+                    </p:submenu>
+                    <p:menuitem value="Reportes" icon="fa fa-file-pdf-o" url="reportes.xhtml" style="font-size: 18px;" rendered="#{loginMB.esADSS}" />
+                    <p:menuitem value="Control de Notas" icon="fa fa-list-alt" url="controlNotas.xhtml" style="font-size: 18px;" rendered="#{loginMB.esProfesor}"/>
                     <p:submenu icon="pi pi-circle-on" label="#{loginMB.usuario.usuario}" style="float: right; font-size: 18px;">
-                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style="margin-top: 2.5px;"/>
+                        <p:menuitem value="Salir" icon="fa fa-sign-out" action="#{loginMB.logout()}" style=" font-size: 15px; margin-top: 2.5px;"/>
                     </p:submenu>
                 </p:menubar>
             </div>
@@ -35,48 +41,48 @@
                 <p:tab>
                     <p:panel header="Datos de Empleados">
                         <center>
-                            <h:panelGrid columns="3">
+                            <h:panelGrid columns="3" cellpadding="5" cellspacing="5">
                                 <h:panelGrid columns="3">
                                     <p:outputLabel value="Primer Nombre:"/>
-                                    <p:inputText value="#{registroEmpleadosMb.empleados.primerNombre}" id="error1" required="true"/>
+                                    <p:inputText value="#{registroEmpleadosMb.empleados.primerNombre}" id="error1" required="true" style="width: 218px;"/>
                                     <p:message for="error1" display="icon"/>
 
                                     <p:outputLabel value="Segundo Nombre:"/>
-                                    <p:inputText value="#{registroEmpleadosMb.empleados.segundoNombre}" id="error2" required="true"/>
+                                    <p:inputText value="#{registroEmpleadosMb.empleados.segundoNombre}" id="error2" required="true" style="width: 218px;"/>
                                     <p:message for="error2" display="icon"/>
 
                                     <p:outputLabel value="Primer Apellido:"/>
-                                    <p:inputText value="#{registroEmpleadosMb.empleados.primerApellido}" id="error3" required="true"/>
+                                    <p:inputText value="#{registroEmpleadosMb.empleados.primerApellido}" id="error3" required="true" style="width: 218px;"/>
                                     <p:message for="error3" display="icon"/>
 
                                     <p:outputLabel value="Segundo Apellido:"/>
-                                    <p:inputText value="#{registroEmpleadosMb.empleados.segundoApellido}" id="error4" required="true"/>
+                                    <p:inputText value="#{registroEmpleadosMb.empleados.segundoApellido}" id="error4" required="true" style="width: 218px;"/>
                                     <p:message for="error4" display="icon"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="3">
                                     <p:outputLabel value="DUI:"/>
-                                    <p:inputMask mask="99999999-9" value="#{registroEmpleadosMb.empleados.dui}" id="error5" required="true"/>
+                                    <p:inputMask mask="99999999-9" value="#{registroEmpleadosMb.empleados.dui}" id="error5" required="true" style="width: 218px;"/>
                                     <p:message for="error5" display="icon"/>
 
                                     <p:outputLabel value="NIT:"/>
-                                    <p:inputMask mask="9999-999999-999-9" value="#{registroEmpleadosMb.empleados.nit}" id="error6" required="true"/>
+                                    <p:inputMask mask="9999-999999-999-9" value="#{registroEmpleadosMb.empleados.nit}" id="error6" required="true" style="width: 218px;"/>
                                     <p:message for="error6" display="icon"/>
 
                                     <p:outputLabel value="Telefono:"/>
-                                    <p:inputMask mask="9999-9999" value="#{registroEmpleadosMb.empleados.telefono}" id="error7" required="true"/>
+                                    <p:inputMask mask="9999-9999" value="#{registroEmpleadosMb.empleados.telefono}" id="error7" required="true" style="width: 218px;"/>
                                     <p:message for="error7" display="icon"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="3">
                                     <p:outputLabel value="Direccion:"/>
-                                    <p:inputText value="#{registroEmpleadosMb.empleados.direccion}" id="error8" required="true"/>
+                                    <p:inputText value="#{registroEmpleadosMb.empleados.direccion}" id="error8" required="true" style="width: 218px;"/>
                                     <p:message for="error8" display="icon"/>
 
                                     <p:outputLabel value="Correo:"/>
-                                    <p:inputText value="#{registroEmpleadosMb.empleados.correo}" id="error9" required="true"/>
+                                    <p:inputText value="#{registroEmpleadosMb.empleados.correo}" id="error9" required="true" style="width: 218px;"/>
                                     <p:message for="error9" display="icon"/>
-                                    
+
                                     <p:outputLabel value="Especialidad: "/>
-                                    <p:selectOneMenu id="opcionesEspSelect" value="#{registroEmpleadosMb.idOpccionesEspVista}">
+                                    <p:selectOneMenu id="opcionesEspSelect" value="#{registroEmpleadosMb.idOpccionesEspVista}" style="width: 218px;">
                                         <p:ajax event="valueChange" listener="#{registroEmpleadosMb.llenarSelectMateriasByOpcionEspecialidad()}" update="formAdd:materasSelect"/>
                                         <f:selectItem itemLabel="Seleccione una Especialidad" itemValue="0"/>
                                         <f:selectItems value="#{registroEmpleadosMb.seleccionarOpccionesEsp}"/>
@@ -84,7 +90,7 @@
                                     <center></center>
 
                                     <p:outputLabel value="Materias:"/>
-                                    <p:selectOneMenu id="materasSelect" value="#{registroEmpleadosMb.idMateriaVista}" style="width: 195px;">
+                                    <p:selectOneMenu id="materasSelect" value="#{registroEmpleadosMb.idMateriaVista}" style="width: 218px;">
                                         <f:selectItems value="#{registroEmpleadosMb.seleccionarMateria}"/>
                                     </p:selectOneMenu>
 
@@ -95,133 +101,34 @@
                 </p:tab>
                 <p:tab>
                     <p:panel header="Creacion del Usuario">
-                        <h:panelGrid columns="2">
+                        <center>
+                            <h:panelGrid columns="3">
 
-                            <p:outputLabel value="Usuario: "/>
-                            <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}"/>
+                                <p:outputLabel value="Usuario: " />
+                                <p:inputText value="#{registroEmpleadosMb.usuarios.usuario}" id="errorUsr1" readonly="true" style="width: 218px;" placeholder="#{registroEmpleadosMb.empleados.dui}"/>
+                                <p:message for="errorUsr1" display="icon"/>
 
-                            <p:outputLabel value="Contraseña: "/>
-                            <p:inputText value="#{registroEmpleadosMb.usuarios.pass}"/>
+                                <p:outputLabel value="Contraseña: "/>
+                                <p:password value="#{registroEmpleadosMb.usuarios.pass}" id="errorUsr2" required="true" style="width: 218px;"/>
+                                <p:message for="errorUsr2" display="icon"/>
 
-                            <p:outputLabel value="Rol"/>
-                            <p:selectOneMenu id="rolesSelect" value="#{registroEmpleadosMb.idRolVista}">
-                                <f:selectItems value="#{registroEmpleadosMb.seleccionarRol}"/>
-                            </p:selectOneMenu>
+                                <p:outputLabel value="Rol"/>
+                                <p:selectOneMenu id="rolesSelect" value="#{registroEmpleadosMb.idRolVista}" style="width: 218px;">
+                                    <f:selectItems value="#{registroEmpleadosMb.seleccionarRol}" />
+                                </p:selectOneMenu>
+                                <center></center>
 
-                            <p:outputLabel value="Estado: "/>
-                            <p:selectOneMenu id="estadosSelect" value="#{registroEmpleadosMb.idEstadoVista}">
-                                <f:selectItems value="#{registroEmpleadosMb.seleccionarEstados}"/>
-                            </p:selectOneMenu>
-
-                        </h:panelGrid>
-                        <p:commandButton value="Guardar" action="#{registroEmpleadosMb.insertarEmpleado()}" update="formAdd:growlAdd, empleadosTable:tableEmpleados"/>
+                                <p:outputLabel value="Estado: "/>
+                                <p:selectOneMenu id="estadosSelect" value="#{registroEmpleadosMb.idEstadoVista}" style="width: 218px;">
+                                    <f:selectItems value="#{registroEmpleadosMb.seleccionarEstados}"/>
+                                </p:selectOneMenu>
+                                <center></center>
+                            </h:panelGrid>
+                            <p:commandButton value="Guardar" action="#{registroEmpleadosMb.insertarEmpleado()}" update="formAdd:growlAdd"/>
+                        </center>
                     </p:panel>
                 </p:tab>
             </p:wizard>
         </h:form>
-
-
-        <h:form id="empleadosTable" style="margin-top: 10px;">
-            <p:dataTable id="tableEmpleados" var="empleados" value="#{registroEmpleadosMb.listaEmpleados}" paginator="true" rows="5" rowHover="true">
-                <p:columnGroup type="header">
-                    <p:column headerText="ID" width="15"/>
-                    <p:column headerText="Nombres" colspan="2" width="200"/>
-                    <p:column headerText="Apellidos" colspan="2" width="200"/>
-                    <p:column headerText="Telefono" width="70"/>
-                    <p:column headerText="Direccion"/>
-                    <p:column headerText="Correo"/>
-                    <p:column headerText="DUI" width="75"/>
-                    <p:column headerText="NIT" width="125"/>
-                    <p:column headerText="" width="30"/>
-                </p:columnGroup>
-                <p:column >
-                    <p:outputLabel value="#{empleados.idEmpleado}"/>
-                </p:column>
-                <p:column >
-                    <p:outputLabel value="#{empleados.primerNombre}"/>
-                </p:column>
-                <p:column >
-                    <p:outputLabel value="#{empleados.segundoNombre}"/>
-                </p:column>
-                <p:column >
-                    <p:outputLabel value="#{empleados.primerApellido}"/>
-                </p:column>
-                <p:column >
-                    <p:outputLabel value="#{empleados.segundoApellido}"/>
-                </p:column>
-                <p:column>
-                    <p:outputLabel value="#{empleados.telefono}"/>
-                </p:column>
-                <p:column >
-                    <p:outputLabel value="#{empleados.direccion}"/>
-                </p:column>
-                <p:column>
-                    <p:outputLabel value="#{empleados.correo}"/>
-                </p:column>
-                <p:column>
-                    <p:outputLabel value="#{empleados.dui}"/>
-                </p:column>
-                <p:column >
-                    <p:outputLabel value="#{empleados.nit}"/>
-                </p:column>
-                <p:column>
-                    <p:commandButton icon="fa fa-fw fa-edit" action="#{registroEmpleadosMb.selectByIdEmpleado(empleados)}" oncomplete="PF('updateEmpleado').show()" update="dialogEmpleados"/>
-                </p:column>
-            </p:dataTable>
-        </h:form>
-        <p:dialog header="Actualizar Usuarios" id="dialogEmpleados" widgetVar="updateEmpleado" modal="true">
-            <h:form>
-                <center>
-                    <h:panelGrid columns="3">
-                        <h:panelGrid columns="3">
-                            <p:outputLabel value="Primer Nombre:"/>
-                            <p:inputText value="#{registroEmpleadosMb.empleados.primerNombre}" id="error1" required="true" style="width: 200px;"/>
-                            <p:message for="error1" display="icon"/>
-
-                            <p:outputLabel value="Segundo Nombre:"/>
-                            <p:inputText value="#{registroEmpleadosMb.empleados.segundoNombre}" id="error2" required="true" style="width: 200px;"/>
-                            <p:message for="error2" display="icon"/>
-
-                            <p:outputLabel value="Primer Apellido:"/>
-                            <p:inputText value="#{registroEmpleadosMb.empleados.primerApellido}" id="error3" required="true" style="width: 200px;"/>
-                            <p:message for="error3" display="icon"/>
-
-                            <p:outputLabel value="Segundo Apellido:"/>
-                            <p:inputText value="#{registroEmpleadosMb.empleados.segundoApellido}" id="error4" required="true" style="width: 200px;"/>
-                            <p:message for="error4" display="icon"/>
-                        </h:panelGrid>
-                        <h:panelGrid columns="3">
-                            <p:outputLabel value="DUI:"/>
-                            <p:inputMask mask="99999999-9" value="#{registroEmpleadosMb.empleados.dui}" id="error5" required="true" style="width: 200px;"/>
-                            <p:message for="error5" display="icon"/>
-
-                            <p:outputLabel value="NIT:"/>
-                            <p:inputMask mask="9999-999999-999-9" value="#{registroEmpleadosMb.empleados.nit}" id="error6" required="true" style="width: 200px;"/>
-                            <p:message for="error6" display="icon"/>
-
-                            <p:outputLabel value="Telefono:"/>
-                            <p:inputMask mask="9999-9999" value="#{registroEmpleadosMb.empleados.telefono}" id="error7" required="true" style="width: 200px;"/>
-                            <p:message for="error7" display="icon"/>
-                        </h:panelGrid>
-                        <h:panelGrid columns="3">
-                            <p:outputLabel value="Direccion:"/>
-                            <p:inputText value="#{registroEmpleadosMb.empleados.direccion}" id="error8" required="true" style="width: 200px;"/>
-                            <p:message for="error8" display="icon"/>
-
-                            <p:outputLabel value="Correo:"/>
-                            <p:inputText value="#{registroEmpleadosMb.empleados.correo}" id="error9" required="true" style="width: 200px;"/>
-                            <p:message for="error9" display="icon"/>
-
-                            <p:outputLabel value="Materias:"/>
-                            <p:selectOneMenu id="materasSelect" value="#{registroEmpleadosMb.idMateriaVista}" style="width: 185px;">
-                                <f:selectItems value="#{registroEmpleadosMb.seleccionarMateria}"/>
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <p:commandButton value="Actualizar" action="#{registroEmpleadosMb.actualizarEmpleado()}" oncomplete="PF('updateEmpleado').hide()" update="formAdd:growlAdd, empleadosTable:tableEmpleados" ajax="true"/>
-                </center>
-            </h:form>
-        </p:dialog>
-
     </h:body>
 </html>

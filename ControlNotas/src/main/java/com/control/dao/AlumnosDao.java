@@ -17,7 +17,6 @@ import javax.persistence.Persistence;
  *
  * @author manuel.rodriguezusam
  */
-@Stateless
 public class AlumnosDao {
     
     EntityManagerFactory f = Persistence.createEntityManagerFactory("cnPU");
@@ -35,11 +34,19 @@ public class AlumnosDao {
         }
         return alumnosList;
     }
+    
+    public Alumnos selectByIdAlumno(Alumnos id){
+        try {
+            alumnos = (Alumnos) em.createNamedQuery("Alumnos.findByIdAlumno").setParameter("idAlumno", id.getIdAlumno()).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return alumnos;
+    }
         
     public Alumnos porAlumnos(int idAlumno){
-        String sql = "SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_alumno="+idAlumno;
         try {
-            alumnos = (Alumnos)em.createNativeQuery(sql,Alumnos.class).getSingleResult();
+            alumnos = (Alumnos)em.createNamedQuery("Alumnos.findByIdAlumno").setParameter("idAlumno", idAlumno).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,7 +54,7 @@ public class AlumnosDao {
     }
     
     public List<Alumnos> porEncargado (int encargado){
-        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_encargado.id_encargado="+encargado;
+        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_encargado="+encargado;
         try {
             alumnosList = em.createNativeQuery(sql).getResultList();
         } catch (Exception e) {
@@ -57,7 +64,7 @@ public class AlumnosDao {
     }
     
      public List<Alumnos> porUsuario (int usuario){
-        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_usuario.id_usuario="+usuario;
+        String sql ="SELECT a.id_alumno, a.primer_nombre, a.segundo_nombre, a.primer_apellido, a.segundo_apellido, a.fecha_nacimiento, a.telefono, a.direccion, a.carnet, a.id_encargado, a.id_usuario  FROM Alumnos a WHERE a.id_usuario="+usuario;
         try {
             alumnosList = em.createNativeQuery(sql).getResultList();
         } catch (Exception e) {

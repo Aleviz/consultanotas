@@ -13,6 +13,7 @@ import com.control.entity.Materias;
 import com.control.entity.OpcionEspe;
 import com.control.entity.Roles;
 import com.control.entity.Usuarios;
+import com.control.util.UtilVarios;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +103,8 @@ public class RegistroEmpleadosMb implements Serializable {
         Roles idRoles = new Roles();
         idRoles.setIdRol(idRolVista);
         usuarios.setIdRol(idRoles);
-
+        usuarios.setUsuario(empleados.getDui());
+        
         Estados idEstados = new Estados();
         idEstados.setIdEstado(idEstadoVista);
         usuarios.setIdEstado(idEstados);
@@ -212,6 +214,9 @@ public class RegistroEmpleadosMb implements Serializable {
     }
 
     public void actualizarUsuarios() {
+        
+        UtilVarios uv = new UtilVarios();
+        usuarios.setPass(uv.convertToMd5(usuarios.getPass()));
 
         Roles idRoles = new Roles();
         idRoles.setIdRol(idRolVista);

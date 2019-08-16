@@ -78,7 +78,7 @@ public class Empleados implements Serializable {
     @Size(max = 17)
     @Column(name = "nit")
     private String nit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesor")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idProfesor")
     private List<Evaluacion> evaluacionList;
     @JoinColumn(name = "id_materia", referencedColumnName = "id_materia")
     @ManyToOne
